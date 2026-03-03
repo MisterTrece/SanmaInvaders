@@ -4,6 +4,6 @@
 /**
  * 
  */
-module SanmaPrueba {
+module SanmaInvaders {
 	requires java.desktop;
 }
