@@ -3,7 +3,15 @@ package model;
 public class main {
 
 	public static void main(String[] args) {
-		Espazio.getEspazioEMA();
+		Espazio esp = Espazio.getEspazioEMA();
+		Gelaxka[][] m = esp.getMatriz();
+		for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                System.out.print(m[i][j].getMotaIrudi() + " ");
+            }
+            System.out.println(); // salto de línea
+        }
+		System.out.println("Etsai Kopurua: "+esp.getEtsaiKop());
 
 	}
 

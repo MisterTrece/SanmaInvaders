@@ -19,4 +19,18 @@ public class Gelaxka {
 		}
 		return motaS;
 	}
+	
+	public String getMotaIrudi(){
+		String motaS=null;
+		if(mota==0) {
+			motaS="-";
+		}else if(mota==1){
+			motaS="X";
+		}else if(mota==2) {
+			motaS="O";
+		}else if(mota==3){
+			motaS="|";
+		}
+		return motaS;
+	}
 }
