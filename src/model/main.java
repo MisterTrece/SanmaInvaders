@@ -9,10 +9,8 @@ public class main {
             for (int j = 0; j < m[i].length; j++) {
                 System.out.print(m[i][j].getMotaIrudi() + " ");
             }
-            System.out.println(); // salto de línea
+            System.out.println();
         }
 		System.out.println("Etsai Kopurua: "+esp.getEtsaiKop());
-
 	}
-
 }
