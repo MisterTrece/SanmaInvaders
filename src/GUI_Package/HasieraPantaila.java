@@ -1,42 +1,102 @@
 package GUI_Package;
-import javax.swing.*;
+
+import java.awt.EventQueue;
 import java.awt.*;
+import javax.swing.*;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class HasieraPantaila extends JFrame {
+public class HasieraPantaila extends JFrame implements Observer{
 
-    public HasieraPantaila() {
-        // Lehioaren oinarrizko konfigurazioa
-        this.setTitle("Space Invaders");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 600); 
-        this.getContentPane().setBackground(Color.BLACK); 
-        this.setLayout(new BorderLayout());
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	/**
+	 * @wbp.nonvisual location=471,88
+	 */
+	private final JLabel lblSakatu = new JLabel("Press <Up-Down-Left-Right> to move. And <Space> to shoot.");
+	private final JLabel lblStart = new JLabel("Press <P> to start. And <R><G><B> to change spaceship colour.");
 
-        // Goiko zatia
-        JLabel lblTop = new JLabel("Press <Up-Down-Left-Right> to move, <M> to shoot", SwingConstants.CENTER);
-        lblTop.setForeground(Color.WHITE); // letra kolorea
-        lblTop.setFont(new Font("Monospaced", Font.PLAIN, 16)); // estiloa
-        lblTop.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0)); //margina
-        this.add(lblTop, BorderLayout.NORTH);
+	/**
+	 * Martxan jarri.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HasieraPantaila frame = new HasieraPantaila();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-        // --- Erdiko zatia ---
-        //ideia: bi lerro geroago agertzen den irudia src karpetan egotea
+	/**
+	 * Sortu.
+	 */
+	public HasieraPantaila() {
 
-        ImageIcon icono = new ImageIcon("src/GUI_Package/logo.png"); 
-        JLabel lblImagen = new JLabel(icono, SwingConstants.CENTER);
-        this.add(lblImagen, BorderLayout.CENTER);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setBounds(100, 100, 1264, 784);
 
-        //Beheko zatia
-        JLabel lblBottom = new JLabel("* Press <1> <G> <B> <R> to play *", SwingConstants.CENTER);
-        lblBottom.setForeground(Color.WHITE);
-        lblBottom.setFont(new Font("Monospaced", Font.PLAIN, 18));
-        lblBottom.setBorder(BorderFactory.createEmptyBorder(0, 0, 80, 0)); 
-        this.add(lblBottom, BorderLayout.SOUTH);
-    }
+	    contentPane = new JPanel();
+	    contentPane.setLayout(null);
+	    setContentPane(contentPane);
 
-    //main tempotala
-    public static void main(String[] args) {
-        HasieraPantaila pantaila = new HasieraPantaila();
-        pantaila.setLocationRelativeTo(null); 
-    }
+	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/FondoSanmaInvaders.png")));
+	    background.addKeyListener(new KeyAdapter() {
+	    	@Override
+	    	public void keyTyped(KeyEvent e) {
+	    		char key = e.getKeyChar();
+	    		if (key=='r') {
+	    			
+	    		}
+	    		if (key=='g') {
+	    			
+	    		}
+				if (key=='b') {
+					
+				}
+				if (key=='p') {
+					
+				}
+				
+				
+	    	}
+	    });
+	    background.setBounds(0, 0, 1264, 784);
+
+	    lblSakatu.setFont(new Font("Consolas", Font.BOLD, 20));
+	    lblSakatu.setForeground(Color.WHITE);
+	    lblSakatu.setBounds(310, 75, 700, 30);
+
+	    lblStart.setFont(new Font("Consolas", Font.BOLD, 20));
+	    lblStart.setForeground(Color.WHITE);
+	    lblStart.setBounds(300, 650, 700, 30);
+
+	    contentPane.add(lblSakatu);
+	    contentPane.add(lblStart);
+	    contentPane.add(background);
+	    
+	    Timer blinkTimer = new Timer(500, e -> {
+	        lblStart.setVisible(!lblStart.isVisible());
+	        lblSakatu.setVisible(!lblSakatu.isVisible());
+	    });
+	    blinkTimer.start();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
