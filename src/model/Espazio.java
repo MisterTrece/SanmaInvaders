@@ -7,8 +7,9 @@ public class Espazio {
 	private Gelaxka[][] matrizea = new Gelaxka[15][26];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
-	private static Espazio nEspazio = null;
 	private int etsaiKop;
+	private static Espazio nEspazio = null;
+	
 	
 	private Espazio() {
 		for(int i=0;i<matrizea.length;i++) {
@@ -26,9 +27,19 @@ public class Espazio {
 			etsaiak.add(e);
 		}
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		boolean[] etsaiBool = new boolean[26];
 		while(itr.hasNext()) {
 			OntziTxarra o = itr.next();
-			sartu(o.getX(), o.getY(), 2);
+			boolean jarrita = false;
+			while(!jarrita) {
+				if(!etsaiBool[o.getX()]) {
+					sartu(o.getX(), o.getY(), 2);
+					etsaiBool[o.getX()]=true;
+					jarrita = true;
+				}else {
+					o.birkalkulatuX();
+				}
+			}
 		}
 	}
 	
