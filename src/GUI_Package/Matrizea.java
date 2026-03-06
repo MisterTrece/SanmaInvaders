@@ -1,51 +1,40 @@
+
 package GUI_Package;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
+import controller.GameController;
 import model.Espazio;
 
-public class Matrizea extends JFrame implements Observer{
+public class Matrizea extends JFrame implements Observer {
 
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane;//JPanel gero sortzeko atributu pribatua
-    
-   
-    private Gelaxka[][] gelaxkak;//Gelaxka Klaseko atributu pribatua
 
+    private JPanel contentPane;
+    private Gelaxka[][] gelaxkak;
 
-    private final int ZUTABEAK = 100; //zutabeen balioa
-    private final int LERROAK = 60;   //errenkaden balioa
+    private Espazio modelo;
+    private GameController controller;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Matrizea frame = new Matrizea();//Matrizea sortu
-                    frame.setVisible(true);//Matrizea ikusteko
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    public Matrizea(Espazio modelo, GameController controller) {
+        this.modelo = modelo;
+        this.controller = controller;
 
-    public Matrizea() {
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 600);
 
         contentPane = new JPanel();
         setContentPane(contentPane);
 
-        Espazio esp = Espazio.getEspazioEMA();
-        gelaxkak = matrizeaBihurtu(esp.bihurtuStringMatrizera());
+        gelaxkak = matrizeaBihurtu(modelo.bihurtuStringMatrizera());
 
         contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
@@ -56,19 +45,33 @@ public class Matrizea extends JFrame implements Observer{
             }
         }
 
-        esp.addObserver(this);
+        modelo.addObserver(this);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT -> controller.moverNave(-1, 0);
+                    case KeyEvent.VK_RIGHT -> controller.moverNave(1, 0);
+                    case KeyEvent.VK_UP -> controller.moverNave(0, -1);
+                    case KeyEvent.VK_DOWN -> controller.moverNave(0, 1);
+                    case KeyEvent.VK_SPACE -> controller.disparar();
+                }
+            }
+        });
+
+        setFocusable(true);
     }
-    
-    
-    public Gelaxka[][] getGelaxkak() {//Matrizea bueltatzeko metodoa
+
+    public Gelaxka[][] getGelaxkak() {
         return gelaxkak;
     }
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void update(Observable o, Object arg) {
+        Espazio esp = (Espazio) o;
+        this.gelaxkak = matrizeaBihurtu(esp.bihurtuStringMatrizera());
+    }
 	
 	public Gelaxka[][] matrizeaBihurtu(String[][] matrizString) {
         int lerro = matrizString.length;
@@ -87,7 +90,7 @@ public class Matrizea extends JFrame implements Observer{
 
                 String simboloa = matrizString[i][j];
                 
-                // Colorea eman simboloen arabehera
+                // Kolorea eman simboloen arabehera
                 switch (simboloa) {
                     case "-" -> g.setBackground(Color.BLACK);   // Hutsik
                     case "X" -> g.setBackground(Color.BLUE);    // Gurea

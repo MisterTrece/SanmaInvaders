@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
 
-public class Gelaxka extends JLabel implements Observer {
+public class Gelaxka extends JLabel {
     
     private int x;
     private int y;
@@ -20,10 +20,6 @@ public class Gelaxka extends JLabel implements Observer {
         this.setBackground(Color.BLACK); 
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
     
    
     public int getXCoord() { return x; }

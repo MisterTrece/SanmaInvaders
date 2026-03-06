@@ -42,6 +42,8 @@ public class Espazio extends Observable{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	public static Espazio getEspazioEMA() {
@@ -77,5 +79,6 @@ public class Espazio extends Observable{
 
         return mString;
     }
+
 	
 }
