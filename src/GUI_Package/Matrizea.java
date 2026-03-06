@@ -3,11 +3,16 @@ package GUI_Package;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Matrizea extends JFrame {
+import model.Espazio;
+
+public class Matrizea extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;//JPanel gero sortzeko atributu pribatua
@@ -33,31 +38,73 @@ public class Matrizea extends JFrame {
     }
 
     public Matrizea() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1000, 600); 
-        
-        contentPane = new JPanel();//Panel honetan Gelaxkak gehituko ditugu
-        
-        contentPane.setBorder(new EmptyBorder(0, 0, 0, 0)); 
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 1000, 600);
+
+        contentPane = new JPanel();
         setContentPane(contentPane);
 
-        
-        contentPane.setLayout(new GridLayout(LERROAK, ZUTABEAK));
+        Espazio esp = Espazio.getEspazioEMA();
+        gelaxkak = matrizeaBihurtu(esp.bihurtuStringMatrizera());
+
+        contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
 
-        gelaxkak = new Gelaxka[ZUTABEAK][LERROAK];//Gelaxka guztiak sortu bakoitza posizio bat izango duena
-        
-        for (int y = 0; y < LERROAK; y++) {//Matrizearen x eta y ardatzetan gelaxkak gehitu(for honetan errenkadak).PD: beharbada errenkadak x-etan eta zutabeak y-n jarri beharko litezke.
-            for (int x = 0; x < ZUTABEAK; x++) {//Zutabeak errekorritu
-                Gelaxka g = new Gelaxka(x, y); //gelaxka motako objetua sortu x(zutabeak)eta y(errenkadak posizioarekin
-                gelaxkak[x][y] = g;//Aurreko lerroan sortutako objetua
-                contentPane.add(g);//Gelaxka panelera gehitu
+        for (int i = 0; i < gelaxkak.length; i++) {
+            for (int j = 0; j < gelaxkak[i].length; j++) {
+                contentPane.add(gelaxkak[i][j]);
             }
         }
+
+        esp.addObserver(this);
     }
     
     
     public Gelaxka[][] getGelaxkak() {//Matrizea bueltatzeko metodoa
         return gelaxkak;
+    }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public Gelaxka[][] matrizeaBihurtu(String[][] matrizString) {
+        int lerro = matrizString.length;
+        int zutabe = matrizString[0].length;
+
+        Gelaxka[][] gelaxkaGUI = new Gelaxka[lerro][zutabe];
+
+        // Aurreko panela garbitu eta layout-a konfiguratu
+        contentPane.removeAll();
+        contentPane.setLayout(new GridLayout(lerro, zutabe));
+        contentPane.setBackground(Color.BLACK);
+
+        for (int i = 0; i < lerro; i++) {
+            for (int j = 0; j < zutabe; j++) {
+                Gelaxka g = new Gelaxka(i, j);
+
+                String simboloa = matrizString[i][j];
+                
+                // Colorea eman simboloen arabehera
+                switch (simboloa) {
+                    case "-" -> g.setBackground(Color.BLACK);   // Hutsik
+                    case "X" -> g.setBackground(Color.BLUE);    // Gurea
+                    case "O" -> g.setBackground(Color.RED);     // Etsaia
+                    case "|" -> g.setBackground(Color.WHITE);   // Tiroa
+                    default -> g.setBackground(Color.BLACK);    // Badaezpada
+                }
+
+                gelaxkaGUI[i][j] = g;
+                contentPane.add(g);
+            }
+        }
+
+        // Panela refreskatzeko
+        contentPane.revalidate();
+        contentPane.repaint();
+
+        return gelaxkaGUI;
     }
 }
