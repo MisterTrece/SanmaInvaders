@@ -1,9 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Iterator;
 
-public class Espazio {
+public class Espazio extends Observable{
 	private Gelaxka[][] matrizea = new Gelaxka[15][26];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
@@ -61,4 +62,20 @@ public class Espazio {
 	public int getEtsaiKop() {
 		return this.etsaiKop;
 	}
+	public String[][] bihurtuStringMatrizera() {
+        Gelaxka[][]matrizeM = getMatriz();
+		int lerro = matrizeM.length;
+        int zutabe = matrizeM[0].length;
+
+        String[][] mString = new String[lerro][zutabe];
+
+        for (int i = 0; i < lerro; i++) {
+            for (int j = 0; j < zutabe; j++) {
+                mString[i][j] = matrizeM[i][j].getMotaIrudi();
+            }
+        }
+
+        return mString;
+    }
+	
 }

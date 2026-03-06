@@ -52,27 +52,9 @@ public class HasieraPantaila extends JFrame implements Observer{
 	    contentPane.setLayout(null);
 	    setContentPane(contentPane);
 
-	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/FondoSanmaInvaders.png")));
-	    background.addKeyListener(new KeyAdapter() {
-	    	@Override
-	    	public void keyTyped(KeyEvent e) {
-	    		char key = e.getKeyChar();
-	    		if (key=='r') {
-	    			
-	    		}
-	    		if (key=='g') {
-	    			
-	    		}
-				if (key=='b') {
-					
-				}
-				if (key=='p') {
-					
-				}
-				
-				
-	    	}
-	    });
+	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/FondoSanmaInvaders.png")));
+	    
+	    
 	    background.setBounds(0, 0, 1264, 784);
 
 	    lblSakatu.setFont(new Font("Consolas", Font.BOLD, 20));
