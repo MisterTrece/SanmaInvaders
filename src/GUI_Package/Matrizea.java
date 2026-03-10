@@ -55,7 +55,7 @@ public class Matrizea extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT -> controller.moverNave(1, 0);
                     case KeyEvent.VK_UP -> controller.moverNave(0, -1);
                     case KeyEvent.VK_DOWN -> controller.moverNave(0, 1);
-                    case KeyEvent.VK_SPACE -> controller.disparar();
+                    case KeyEvent.VK_SPACE -> controller.tiro();
                 }
             }
         });
