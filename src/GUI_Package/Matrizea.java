@@ -11,8 +11,8 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import controller.GameController;
 import model.Espazio;
+import model.GameController;
 
 public class Matrizea extends JFrame implements Observer {
 

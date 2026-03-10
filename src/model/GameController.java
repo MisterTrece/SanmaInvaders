@@ -1,8 +1,7 @@
-package controller;
+package model;
 
 import javax.swing.Timer;
 
-import model.Espazio;
 import GUI_Package.HasieraPantaila;
 import GUI_Package.Matrizea;
 
