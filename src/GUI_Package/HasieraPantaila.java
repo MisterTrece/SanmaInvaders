@@ -23,8 +23,9 @@ public class HasieraPantaila extends JFrame {
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko.");
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko.");
 
-    public HasieraPantaila(GameController controller) {
-        this.controller = controller;
+    public HasieraPantaila() {
+    	this.setLocationRelativeTo(null);
+    	this.controller = GameController.getGC();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);

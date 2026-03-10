@@ -10,25 +10,31 @@ public class GameController {
     private Espazio modelo;
     private HasieraPantaila hasiera;
     private Matrizea joko;
+    private static GameController nGC = null;
 
     private Timer tiroTimer;
 
-    public static void main(String[] args) {
-        new GameController().iniciar();
+    private GameController() {
+    
     }
-
-    public void iniciar() {
-        modelo = Espazio.getEspazioEMA();
-
+    
+    public static GameController getGC() {
+    	if(nGC==null) {
+    		nGC = new GameController();
+    	}
+    	return nGC;
+    }
+    
+    public void hasi() {
         // Hasierako panela
-        hasiera = new HasieraPantaila(this);
+        hasiera = new HasieraPantaila();
         hasiera.setLocationRelativeTo(null);
         hasiera.setVisible(true);
     }
 
     public void empezarPartida(String tipoNave) {
         // configurar depende del tipo de nave
-
+    	modelo = Espazio.getEspazioEMA();
         // Cerrar u ocultar hasierako panela
         hasiera.setVisible(false);
 
