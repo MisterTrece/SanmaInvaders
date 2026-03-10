@@ -1,17 +1,16 @@
 package model;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.Timer;
 
 import GUI_Package.HasieraPantaila;
 import GUI_Package.Matrizea;
 
-public class GameController {
+public class GameController extends Observable{
 
-    private Espazio modelo;
-    private HasieraPantaila hasiera;
-    private Matrizea joko;
     private static GameController nGC = null;
-
     private Timer tiroTimer;
 
     private GameController() {
@@ -24,16 +23,19 @@ public class GameController {
     	}
     	return nGC;
     }
-    
-    public void hasi() {
-        // Hasierako panela
-        
-    }
 
     public void empezarPartida(String tipoNave) {
-        // configurar depende del tipo de nave
-    	modelo = Espazio.getEspazioEMA();
-        // Cerrar u ocultar hasierako panela
+    	//jokoa hasieratu
+    	Espazio jokoa = Espazio.getEspazioEMA();
+    	//hasiera ixteko notifikazioa
+    	setChanged();
+    	notifyObservers();
+    	//tiroen Timer-a hasieratu
+    	if (tiroTimer == null) {
+            tiroTimer = new Timer(50, e -> Espazio.getEspazioEMA().mugituTiroak());
+        }
+        tiroTimer.start();
+/*		
         hasiera.setVisible(false);
 
         // Crear la ventana del juego si no existe
@@ -43,19 +45,18 @@ public class GameController {
         joko.setLocationRelativeTo(null);
         joko.setVisible(true);
         
+        */
+		
         
-
-        if (tiroTimer == null) {
-            tiroTimer = new Timer(50, e -> modelo.moverTiros());
-        }
-        tiroTimer.start();
+        
     }
 
     public void moverNave(int dx, int dy) {
-        modelo.moverNave(dx, dy);
+    	Espazio.getEspazioEMA().moverNave(dx, dy);
     }
 
     public void tiro() {
-        modelo.tiro();
+    	Espazio.getEspazioEMA().tiro();
     }
+
 }

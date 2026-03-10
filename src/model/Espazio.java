@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Iterator;
 
 public class Espazio extends Observable{
-	private Gelaxka[][] matrizea = new Gelaxka[15][26];
+	private GelaxkaM[][] matrizea = new GelaxkaM[15][26];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
@@ -17,11 +17,11 @@ public class Espazio extends Observable{
 	private Espazio() {
 		for(int i=0;i<matrizea.length;i++) {
 			for(int j=0;j<matrizea[i].length;j++) {
-				matrizea[i][j]= new Gelaxka(0);
+				matrizea[i][j]= new GelaxkaM(0);
 			}
 		}
 		gurea= new OntziOna();
-		Gelaxka gureG = new Gelaxka(1);
+		GelaxkaM gureG = new GelaxkaM(1);
 		matrizea[13][13]= gureG;
 		EspaziontziaX = 13;
 		EspaziontziaY = 13;
@@ -59,11 +59,11 @@ public class Espazio extends Observable{
 		return nEspazio;
 	}
 	public void sartu(int x,int y,int mota) {
-		Gelaxka g = new Gelaxka(mota);
+		GelaxkaM g = new GelaxkaM(mota);
 		matrizea[y][x]=g;
 	}
 	
-	public Gelaxka[][] getMatriz(){
+	public GelaxkaM[][] getMatriz(){
 		return this.matrizea;
 	}
 	
@@ -84,16 +84,16 @@ public class Espazio extends Observable{
 		}
 
 		// espaziontzia kendu bere posizio zaharretik
-		matrizea[EspaziontziaY][EspaziontziaX] = new Gelaxka(0);
+		matrizea[EspaziontziaY][EspaziontziaX] = new GelaxkaM(0);
 
 		// posizio berria
-		matrizea[berriaY][berriaX] = new Gelaxka(1);
+		matrizea[berriaY][berriaX] = new GelaxkaM(1);
 
 		EspaziontziaX = berriaX;
 		EspaziontziaY = berriaY;
 
-		//setChanged();
-		//notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void tiro() {
@@ -111,14 +111,14 @@ public class Espazio extends Observable{
 			return;
 		}
 
-		matrizea[tiroY][tiroX] = new Gelaxka(3); 
+		matrizea[tiroY][tiroX] = new GelaxkaM(3); 
 		tiroak.add(new int[] { tiroX, tiroY });
 
 		setChanged();
 		notifyObservers();
 	}
 
-	public void moverTiros() {
+	public void mugituTiroak() {
 		if (tiroak.isEmpty()) {
 			return;
 		}
@@ -131,7 +131,7 @@ public class Espazio extends Observable{
 			int y = pos[1];
 
 			if (y >= 0 && y <= maxY) {
-				matrizea[y][x] = new Gelaxka(0);
+				matrizea[y][x] = new GelaxkaM(0);
 			}
 
 			int berriaY = y - 1;
@@ -141,7 +141,7 @@ public class Espazio extends Observable{
 				continue;
 			}
 
-			matrizea[berriaY][x] = new Gelaxka(3);
+			matrizea[berriaY][x] = new GelaxkaM(3);
 			pos[1] = berriaY;
 		}
 
@@ -150,7 +150,7 @@ public class Espazio extends Observable{
 	}
 
 	public String[][] bihurtuStringMatrizera() {
-        Gelaxka[][]matrizeM = getMatriz();
+        GelaxkaM[][]matrizeM = getMatriz();
 		int lerro = matrizeM.length;
         int zutabe = matrizeM[0].length;
 

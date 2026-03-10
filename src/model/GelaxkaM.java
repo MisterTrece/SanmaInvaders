@@ -2,10 +2,10 @@ package model;
 
 import java.util.Observable;
 
-public class Gelaxka extends Observable{
+public class GelaxkaM extends Observable{
 	private int mota;
 	
-	public Gelaxka(int pMota) { //mota: 0:hutsik 1:gurea 2:etsaia 3:tiro
+	public GelaxkaM(int pMota) { //mota: 0:hutsik 1:gurea 2:etsaia 3:tiro
 		this.mota=pMota;
 	}
 	public String getMota(){

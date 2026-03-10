@@ -19,14 +19,11 @@ public class Matrizea extends JFrame implements Observer {
     private static final long serialVersionUID = 1L;
 
     private JPanel contentPane;
-    private Gelaxka[][] gelaxkak;
+    private GelaxkaV[][] gelaxkak;
 
-    private Espazio modelo;
-    private GameController controller;
 
     public Matrizea() {
-        this.modelo = Espazio.getEspazioEMA();
-        this.controller = GameController.getGC();
+        
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 600);
@@ -34,7 +31,7 @@ public class Matrizea extends JFrame implements Observer {
         contentPane = new JPanel();
         setContentPane(contentPane);
 
-        gelaxkak = matrizeaBihurtu(modelo.bihurtuStringMatrizera());
+        gelaxkak = matrizeaBihurtu(Espazio.getEspazioEMA().bihurtuStringMatrizera());
 
         contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
@@ -45,17 +42,17 @@ public class Matrizea extends JFrame implements Observer {
             }
         }
 
-        modelo.addObserver(this);
+        Espazio.getEspazioEMA().addObserver(this);
 
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT -> controller.moverNave(-1, 0);
-                    case KeyEvent.VK_RIGHT -> controller.moverNave(1, 0);
-                    case KeyEvent.VK_UP -> controller.moverNave(0, -1);
-                    case KeyEvent.VK_DOWN -> controller.moverNave(0, 1);
-                    case KeyEvent.VK_SPACE -> controller.tiro();
+                    case KeyEvent.VK_LEFT -> GameController.getGC().moverNave(-1, 0);
+                    case KeyEvent.VK_RIGHT -> GameController.getGC().moverNave(1, 0);
+                    case KeyEvent.VK_UP -> GameController.getGC().moverNave(0, -1);
+                    case KeyEvent.VK_DOWN -> GameController.getGC().moverNave(0, 1);
+                    case KeyEvent.VK_SPACE -> GameController.getGC().tiro();
                 }
             }
         });
@@ -63,7 +60,7 @@ public class Matrizea extends JFrame implements Observer {
         setFocusable(true);
     }
 
-    public Gelaxka[][] getGelaxkak() {
+    public GelaxkaV[][] getGelaxkak() {
         return gelaxkak;
     }
 
@@ -73,11 +70,11 @@ public class Matrizea extends JFrame implements Observer {
         this.gelaxkak = matrizeaBihurtu(esp.bihurtuStringMatrizera());
     }
 	
-	public Gelaxka[][] matrizeaBihurtu(String[][] matrizString) {
+	public GelaxkaV[][] matrizeaBihurtu(String[][] matrizString) {
         int lerro = matrizString.length;
         int zutabe = matrizString[0].length;
 
-        Gelaxka[][] gelaxkaGUI = new Gelaxka[lerro][zutabe];
+        GelaxkaV[][] gelaxkaGUI = new GelaxkaV[lerro][zutabe];
 
         // Aurreko panela garbitu eta layout-a konfiguratu
         contentPane.removeAll();
@@ -86,7 +83,7 @@ public class Matrizea extends JFrame implements Observer {
 
         for (int i = 0; i < lerro; i++) {
             for (int j = 0; j < zutabe; j++) {
-                Gelaxka g = new Gelaxka(i, j);
+                GelaxkaV g = new GelaxkaV(i, j);
 
                 String simboloa = matrizString[i][j];
                 

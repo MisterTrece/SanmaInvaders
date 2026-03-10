@@ -5,12 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
 
-public class Gelaxka extends JLabel implements Observer{
+public class GelaxkaV extends JLabel implements Observer{
     
     private int x;
     private int y;
 
-    public Gelaxka(int x, int y) {
+    public GelaxkaV(int x, int y) {
         this.x = x;
         this.y = y;
         
@@ -46,10 +46,7 @@ public class Gelaxka extends JLabel implements Observer{
                     this.setBackground(Color.WHITE); // Tiroa (Disparo)
                     break;
             }
-        }
-		
-	}
-    
-    
+        }	
+	}   
 }  
             

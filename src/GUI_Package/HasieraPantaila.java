@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,7 +15,7 @@ import javax.swing.Timer;
 
 import model.GameController;
 
-public class HasieraPantaila extends JFrame O {
+public class HasieraPantaila extends JFrame implements Observer {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,9 +25,7 @@ public class HasieraPantaila extends JFrame O {
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko.");
 
     public HasieraPantaila() {
-    	this.setLocationRelativeTo(null);
     	
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);
 
@@ -53,7 +53,8 @@ public class HasieraPantaila extends JFrame O {
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
                 if (code == KeyEvent.VK_P) {
-                    String tipo = "Green"; 
+                	String tipo = "Green"; 
+                	
                     GameController.getGC().empezarPartida(tipo);
                 }
             }
@@ -65,5 +66,13 @@ public class HasieraPantaila extends JFrame O {
             lblSakatu.setVisible(!lblSakatu.isVisible());
         });
         blinkTimer.start();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
+    
+
+	@Override
+	public void update(Observable o, Object arg) {
+		this.dispose();
+	}
 }
