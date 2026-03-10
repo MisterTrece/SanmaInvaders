@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
 
-public class Gelaxka extends JLabel {
+public class Gelaxka extends JLabel implements Observer{
     
     private int x;
     private int y;
@@ -25,7 +25,9 @@ public class Gelaxka extends JLabel {
     public int getXCoord() { return x; }
     public int getYCoord() { return y; }
     
-    public void eguneratu(Observable o, Object arg) {
+
+	@Override
+	public void update(Observable o, Object arg) {
 
         if (arg instanceof Integer) {
             int egoera = (Integer) arg;
@@ -45,6 +47,9 @@ public class Gelaxka extends JLabel {
                     break;
             }
         }
-    }
+		
+	}
+    
+    
 }  
             

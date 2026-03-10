@@ -38,11 +38,11 @@ public class HasieraPantaila extends JFrame {
 
         lblSakatu.setFont(new Font("Consolas", Font.BOLD, 20));
         lblSakatu.setForeground(Color.WHITE);
-        lblSakatu.setBounds(310, 75, 700, 30);
+        lblSakatu.setBounds(280, 75, 800, 30);
 
         lblStart.setFont(new Font("Consolas", Font.BOLD, 20));
         lblStart.setForeground(Color.WHITE);
-        lblStart.setBounds(300, 650, 700, 30);
+        lblStart.setBounds(235, 650, 800, 30);
 
         contentPane.add(lblSakatu);
         contentPane.add(lblStart);
@@ -60,7 +60,7 @@ public class HasieraPantaila extends JFrame {
         });
         setFocusable(true);
 
-        Timer blinkTimer = new Timer(500, e -> {
+        Timer blinkTimer = new Timer(750, e -> {
             lblStart.setVisible(!lblStart.isVisible());
             lblSakatu.setVisible(!lblSakatu.isVisible());
         });
