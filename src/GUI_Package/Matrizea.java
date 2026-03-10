@@ -24,9 +24,9 @@ public class Matrizea extends JFrame implements Observer {
     private Espazio modelo;
     private GameController controller;
 
-    public Matrizea(Espazio modelo, GameController controller) {
-        this.modelo = modelo;
-        this.controller = controller;
+    public Matrizea() {
+        this.modelo = Espazio.getEspazioEMA();
+        this.controller = GameController.getGC();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 600);

@@ -27,9 +27,7 @@ public class GameController {
     
     public void hasi() {
         // Hasierako panela
-        hasiera = new HasieraPantaila();
-        hasiera.setLocationRelativeTo(null);
-        hasiera.setVisible(true);
+        
     }
 
     public void empezarPartida(String tipoNave) {
@@ -40,10 +38,12 @@ public class GameController {
 
         // Crear la ventana del juego si no existe
         if (joko == null) {
-            joko = new Matrizea(modelo, this);
+            joko = new Matrizea();
         }
         joko.setLocationRelativeTo(null);
         joko.setVisible(true);
+        
+        
 
         if (tiroTimer == null) {
             tiroTimer = new Timer(50, e -> modelo.moverTiros());

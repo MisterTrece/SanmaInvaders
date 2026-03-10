@@ -13,11 +13,10 @@ import javax.swing.Timer;
 
 import model.GameController;
 
-public class HasieraPantaila extends JFrame {
+public class HasieraPantaila extends JFrame O {
 
     private static final long serialVersionUID = 1L;
 
-    private GameController controller;
     private JPanel contentPane;
 
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko.");
@@ -25,7 +24,7 @@ public class HasieraPantaila extends JFrame {
 
     public HasieraPantaila() {
     	this.setLocationRelativeTo(null);
-    	this.controller = GameController.getGC();
+    	
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);
@@ -55,7 +54,7 @@ public class HasieraPantaila extends JFrame {
                 int code = e.getKeyCode();
                 if (code == KeyEvent.VK_P) {
                     String tipo = "Green"; 
-                    controller.empezarPartida(tipo);
+                    GameController.getGC().empezarPartida(tipo);
                 }
             }
         });

@@ -92,8 +92,8 @@ public class Espazio extends Observable{
 		EspaziontziaX = berriaX;
 		EspaziontziaY = berriaY;
 
-		setChanged();
-		notifyObservers();
+		//setChanged();
+		//notifyObservers();
 	}
 
 	public void tiro() {
