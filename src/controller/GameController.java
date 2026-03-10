@@ -23,6 +23,7 @@ public class GameController {
 
         // Hasierako panela
         hasiera = new HasieraPantaila(this);
+        hasiera.setLocationRelativeTo(null);
         hasiera.setVisible(true);
     }
 
@@ -36,6 +37,7 @@ public class GameController {
         if (joko == null) {
             joko = new Matrizea(modelo, this);
         }
+        joko.setLocationRelativeTo(null);
         joko.setVisible(true);
 
         if (tiroTimer == null) {
