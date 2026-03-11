@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import model.Espazio;
 import model.GameController;
+import model.GelaxkaM;
 
 public class Matrizea extends JFrame implements Observer {
 
@@ -30,15 +31,29 @@ public class Matrizea extends JFrame implements Observer {
 
         contentPane = new JPanel();
         setContentPane(contentPane);
-
-        gelaxkak = matrizeaBihurtu(Espazio.getEspazioEMA().bihurtuStringMatrizera());
+        
+        Espazio e = Espazio.getEspazioEMA();
+        gelaxkak = new GelaxkaV[e.getMatriz().length][e.getMatriz()[0].length];
+        GelaxkaM[][] gM = e.getMatriz();
 
         contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
 
         for (int i = 0; i < gelaxkak.length; i++) {
             for (int j = 0; j < gelaxkak[i].length; j++) {
-                contentPane.add(gelaxkak[i][j]);
+                GelaxkaV g = gelaxkak[i][j];
+                GelaxkaM gm = gM[i][j];
+            	
+                switch (gm.getMota()) {
+                case "hutsik" -> g.setBackground(Color.BLACK);   // Hutsik
+                case "gurea" -> g.setBackground(Color.BLUE);    // Gurea
+                case "etsaia" -> g.setBackground(Color.RED);     // Etsaia
+                case "tiroa" -> g.setBackground(Color.WHITE);   // Tiroa
+                default -> g.setBackground(Color.BLACK);    // Badaezpada
+                }
+                
+                e.getMatriz()[i][j].addObserver(g);
+            	contentPane.add(g);
             }
         }
 
@@ -67,33 +82,32 @@ public class Matrizea extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Espazio esp = (Espazio) o;
-        this.gelaxkak = matrizeaBihurtu(esp.bihurtuStringMatrizera());
+        this.gelaxkak = matrizeaBihurtu();
     }
 	
-	public GelaxkaV[][] matrizeaBihurtu(String[][] matrizString) {
-        int lerro = matrizString.length;
-        int zutabe = matrizString[0].length;
-
-        GelaxkaV[][] gelaxkaGUI = new GelaxkaV[lerro][zutabe];
+	public GelaxkaV[][] matrizeaBihurtu() {
+		
+        GelaxkaV[][] gelaxkaGUI = new GelaxkaV[gelaxkak.length][gelaxkak[0].length];
+        Espazio e = Espazio.getEspazioEMA();
+        GelaxkaM[][] gM = e.getMatriz();
 
         // Aurreko panela garbitu eta layout-a konfiguratu
         contentPane.removeAll();
-        contentPane.setLayout(new GridLayout(lerro, zutabe));
+        contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
 
-        for (int i = 0; i < lerro; i++) {
-            for (int j = 0; j < zutabe; j++) {
-                GelaxkaV g = new GelaxkaV(i, j);
-
-                String simboloa = matrizString[i][j];
+        for (int i = 0; i < gelaxkak.length; i++) {
+            for (int j = 0; j < gelaxkak[0].length; j++) {
+            	GelaxkaV g = gelaxkak[i][j];
+                GelaxkaM gm = gM[i][j];
                 
                 // Kolorea eman simboloen arabehera
-                switch (simboloa) {
-                    case "-" -> g.setBackground(Color.BLACK);   // Hutsik
-                    case "X" -> g.setBackground(Color.BLUE);    // Gurea
-                    case "O" -> g.setBackground(Color.RED);     // Etsaia
-                    case "|" -> g.setBackground(Color.WHITE);   // Tiroa
-                    default -> g.setBackground(Color.BLACK);    // Badaezpada
+                switch (gm.getMota()) {
+                case "hutsik" -> g.setBackground(Color.BLACK);   // Hutsik
+                case "gurea" -> g.setBackground(Color.BLUE);    // Gurea
+                case "etsaia" -> g.setBackground(Color.RED);     // Etsaia
+                case "tiroa" -> g.setBackground(Color.WHITE);   // Tiroa
+                default -> g.setBackground(Color.BLACK);    // Badaezpada
                 }
 
                 gelaxkaGUI[i][j] = g;

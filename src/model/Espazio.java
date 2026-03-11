@@ -148,22 +148,7 @@ public class Espazio extends Observable{
 		setChanged();
 		notifyObservers();
 	}
-
-	public String[][] bihurtuStringMatrizera() {
-        GelaxkaM[][]matrizeM = getMatriz();
-		int lerro = matrizeM.length;
-        int zutabe = matrizeM[0].length;
-
-        String[][] mString = new String[lerro][zutabe];
-
-        for (int i = 0; i < lerro; i++) {
-            for (int j = 0; j < zutabe; j++) {
-                mString[i][j] = matrizeM[i][j].getMotaIrudi();
-            }
-        }
-
-        return mString;
-    }
+	
 
 	
 }
