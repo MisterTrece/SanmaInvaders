@@ -15,31 +15,7 @@ public class GelaxkaM extends Observable{
 		notifyObservers(mota);
 	}
 	
-	public String getMota(){
-		String motaS=null;
-		if(mota==0) {
-			motaS="hutsik";
-		}else if(mota==1){
-			motaS="gurea";
-		}else if(mota==2) {
-			motaS="etsaia";
-		}else if(mota==3){
-			motaS="tiroa";
-		}
-		return motaS;
-	}
-	
-	public String getMotaIrudi(){
-		String motaS=null;
-		if(mota==0) {
-			motaS="-";
-		}else if(mota==1){
-			motaS="X";
-		}else if(mota==2) {
-			motaS="O";
-		}else if(mota==3){
-			motaS="|";
-		}
-		return motaS;
+	public int getMota() {
+		return this.mota;
 	}
 }

@@ -1,14 +1,11 @@
 package model;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.Timer;
 
 import GUI_Package.HasieraPantaila;
 import GUI_Package.Matrizea;
 
-public class GameController extends Observable{
+public class GameController{
 
     private static GameController nGC = null;
     private Timer tiroTimer;
@@ -26,7 +23,7 @@ public class GameController extends Observable{
 
     public void empezarPartida(String tipoNave) {
     	//jokoa hasieratu
-    	Espazio jokoa = Espazio.getEspazioEMA();
+    	Espazio.getEspazioEMA();
     	
     	//gelaxkak lotu
     	modeloVistaLotu();
@@ -38,22 +35,7 @@ public class GameController extends Observable{
         tiroTimer.start();
         
       //hasiera ixteko notifikazioa
-    	setChanged();
-    	notifyObservers();
-/*		
-        hasiera.setVisible(false);
-
-        // Crear la ventana del juego si no existe
-        if (joko == null) {
-            joko = new Matrizea();
-        }
-        joko.setLocationRelativeTo(null);
-        joko.setVisible(true);
-        
-        */
-		
-        
-        
+    	HasieraPantaila.getHasieraPantaila().itxi(); 
     }
     
     private void modeloVistaLotu() {
@@ -61,6 +43,7 @@ public class GameController extends Observable{
     	for (int i = 0; i < gelaxkakM.length; i++) {
             for (int j = 0; j < gelaxkakM[i].length; j++) {
             	gelaxkakM[i][j].addObserver(Matrizea.getMatrizea().getGelaxkakV()[i][j]);
+            	gelaxkakM[i][j].aldatuMota(gelaxkakM[i][j].getMota());
             }
     	}
     }

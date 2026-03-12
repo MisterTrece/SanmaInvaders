@@ -10,10 +10,5 @@ public class OntziTxarra extends Ontzi{
 		this.x= (int)(Math.random()*24)+1;
 	}
 	
-	public int getX() {
-		return this.x;
-	}
-	public int getY() {
-		return this.y;
-	}
+	
 }

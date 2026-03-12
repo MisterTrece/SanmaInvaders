@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 import model.GameController;
 
-public class HasieraPantaila extends JFrame implements Observer {
+public class HasieraPantaila extends JFrame{
 
     private static final long serialVersionUID = 1L;
 
@@ -78,9 +78,9 @@ public class HasieraPantaila extends JFrame implements Observer {
     	return nHasieraPantaila;
     }
     
-	@Override
-	public void update(Observable o, Object arg) {
+	public void itxi() {
 		this.dispose();
+		Matrizea.getMatrizea() ;
 		Matrizea.getMatrizea().setLocationRelativeTo(null);
 		Matrizea.getMatrizea().setVisible(true);
 	}

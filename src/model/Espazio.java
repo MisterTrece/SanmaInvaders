@@ -1,10 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Iterator;
 
-public class Espazio extends Observable{
+public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[15][26];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
@@ -48,8 +47,6 @@ public class Espazio extends Observable{
 				}
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	
 	public static Espazio getEspazioEMA() {
@@ -84,18 +81,13 @@ public class Espazio extends Observable{
 		}
 
 		// espaziontzia kendu bere posizio zaharretik
-		//matrizea[EspaziontziaY][EspaziontziaX] = new GelaxkaM(0);
 		matrizea[EspaziontziaY][EspaziontziaX].aldatuMota(0);
 
 		// posizio berria
-		//matrizea[berriaY][berriaX] = new GelaxkaM(1);
 		matrizea[berriaY][berriaX].aldatuMota(1);
 
 		EspaziontziaX = berriaX;
 		EspaziontziaY = berriaY;
-
-		//setChanged();
-		//notifyObservers();
 	}
 
 	public void tiro() {
@@ -108,17 +100,14 @@ public class Espazio extends Observable{
 		}
 
 		// hutsik badago tiroa
-		String motaHelburu = matrizea[tiroY][tiroX].getMotaIrudi();
-		if (!"-".equals(motaHelburu)) {
+		int motaHelburu = matrizea[tiroY][tiroX].getMota();
+		if (3==motaHelburu) {
 			return;
 		}
 
 		//matrizea[tiroY][tiroX] = new GelaxkaM(3); 
 		matrizea[tiroY][tiroX].aldatuMota(3);
 		tiroak.add(new int[] { tiroX, tiroY });
-
-		setChanged();
-		notifyObservers();
 	}
 
 	public void mugituTiroak() {
@@ -149,11 +138,5 @@ public class Espazio extends Observable{
 			matrizea[berriaY][x].aldatuMota(3);
 			pos[1] = berriaY;
 		}
-
-		setChanged();
-		notifyObservers();
-	}
-	
-
-	
+	}	
 }
