@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Color;
-
 import javax.swing.Timer;
 
 import GUI_Package.HasieraPantaila;
@@ -23,7 +21,7 @@ public class GameController{
     	return nGC;
     }
 
-    public void empezarPartida(String tipoNave) {
+    public void partidaHasi(String tipoNave) {
     	//jokoa hasieratu
     	Espazio.getEspazioEMA();
     	
@@ -51,7 +49,7 @@ public class GameController{
     }
 
     public void gCOntziaMugitu(int dx, int dy) {
-    	Espazio.getEspazioEMA().moverNave(dx, dy);
+    	Espazio.getEspazioEMA().mugituOntzia(dx, dy);
     }
 
     public void tiro() {

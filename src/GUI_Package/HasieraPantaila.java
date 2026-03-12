@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -56,7 +54,7 @@ public class HasieraPantaila extends JFrame{
                 String tipo = "Green";
             	int code = e.getKeyCode();
                 if (code == KeyEvent.VK_P) { 
-                	GameController.getGC().empezarPartida(tipo);
+                	GameController.getGC().partidaHasi(tipo);
                 }
             }
         });

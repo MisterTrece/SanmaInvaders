@@ -70,7 +70,7 @@ public class Espazio{
 		return this.etsaiKop;
 	}
 
-	public void moverNave(int dx, int dy) {
+	public void mugituOntzia(int dx, int dy) {
 		int berriaX = EspaziontziaX + dx;
 		int berriaY = EspaziontziaY + dy;
 

@@ -5,15 +5,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.Espazio;
 import model.GameController;
-import model.GelaxkaM;
 
 public class Matrizea extends JFrame{
 
