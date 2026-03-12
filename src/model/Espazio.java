@@ -38,9 +38,11 @@ public class Espazio{
 			OntziTxarra o = itr.next();
 			boolean jarrita = false;
 			while(!jarrita) {
-				if(!etsaiBool[o.getX()]) {
+				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1]) {
 					sartu(o.getX(), o.getY(), 2);
 					etsaiBool[o.getX()]=true;
+					etsaiBool[o.getX()+1]=true;
+					etsaiBool[o.getX()-1]=true;
 					jarrita = true;
 				}else {
 					o.birkalkulatuX();
@@ -161,5 +163,8 @@ public class Espazio{
 			}
 		}
 		System.out.println("Etsaia hilda, etsai kopurua: "+etsaiKop);
+		if(etsaiKop==0) {
+			GameController.getGC().partidaIrabazi();
+		}
 	}
 }

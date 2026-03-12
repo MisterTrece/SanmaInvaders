@@ -73,4 +73,10 @@ public class Matrizea extends JFrame{
     	contentPane.revalidate();
         contentPane.repaint();
     }
+    
+    public void irabazi() {
+    	//WIP
+    	dispose();
+    	System.out.println("IRABAZI DUZU");
+    }
 }

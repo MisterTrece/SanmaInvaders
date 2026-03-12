@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 import javax.swing.Timer;
 
 import GUI_Package.HasieraPantaila;
@@ -55,5 +57,12 @@ public class GameController{
     public void tiro() {
     	Espazio.getEspazioEMA().tiro();
     }
-
+    
+    public void partidaIrabazi() {
+    	Timer timerEND = new Timer(2500, e -> {
+	        Matrizea.getMatrizea().irabazi();
+	    });
+	 timerEND.setRepeats(false);
+	 timerEND.start();	
+    }
 }
