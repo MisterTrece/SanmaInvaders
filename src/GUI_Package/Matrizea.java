@@ -16,7 +16,7 @@ public class Matrizea extends JFrame{
     private static final long serialVersionUID = 1L;
 
     private JPanel contentPane;
-    private GelaxkaV[][] gelaxkak = new GelaxkaV[15][26];
+    private GelaxkaV[][] gelaxkak = new GelaxkaV[60][100];
     private static Matrizea nMatrizea = null;
 
     private Matrizea() {

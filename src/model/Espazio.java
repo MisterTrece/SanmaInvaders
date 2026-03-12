@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Espazio{
-	private GelaxkaM[][] matrizea = new GelaxkaM[15][26];
+	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
@@ -21,9 +21,9 @@ public class Espazio{
 		}
 		gurea= new OntziOna();
 		GelaxkaM gureG = new GelaxkaM(1);
-		matrizea[13][13]= gureG;
-		EspaziontziaX = 13;
-		EspaziontziaY = 13;
+		matrizea[55][50]= gureG;
+		EspaziontziaX = 50;
+		EspaziontziaY = 55;
 	
 		tiroak = new ArrayList<int[]>();
 		etsaiak= new ArrayList<OntziTxarra>();
@@ -33,7 +33,7 @@ public class Espazio{
 			etsaiak.add(e);
 		}
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
-		boolean[] etsaiBool = new boolean[26];
+		boolean[] etsaiBool = new boolean[100];
 		while(itr.hasNext()) {
 			OntziTxarra o = itr.next();
 			boolean jarrita = false;
@@ -166,5 +166,8 @@ public class Espazio{
 		if(etsaiKop==0) {
 			GameController.getGC().partidaIrabazi();
 		}
+	}
+	public void mugituEtsaiak() {
+		
 	}
 }

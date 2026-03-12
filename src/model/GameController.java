@@ -9,6 +9,7 @@ public class GameController{
 
     private static GameController nGC = null;
     private Timer tiroTimer;
+    private Timer etsaiTimer;
 
     private GameController() {
     
@@ -34,8 +35,15 @@ public class GameController{
         }
         tiroTimer.start();
         
+        if (etsaiTimer == null) {
+        	etsaiTimer = new Timer(200, e -> Espazio.getEspazioEMA().mugituEtsaiak());
+        }
+        etsaiTimer.start();
+        
       //hasiera ixteko notifikazioa
     	HasieraPantaila.getHasieraPantaila().itxi(); 
+    	
+    	//Espazio.getEspazioEMA()
     }
     
     private void modeloVistaLotu() {
