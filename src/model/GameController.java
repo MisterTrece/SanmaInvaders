@@ -50,8 +50,17 @@ public class GameController extends Observable{
         
         
     }
+    
+    public void modeloVistaLotu() {
+    	GelaxkaM[][] gelaxkakM = Espazio.getEspazioEMA().getGelaxkakM();
+    	for (int i = 0; i < gelaxkakM.length; i++) {
+            for (int j = 0; j < gelaxkakM[i].length; j++) {
+            	gelaxkakM[i][j].addObserver(Matrizea.getMatrizea().getGelaxkakV()[i][j]);
+            }
+    	}
+    }
 
-    public void moverNave(int dx, int dy) {
+    public void gContziaMugitu(int dx, int dy) {
     	Espazio.getEspazioEMA().moverNave(dx, dy);
     }
 

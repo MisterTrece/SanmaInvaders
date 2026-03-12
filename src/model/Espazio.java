@@ -63,7 +63,7 @@ public class Espazio extends Observable{
 		matrizea[y][x]=g;
 	}
 	
-	public GelaxkaM[][] getMatriz(){
+	public GelaxkaM[][] getGelaxkakM(){
 		return this.matrizea;
 	}
 	

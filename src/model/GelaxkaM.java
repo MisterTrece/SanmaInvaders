@@ -8,6 +8,12 @@ public class GelaxkaM extends Observable{
 	public GelaxkaM(int pMota) { //mota: 0:hutsik 1:gurea 2:etsaia 3:tiro
 		this.mota=pMota;
 	}
+	
+	public void aldatuMota(int pMota) {
+		this.mota=pMota;
+		notifyObservers();
+	}
+	
 	public String getMota(){
 		String motaS=null;
 		if(mota==0) {

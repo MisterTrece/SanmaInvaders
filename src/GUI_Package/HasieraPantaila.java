@@ -23,8 +23,10 @@ public class HasieraPantaila extends JFrame implements Observer {
 
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko.");
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko.");
-
-    public HasieraPantaila() {
+    
+    private static HasieraPantaila nHasieraPantaila = null;
+    
+    private HasieraPantaila() {
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);
@@ -70,9 +72,16 @@ public class HasieraPantaila extends JFrame implements Observer {
         setVisible(true);
     }
     
-
+    public static HasieraPantaila getHasieraPantaila() {
+    	if(nHasieraPantaila==null) {
+    		nHasieraPantaila=new HasieraPantaila();
+    	}
+    	return nHasieraPantaila;
+    }
+    
 	@Override
 	public void update(Observable o, Object arg) {
 		this.dispose();
+		Matrizea.getMatrizea().setVisible(true);
 	}
 }
