@@ -15,7 +15,7 @@ import model.Espazio;
 import model.GameController;
 import model.GelaxkaM;
 
-public class Matrizea extends JFrame implements Observer {
+public class Matrizea extends JFrame{
 
     private static final long serialVersionUID = 1L;
 
@@ -66,16 +66,16 @@ public class Matrizea extends JFrame implements Observer {
         gelaxkak[14][0].setBackground(Color.GREEN);
         gelaxkak[14][25].setBackground(Color.GREEN);
 */        
-        Espazio.getEspazioEMA().addObserver(this);
+        //Espazio.getEspazioEMA().addObserver(this);
 
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT -> GameController.getGC().gContziaMugitu(-1, 0);
-                    case KeyEvent.VK_RIGHT -> GameController.getGC().gContziaMugitu(1, 0);
-                    case KeyEvent.VK_UP -> GameController.getGC().gContziaMugitu(0, -1);
-                    case KeyEvent.VK_DOWN -> GameController.getGC().gContziaMugitu(0, 1);
+                    case KeyEvent.VK_LEFT -> GameController.getGC().gCOntziaMugitu(-1, 0);
+                    case KeyEvent.VK_RIGHT -> GameController.getGC().gCOntziaMugitu(1, 0);
+                    case KeyEvent.VK_UP -> GameController.getGC().gCOntziaMugitu(0, -1);
+                    case KeyEvent.VK_DOWN -> GameController.getGC().gCOntziaMugitu(0, 1);
                     case KeyEvent.VK_SPACE -> GameController.getGC().tiro();
                 }
             }
@@ -94,12 +94,21 @@ public class Matrizea extends JFrame implements Observer {
     public GelaxkaV[][] getGelaxkakV() {
         return gelaxkak;
     }
-
+    
+    public void errefreskatu() {
+    	contentPane.revalidate();
+        contentPane.repaint();
+    }
+    
+    /*
     @Override
     public void update(Observable o, Object arg) {
-        Espazio esp = (Espazio) o;
-        this.gelaxkak = matrizeaBihurtu();
+        //Espazio esp = (Espazio) o;
+        //this.gelaxkak = matrizeaBihurtu();
     }
+    
+    
+    
 	
 	public GelaxkaV[][] matrizeaBihurtu() {
 		
@@ -136,5 +145,5 @@ public class Matrizea extends JFrame implements Observer {
         contentPane.repaint();
 
         return gelaxkaGUI;
-    }
+    }*/
 }

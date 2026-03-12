@@ -27,14 +27,19 @@ public class GameController extends Observable{
     public void empezarPartida(String tipoNave) {
     	//jokoa hasieratu
     	Espazio jokoa = Espazio.getEspazioEMA();
-    	//hasiera ixteko notifikazioa
-    	setChanged();
-    	notifyObservers();
+    	
+    	//gelaxkak lotu
+    	modeloVistaLotu();
+
     	//tiroen Timer-a hasieratu
     	if (tiroTimer == null) {
             tiroTimer = new Timer(50, e -> Espazio.getEspazioEMA().mugituTiroak());
         }
         tiroTimer.start();
+        
+      //hasiera ixteko notifikazioa
+    	setChanged();
+    	notifyObservers();
 /*		
         hasiera.setVisible(false);
 
@@ -51,7 +56,7 @@ public class GameController extends Observable{
         
     }
     
-    public void modeloVistaLotu() {
+    private void modeloVistaLotu() {
     	GelaxkaM[][] gelaxkakM = Espazio.getEspazioEMA().getGelaxkakM();
     	for (int i = 0; i < gelaxkakM.length; i++) {
             for (int j = 0; j < gelaxkakM[i].length; j++) {
@@ -60,7 +65,7 @@ public class GameController extends Observable{
     	}
     }
 
-    public void gContziaMugitu(int dx, int dy) {
+    public void gCOntziaMugitu(int dx, int dy) {
     	Espazio.getEspazioEMA().moverNave(dx, dy);
     }
 

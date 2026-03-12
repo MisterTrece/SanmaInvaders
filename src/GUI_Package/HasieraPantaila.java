@@ -21,8 +21,8 @@ public class HasieraPantaila extends JFrame implements Observer {
 
     private JPanel contentPane;
 
-    private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko.");
-    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko.");
+    private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
+    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko");
     
     private static HasieraPantaila nHasieraPantaila = null;
     
@@ -53,11 +53,10 @@ public class HasieraPantaila extends JFrame implements Observer {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                int code = e.getKeyCode();
-                if (code == KeyEvent.VK_P) {
-                	String tipo = "Green"; 
-                	
-                    GameController.getGC().empezarPartida(tipo);
+                String tipo = "Green";
+            	int code = e.getKeyCode();
+                if (code == KeyEvent.VK_P) { 
+                	GameController.getGC().empezarPartida(tipo);
                 }
             }
         });
@@ -82,6 +81,7 @@ public class HasieraPantaila extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.dispose();
+		Matrizea.getMatrizea().setLocationRelativeTo(null);
 		Matrizea.getMatrizea().setVisible(true);
 	}
 }

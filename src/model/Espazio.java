@@ -84,16 +84,18 @@ public class Espazio extends Observable{
 		}
 
 		// espaziontzia kendu bere posizio zaharretik
-		matrizea[EspaziontziaY][EspaziontziaX] = new GelaxkaM(0);
+		//matrizea[EspaziontziaY][EspaziontziaX] = new GelaxkaM(0);
+		matrizea[EspaziontziaY][EspaziontziaX].aldatuMota(0);
 
 		// posizio berria
-		matrizea[berriaY][berriaX] = new GelaxkaM(1);
+		//matrizea[berriaY][berriaX] = new GelaxkaM(1);
+		matrizea[berriaY][berriaX].aldatuMota(1);
 
 		EspaziontziaX = berriaX;
 		EspaziontziaY = berriaY;
 
-		setChanged();
-		notifyObservers();
+		//setChanged();
+		//notifyObservers();
 	}
 
 	public void tiro() {
@@ -111,7 +113,8 @@ public class Espazio extends Observable{
 			return;
 		}
 
-		matrizea[tiroY][tiroX] = new GelaxkaM(3); 
+		//matrizea[tiroY][tiroX] = new GelaxkaM(3); 
+		matrizea[tiroY][tiroX].aldatuMota(3);
 		tiroak.add(new int[] { tiroX, tiroY });
 
 		setChanged();
@@ -131,7 +134,8 @@ public class Espazio extends Observable{
 			int y = pos[1];
 
 			if (y >= 0 && y <= maxY) {
-				matrizea[y][x] = new GelaxkaM(0);
+				//matrizea[y][x] = new GelaxkaM(0);
+				matrizea[y][x].aldatuMota(0);
 			}
 
 			int berriaY = y - 1;
@@ -141,7 +145,8 @@ public class Espazio extends Observable{
 				continue;
 			}
 
-			matrizea[berriaY][x] = new GelaxkaM(3);
+			//matrizea[berriaY][x] = new GelaxkaM(3);
+			matrizea[berriaY][x].aldatuMota(3);
 			pos[1] = berriaY;
 		}
 

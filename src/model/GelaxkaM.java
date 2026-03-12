@@ -11,7 +11,8 @@ public class GelaxkaM extends Observable{
 	
 	public void aldatuMota(int pMota) {
 		this.mota=pMota;
-		notifyObservers();
+		setChanged();
+		notifyObservers(mota);
 	}
 	
 	public String getMota(){

@@ -47,6 +47,7 @@ public class GelaxkaV extends JLabel implements Observer{
                     break;
             }
         }	
+        Matrizea.getMatrizea().errefreskatu();
 	}   
 }  
             
