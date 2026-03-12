@@ -9,6 +9,4 @@ public class OntziTxarra extends Ontzi{
 	public void birkalkulatuX() {
 		this.x= (int)(Math.random()*24)+1;
 	}
-	
-	
 }

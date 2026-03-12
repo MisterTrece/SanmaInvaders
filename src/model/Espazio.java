@@ -101,11 +101,15 @@ public class Espazio{
 
 		// hutsik badago tiroa
 		int motaHelburu = matrizea[tiroY][tiroX].getMota();
-		if (3==motaHelburu) {
+		if (motaHelburu==3) {
+			return;
+		}
+		if(motaHelburu==2) {
+			etsaiaHil(tiroX,tiroY);
+			matrizea[tiroY][tiroX].aldatuMota(4);
 			return;
 		}
 
-		//matrizea[tiroY][tiroX] = new GelaxkaM(3); 
 		matrizea[tiroY][tiroX].aldatuMota(3);
 		tiroak.add(new int[] { tiroX, tiroY });
 	}
@@ -138,5 +142,20 @@ public class Espazio{
 			matrizea[berriaY][x].aldatuMota(3);
 			pos[1] = berriaY;
 		}
-	}	
+	}
+	
+	public void etsaiaHil(int x, int y) {
+		matrizea[y][x].aldatuMota(0);
+		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		boolean aurkituta = false;
+		while(!aurkituta && itr.hasNext()) {
+			OntziTxarra etsai = itr.next();
+			if (etsai.x==x && etsai.y==y) {
+				etsaiak.remove(etsai);
+				aurkituta=true;
+				etsaiKop--;
+			}
+		}
+		System.out.println("Etsaia hilda, etsai kopurua: "+etsaiKop);
+	}
 }
