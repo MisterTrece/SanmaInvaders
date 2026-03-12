@@ -127,7 +127,6 @@ public class Espazio{
 			int y = pos[1];
 
 			if (y >= 0 && y <= maxY) {
-				//matrizea[y][x] = new GelaxkaM(0);
 				matrizea[y][x].aldatuMota(0);
 			}
 
@@ -138,7 +137,12 @@ public class Espazio{
 				continue;
 			}
 
-			//matrizea[berriaY][x] = new GelaxkaM(3);
+			if(matrizea[berriaY][x].getMota()==2) {
+				etsaiaHil(x,berriaY);
+				matrizea[berriaY][x].aldatuMota(4);
+				tiroak.remove(i);
+				continue;
+			}
 			matrizea[berriaY][x].aldatuMota(3);
 			pos[1] = berriaY;
 		}
