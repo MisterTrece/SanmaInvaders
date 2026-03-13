@@ -20,26 +20,9 @@ public class GalduPantaila extends JFrame {
 	JLabel galdu = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/GameOver.png")));
 	JLabel garezurra = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Skull.png")));
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) { //Ea ondo ikusten den jakiteko
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GalduPantaila frame = new GalduPantaila();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public GalduPantaila() {
+	private static GalduPantaila nGalduPantaila = null;
+	
+	private GalduPantaila() {
 
 	    setForeground(new Color(0, 0, 0));
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +33,7 @@ public class GalduPantaila extends JFrame {
 	    contentPane.setBackground(Color.BLACK);
 	    contentPane.setLayout(null);
 	    
-	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/prueba/Izarrak.png")));
+	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
         background.setBounds(0, 0, 740, 423);
 
 	    galdu.setHorizontalAlignment(JLabel.CENTER);
@@ -82,6 +65,11 @@ public class GalduPantaila extends JFrame {
 	    timer.start();
 	}
 	
-	
+	public static GalduPantaila getGalduPantaila() {
+		if(nGalduPantaila==null) {
+			nGalduPantaila = new GalduPantaila();
+		}
+		return nGalduPantaila;
+	}
 
 }

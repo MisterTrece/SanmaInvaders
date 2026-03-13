@@ -71,4 +71,12 @@ public class GameController{
 	 timerEND.setRepeats(false);
 	 timerEND.start();	
     }
+    
+    public void partidaGaldu() {
+    	Timer timerEND = new Timer(1000, e -> {
+	        Matrizea.getMatrizea().galdu();
+	    });
+	 timerEND.setRepeats(false);
+	 timerEND.start();	
+    }
 }

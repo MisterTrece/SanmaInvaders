@@ -75,4 +75,10 @@ public class Matrizea extends JFrame{
 		IrabaziPantaila.getIrabaziPantaila().setVisible(true);
 		this.dispose();
     }
+    
+    public void galdu() {
+    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
+    	GalduPantaila.getGalduPantaila().setVisible(true);
+    	this.dispose();
+    }
 }

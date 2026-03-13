@@ -167,7 +167,51 @@ public class Espazio{
 			GameController.getGC().partidaIrabazi();
 		}
 	}
+	
 	public void mugituEtsaiak() {
-		
+		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		while(itr.hasNext()) {
+			OntziTxarra etsaia = itr.next();
+			int etsaiMug = (int)(Math.random()*3);
+			switch(etsaiMug) {
+				case 0:
+					mugituOntziEtsai(etsaia,0,1);	//beherantz
+					break;
+				case 1:
+					mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
+					break;
+				case 2:
+					mugituOntziEtsai(etsaia,1,0);	//eskuinerantz
+					break;
+			}
+		}
 	}
+	
+	public void mugituOntziEtsai(OntziTxarra pEtsai,int xMug,int yMug) {
+		int berriaX = pEtsai.x + xMug;
+		int berriaY = pEtsai.y + yMug;
+		
+		int maxX = matrizea[0].length - 1;
+		//int maxY = matrizea.length - 1;
+	
+		
+		if (berriaX < 0 || berriaX > maxX) {
+			
+		}else if(berriaY!=matrizea.length) {
+			// etsaia kendu bere posizio zaharretik
+			matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
+			// posizio berria
+			matrizea[berriaY][berriaX].aldatuMota(2);			
+			pEtsai.x=berriaX;
+			pEtsai.y=berriaY;
+			
+		}else {
+			GameController.getGC().partidaGaldu();
+		}
+	}
+	
+		
+
+		
+
 }

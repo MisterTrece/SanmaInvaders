@@ -35,21 +35,27 @@ public class GelaxkaV extends JLabel implements Observer{
             
             switch (egoera) {
                 case 0:
-                    this.setBackground(Color.BLACK); // Hutsik (Vacío)
+                    this.setOpaque(false);
+                	this.setBackground(Color.BLACK); // Hutsik (Vacío)
                     break;
                 case 1:
+                	this.setOpaque(true);
                     this.setBackground(Color.GREEN); // Gurea (Nave aliada)
                     break;
                 case 2:
+                	this.setOpaque(true);
                     this.setBackground(Color.RED);   // Etsaia (Enemigo)
                     break;
                 case 3:
+                	this.setOpaque(true);
                     this.setBackground(Color.WHITE); // Tiroa (Disparo)
                     break;
                 case 4:
+                	this.setOpaque(true);
                 	this.setBackground(Color.ORANGE);// Eztanda (Explosión)
                 	 Timer timer = new Timer(250, e -> {
-                	        this.setBackground(Color.BLACK);
+                		 	this.setOpaque(false);
+                		 	this.setBackground(Color.BLACK);
                 	    });
                 	 timer.setRepeats(false);
                 	 timer.start();
