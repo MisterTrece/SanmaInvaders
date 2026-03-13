@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 public class GelaxkaV extends JLabel implements Observer{
     
@@ -45,8 +46,17 @@ public class GelaxkaV extends JLabel implements Observer{
                 case 3:
                     this.setBackground(Color.WHITE); // Tiroa (Disparo)
                     break;
+                case 4:
+                	this.setBackground(Color.ORANGE);// Eztanda (Explosión)
+                	 Timer timer = new Timer(250, e -> {
+                	        this.setBackground(Color.BLACK);
+                	    });
+                	 timer.setRepeats(false);
+                	 timer.start();
+                	break;
             }
         }	
+        Matrizea.getMatrizea().errefreskatu();
 	}   
 }  
             

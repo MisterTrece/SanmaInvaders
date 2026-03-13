@@ -4,14 +4,10 @@ import GUI_Package.*;
 public class main {
 
 	public static void main(String[] args) {
-		HasieraPantaila hasiera = new HasieraPantaila();
+		HasieraPantaila hasiera = HasieraPantaila.getHasieraPantaila();
 		GameController gC = GameController.getGC();
-		gC.addObserver(hasiera);
-	/*	
-		gC.empezarPartida("Green");
-		Matrizea joko = new Matrizea();
-		joko.setVisible(true);
-	*/
+		
+	
 	}
 }
 

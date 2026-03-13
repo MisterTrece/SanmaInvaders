@@ -1,17 +1,15 @@
 package model;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.Timer;
 
 import GUI_Package.HasieraPantaila;
 import GUI_Package.Matrizea;
 
-public class GameController extends Observable{
+public class GameController{
 
     private static GameController nGC = null;
     private Timer tiroTimer;
+    private Timer etsaiTimer;
 
     private GameController() {
     
@@ -24,39 +22,53 @@ public class GameController extends Observable{
     	return nGC;
     }
 
-    public void empezarPartida(String tipoNave) {
+    public void partidaHasi(String tipoNave) {
     	//jokoa hasieratu
-    	Espazio jokoa = Espazio.getEspazioEMA();
-    	//hasiera ixteko notifikazioa
-    	setChanged();
-    	notifyObservers();
+    	Espazio.getEspazioEMA();
+    	
+    	//gelaxkak lotu
+    	modeloVistaLotu();
+
     	//tiroen Timer-a hasieratu
     	if (tiroTimer == null) {
             tiroTimer = new Timer(50, e -> Espazio.getEspazioEMA().mugituTiroak());
         }
         tiroTimer.start();
-/*		
-        hasiera.setVisible(false);
-
-        // Crear la ventana del juego si no existe
-        if (joko == null) {
-            joko = new Matrizea();
+        
+        if (etsaiTimer == null) {
+        	etsaiTimer = new Timer(200, e -> Espazio.getEspazioEMA().mugituEtsaiak());
         }
-        joko.setLocationRelativeTo(null);
-        joko.setVisible(true);
+        etsaiTimer.start();
         
-        */
-		
-        
-        
+      //hasiera ixteko notifikazioa
+    	HasieraPantaila.getHasieraPantaila().itxi(); 
+    	
+    	//Espazio.getEspazioEMA()
+    }
+    
+    private void modeloVistaLotu() {
+    	GelaxkaM[][] gelaxkakM = Espazio.getEspazioEMA().getGelaxkakM();
+    	for (int i = 0; i < gelaxkakM.length; i++) {
+            for (int j = 0; j < gelaxkakM[i].length; j++) {
+            	gelaxkakM[i][j].addObserver(Matrizea.getMatrizea().getGelaxkakV()[i][j]);
+            	gelaxkakM[i][j].aldatuMota(gelaxkakM[i][j].getMota());
+            }
+    	}
     }
 
-    public void moverNave(int dx, int dy) {
-    	Espazio.getEspazioEMA().moverNave(dx, dy);
+    public void gCOntziaMugitu(int dx, int dy) {
+    	Espazio.getEspazioEMA().mugituOntzia(dx, dy);
     }
 
     public void tiro() {
     	Espazio.getEspazioEMA().tiro();
     }
-
+    
+    public void partidaIrabazi() {
+    	Timer timerEND = new Timer(2500, e -> {
+	        Matrizea.getMatrizea().irabazi();
+	    });
+	 timerEND.setRepeats(false);
+	 timerEND.start();	
+    }
 }

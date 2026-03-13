@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,16 +13,18 @@ import javax.swing.Timer;
 
 import model.GameController;
 
-public class HasieraPantaila extends JFrame implements Observer {
+public class HasieraPantaila extends JFrame{
 
     private static final long serialVersionUID = 1L;
 
     private JPanel contentPane;
 
-    private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko.");
-    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko.");
-
-    public HasieraPantaila() {
+    private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
+    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko");
+    
+    private static HasieraPantaila nHasieraPantaila = null;
+    
+    private HasieraPantaila() {
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);
@@ -51,11 +51,10 @@ public class HasieraPantaila extends JFrame implements Observer {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                int code = e.getKeyCode();
-                if (code == KeyEvent.VK_P) {
-                	String tipo = "Green"; 
-                	
-                    GameController.getGC().empezarPartida(tipo);
+                String tipo = "Green";
+            	int code = e.getKeyCode();
+                if (code == KeyEvent.VK_P) { 
+                	GameController.getGC().partidaHasi(tipo);
                 }
             }
         });
@@ -70,9 +69,17 @@ public class HasieraPantaila extends JFrame implements Observer {
         setVisible(true);
     }
     
-
-	@Override
-	public void update(Observable o, Object arg) {
+    public static HasieraPantaila getHasieraPantaila() {
+    	if(nHasieraPantaila==null) {
+    		nHasieraPantaila=new HasieraPantaila();
+    	}
+    	return nHasieraPantaila;
+    }
+    
+	public void itxi() {
 		this.dispose();
+		Matrizea.getMatrizea() ;
+		Matrizea.getMatrizea().setLocationRelativeTo(null);
+		Matrizea.getMatrizea().setVisible(true);
 	}
 }

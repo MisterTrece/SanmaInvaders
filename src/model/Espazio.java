@@ -1,11 +1,10 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Iterator;
 
-public class Espazio extends Observable{
-	private GelaxkaM[][] matrizea = new GelaxkaM[15][26];
+public class Espazio{
+	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private OntziOna gurea;
 	private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
@@ -22,9 +21,9 @@ public class Espazio extends Observable{
 		}
 		gurea= new OntziOna();
 		GelaxkaM gureG = new GelaxkaM(1);
-		matrizea[13][13]= gureG;
-		EspaziontziaX = 13;
-		EspaziontziaY = 13;
+		matrizea[55][50]= gureG;
+		EspaziontziaX = 50;
+		EspaziontziaY = 55;
 	
 		tiroak = new ArrayList<int[]>();
 		etsaiak= new ArrayList<OntziTxarra>();
@@ -34,22 +33,22 @@ public class Espazio extends Observable{
 			etsaiak.add(e);
 		}
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
-		boolean[] etsaiBool = new boolean[26];
+		boolean[] etsaiBool = new boolean[100];
 		while(itr.hasNext()) {
 			OntziTxarra o = itr.next();
 			boolean jarrita = false;
 			while(!jarrita) {
-				if(!etsaiBool[o.getX()]) {
+				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1]) {
 					sartu(o.getX(), o.getY(), 2);
 					etsaiBool[o.getX()]=true;
+					etsaiBool[o.getX()+1]=true;
+					etsaiBool[o.getX()-1]=true;
 					jarrita = true;
 				}else {
 					o.birkalkulatuX();
 				}
 			}
 		}
-		setChanged();
-		notifyObservers();
 	}
 	
 	public static Espazio getEspazioEMA() {
@@ -63,7 +62,7 @@ public class Espazio extends Observable{
 		matrizea[y][x]=g;
 	}
 	
-	public GelaxkaM[][] getMatriz(){
+	public GelaxkaM[][] getGelaxkakM(){
 		return this.matrizea;
 	}
 	
@@ -71,7 +70,7 @@ public class Espazio extends Observable{
 		return this.etsaiKop;
 	}
 
-	public void moverNave(int dx, int dy) {
+	public void mugituOntzia(int dx, int dy) {
 		int berriaX = EspaziontziaX + dx;
 		int berriaY = EspaziontziaY + dy;
 
@@ -84,16 +83,13 @@ public class Espazio extends Observable{
 		}
 
 		// espaziontzia kendu bere posizio zaharretik
-		matrizea[EspaziontziaY][EspaziontziaX] = new GelaxkaM(0);
+		matrizea[EspaziontziaY][EspaziontziaX].aldatuMota(0);
 
 		// posizio berria
-		matrizea[berriaY][berriaX] = new GelaxkaM(1);
+		matrizea[berriaY][berriaX].aldatuMota(1);
 
 		EspaziontziaX = berriaX;
 		EspaziontziaY = berriaY;
-
-		setChanged();
-		notifyObservers();
 	}
 
 	public void tiro() {
@@ -106,16 +102,18 @@ public class Espazio extends Observable{
 		}
 
 		// hutsik badago tiroa
-		String motaHelburu = matrizea[tiroY][tiroX].getMotaIrudi();
-		if (!"-".equals(motaHelburu)) {
+		int motaHelburu = matrizea[tiroY][tiroX].getMota();
+		if (motaHelburu==3) {
+			return;
+		}
+		if(motaHelburu==2) {
+			etsaiaHil(tiroX,tiroY);
+			matrizea[tiroY][tiroX].aldatuMota(4);
 			return;
 		}
 
-		matrizea[tiroY][tiroX] = new GelaxkaM(3); 
+		matrizea[tiroY][tiroX].aldatuMota(3);
 		tiroak.add(new int[] { tiroX, tiroY });
-
-		setChanged();
-		notifyObservers();
 	}
 
 	public void mugituTiroak() {
@@ -131,7 +129,7 @@ public class Espazio extends Observable{
 			int y = pos[1];
 
 			if (y >= 0 && y <= maxY) {
-				matrizea[y][x] = new GelaxkaM(0);
+				matrizea[y][x].aldatuMota(0);
 			}
 
 			int berriaY = y - 1;
@@ -141,14 +139,35 @@ public class Espazio extends Observable{
 				continue;
 			}
 
-			matrizea[berriaY][x] = new GelaxkaM(3);
+			if(matrizea[berriaY][x].getMota()==2) {
+				etsaiaHil(x,berriaY);
+				matrizea[berriaY][x].aldatuMota(4);
+				tiroak.remove(i);
+				continue;
+			}
+			matrizea[berriaY][x].aldatuMota(3);
 			pos[1] = berriaY;
 		}
-
-		setChanged();
-		notifyObservers();
 	}
 	
-
-	
+	public void etsaiaHil(int x, int y) {
+		matrizea[y][x].aldatuMota(0);
+		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		boolean aurkituta = false;
+		while(!aurkituta && itr.hasNext()) {
+			OntziTxarra etsai = itr.next();
+			if (etsai.x==x && etsai.y==y) {
+				etsaiak.remove(etsai);
+				aurkituta=true;
+				etsaiKop--;
+			}
+		}
+		System.out.println("Etsaia hilda, etsai kopurua: "+etsaiKop);
+		if(etsaiKop==0) {
+			GameController.getGC().partidaIrabazi();
+		}
+	}
+	public void mugituEtsaiak() {
+		
+	}
 }
