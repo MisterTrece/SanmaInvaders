@@ -28,6 +28,7 @@ public class HasieraPantaila extends JFrame{
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1264, 784);
+        
 
         contentPane = new JPanel();
         contentPane.setLayout(null);
@@ -65,7 +66,9 @@ public class HasieraPantaila extends JFrame{
             lblSakatu.setVisible(!lblSakatu.isVisible());
         });
         blinkTimer.start();
+        
         setLocationRelativeTo(null);
+        setUndecorated(true);
         setVisible(true);
     }
     
@@ -78,7 +81,10 @@ public class HasieraPantaila extends JFrame{
     
 	public void itxi() {
 		Matrizea.getMatrizea().setLocationRelativeTo(null);
+		Matrizea.getMatrizea().setUndecorated(true);
 		Matrizea.getMatrizea().setVisible(true);
 		this.dispose();
+		
+		
 	}
 }

@@ -65,18 +65,10 @@ public class GameController{
     }
     
     public void partidaIrabazi() {
-    	Timer timerEND = new Timer(2500, e -> {
-	        Matrizea.getMatrizea().irabazi();
-	    });
-	 timerEND.setRepeats(false);
-	 timerEND.start();	
+    	Matrizea.getMatrizea().irabazi();
     }
     
     public void partidaGaldu() {
-    	Timer timerEND = new Timer(1000, e -> {
-	        Matrizea.getMatrizea().galdu();
-	    });
-	 timerEND.setRepeats(false);
-	 timerEND.start();	
+    	Matrizea.getMatrizea().galdu();
     }
 }

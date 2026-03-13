@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.Timer;
+
 public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private OntziOna gurea;
@@ -66,9 +68,6 @@ public class Espazio{
 		return this.matrizea;
 	}
 	
-	public int getEtsaiKop() {
-		return this.etsaiKop;
-	}
 
 	public void mugituOntzia(int dx, int dy) {
 		int berriaX = EspaziontziaX + dx;
@@ -86,10 +85,16 @@ public class Espazio{
 		matrizea[EspaziontziaY][EspaziontziaX].aldatuMota(0);
 
 		// posizio berria
-		matrizea[berriaY][berriaX].aldatuMota(1);
+		if(matrizea[berriaY][berriaX].getMota()!=2) {
+			matrizea[berriaY][berriaX].aldatuMota(1);
 
-		EspaziontziaX = berriaX;
-		EspaziontziaY = berriaY;
+			EspaziontziaX = berriaX;
+			EspaziontziaY = berriaY;
+		}else {
+			hilGurea();
+			GameController.getGC().partidaGaldu();
+		}
+		
 	}
 
 	public void tiro() {
@@ -150,7 +155,7 @@ public class Espazio{
 		}
 	}
 	
-	public void etsaiaHil(int x, int y) {
+	private void etsaiaHil(int x, int y) {
 		matrizea[y][x].aldatuMota(0);
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
@@ -162,56 +167,75 @@ public class Espazio{
 				etsaiKop--;
 			}
 		}
-		System.out.println("Etsaia hilda, etsai kopurua: "+etsaiKop);
 		if(etsaiKop==0) {
-			GameController.getGC().partidaIrabazi();
+			Timer timerEND = new Timer(2500, e -> {
+				GameController.getGC().partidaIrabazi();
+		    });
+		 timerEND.setRepeats(false);
+		 timerEND.start();
 		}
 	}
 	
 	public void mugituEtsaiak() {
+		boolean kanpo=false;
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
 		while(itr.hasNext()) {
 			OntziTxarra etsaia = itr.next();
 			int etsaiMug = (int)(Math.random()*3);
 			switch(etsaiMug) {
 				case 0:
-					mugituOntziEtsai(etsaia,0,1);	//beherantz
+					kanpo=mugituOntziEtsai(etsaia,0,1);		//beherantz
 					break;
 				case 1:
-					mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
+					kanpo=mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
 					break;
 				case 2:
-					mugituOntziEtsai(etsaia,1,0);	//eskuinerantz
+					kanpo=mugituOntziEtsai(etsaia,1,0);		//eskuinerantz
 					break;
+			}
+			if(kanpo) {
+				itr.remove();
 			}
 		}
 	}
 	
-	public void mugituOntziEtsai(OntziTxarra pEtsai,int xMug,int yMug) {
+	private boolean mugituOntziEtsai(OntziTxarra pEtsai,int xMug,int yMug) {
 		int berriaX = pEtsai.x + xMug;
 		int berriaY = pEtsai.y + yMug;
 		
 		int maxX = matrizea[0].length - 1;
 		//int maxY = matrizea.length - 1;
-	
+		
+		boolean kanpo = false;
 		
 		if (berriaX < 0 || berriaX > maxX) {
 			
-		}else if(berriaY!=matrizea.length) {
+		}else if(berriaY<=matrizea.length) {
 			// etsaia kendu bere posizio zaharretik
 			matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
 			// posizio berria
-			matrizea[berriaY][berriaX].aldatuMota(2);			
-			pEtsai.x=berriaX;
-			pEtsai.y=berriaY;
 			
-		}else {
-			GameController.getGC().partidaGaldu();
+			if(berriaY!=matrizea.length) {
+				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {
+					hilGurea();
+					GameController.getGC().partidaGaldu();
+				}
+				matrizea[berriaY][berriaX].aldatuMota(2);			
+				pEtsai.x=berriaX;
+				pEtsai.y=berriaY;
+			}else {
+				kanpo = true;
+				Timer timerEND = new Timer(1000, e -> {
+					GameController.getGC().partidaGaldu();
+			    });
+			timerEND.setRepeats(false);
+			timerEND.start();	
+			}
 		}
+		return kanpo;
 	}
 	
-		
-
-		
-
+	private void hilGurea() {
+		gurea = null;
+	}
 }

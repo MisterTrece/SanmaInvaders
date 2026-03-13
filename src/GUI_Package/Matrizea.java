@@ -6,7 +6,9 @@ import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.GameController;
@@ -23,13 +25,14 @@ public class Matrizea extends JFrame{
         
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1000, 600);
-
+        setBounds(100, 100, 1200, 720);
+        
         contentPane = new JPanel();
         setContentPane(contentPane);
 
         contentPane.setLayout(new GridLayout(gelaxkak.length, gelaxkak[0].length));
         contentPane.setBackground(Color.BLACK);
+        
 
         for (int i = 0; i < gelaxkak.length; i++) {
             for (int j = 0; j < gelaxkak[i].length; j++) {
@@ -71,14 +74,16 @@ public class Matrizea extends JFrame{
     }
     
     public void irabazi() {
+    	setEnabled(false);
 		IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
+		//IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
 		IrabaziPantaila.getIrabaziPantaila().setVisible(true);
-		this.dispose();
     }
     
     public void galdu() {
+    	setEnabled(false);
     	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
+    	//GalduPantaila.getGalduPantaila().setUndecorated(true);
     	GalduPantaila.getGalduPantaila().setVisible(true);
-    	this.dispose();
     }
 }
