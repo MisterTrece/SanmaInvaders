@@ -211,19 +211,24 @@ public class Espazio{
 		if (berriaX < 0 || berriaX > maxX) {
 			
 		}else if(berriaY<=matrizea.length) {
-			// etsaia kendu bere posizio zaharretik
-			matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
-			// posizio berria
+		
 			
-			if(berriaY!=matrizea.length) {
-				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {
+			
+			if(berriaY!=matrizea.length) { 								//matrizean dago
+				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {	//jokalariarekin topa
 					hilGurea();
 					GameController.getGC().partidaGaldu();
 				}
+				if(matrizea[berriaY][berriaX].getMota()==2) {			//beste etsaiarekin topa - ez gainjarri
+					return false;
+				}
+				matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
 				matrizea[berriaY][berriaX].aldatuMota(2);			
 				pEtsai.x=berriaX;
 				pEtsai.y=berriaY;
-			}else {
+				
+			}else { 													//matrizetik kanpo
+				matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
 				kanpo = true;
 				Timer timerEND = new Timer(1000, e -> {
 					GameController.getGC().partidaGaldu();
