@@ -77,9 +77,8 @@ public class HasieraPantaila extends JFrame{
     }
     
 	public void itxi() {
-		this.dispose();
-		Matrizea.getMatrizea() ;
 		Matrizea.getMatrizea().setLocationRelativeTo(null);
 		Matrizea.getMatrizea().setVisible(true);
+		this.dispose();
 	}
 }

@@ -20,26 +20,9 @@ public class IrabaziPantaila extends JFrame {
 	JLabel koroia = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Koroia.png")));
 	JLabel irabazi = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/IrabaziDuzu.png")));
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) { //Ea ondo ikusten den jakiteko
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IrabaziPantaila frame = new IrabaziPantaila();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public IrabaziPantaila() {
+	private static IrabaziPantaila nIrabaziPantaila = null;
+	
+	private IrabaziPantaila() {
 
 	    setForeground(new Color(0, 0, 0));
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +33,7 @@ public class IrabaziPantaila extends JFrame {
 	    contentPane.setBackground(Color.BLACK);
 	    contentPane.setLayout(null);
 	    
-	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/prueba/Izarrak.png")));
+	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
         background.setBounds(0, 0, 740, 423);
 	    
 	    koroia.setHorizontalAlignment(JLabel.CENTER);
@@ -82,6 +65,11 @@ public class IrabaziPantaila extends JFrame {
 	    timer.start();
 	}
 	
-	
+	public static IrabaziPantaila getIrabaziPantaila() {
+		if(nIrabaziPantaila==null) {
+			nIrabaziPantaila=new IrabaziPantaila();
+		}
+		return nIrabaziPantaila;
+	}
 
 }

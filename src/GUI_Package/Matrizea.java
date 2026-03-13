@@ -71,8 +71,8 @@ public class Matrizea extends JFrame{
     }
     
     public void irabazi() {
-    	//WIP
-    	dispose();
-    	System.out.println("IRABAZI DUZU");
+		IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
+		IrabaziPantaila.getIrabaziPantaila().setVisible(true);
+		this.dispose();
     }
 }
