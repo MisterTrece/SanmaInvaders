@@ -12,13 +12,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
-public class GalduPantaila extends JFrame {
+public class IrabaziPantaila extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	JLabel galdu = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/GameOver.png")));
-	JLabel garezurra = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Skull.png")));
+	JLabel koroia = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Koroia.png")));
+	JLabel irabazi = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/IrabaziDuzu.png")));
 	
 	/**
 	 * Launch the application.
@@ -27,7 +27,7 @@ public class GalduPantaila extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GalduPantaila frame = new GalduPantaila();
+					IrabaziPantaila frame = new IrabaziPantaila();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class GalduPantaila extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GalduPantaila() {
+	public IrabaziPantaila() {
 
 	    setForeground(new Color(0, 0, 0));
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,30 +52,30 @@ public class GalduPantaila extends JFrame {
 	    
 	    JLabel background = new JLabel(new ImageIcon(getClass().getResource("/prueba/Izarrak.png")));
         background.setBounds(0, 0, 740, 423);
-
-	    galdu.setHorizontalAlignment(JLabel.CENTER);
-	    galdu.setVerticalAlignment(JLabel.CENTER);
 	    
-	    garezurra.setHorizontalAlignment(JLabel.CENTER);
-	    garezurra.setVerticalAlignment(JLabel.CENTER);
+	    koroia.setHorizontalAlignment(JLabel.CENTER);
+	    koroia.setVerticalAlignment(JLabel.CENTER);
+	    
+	    irabazi.setHorizontalAlignment(JLabel.CENTER);
+	    irabazi.setVerticalAlignment(JLabel.CENTER);
 
-	    galdu.setBounds(87, 38, 246, 176);
-	    garezurra.setBounds(96, 11, 250, 220);
+	    koroia.setBounds(87, 38, 233, 195);
+	    irabazi.setBounds(20, 15, 376, 250);
 
-	    contentPane.add(galdu);
-	    contentPane.add(garezurra);
+	    contentPane.add(koroia);
+	    contentPane.add(irabazi);
 	    contentPane.add(background);
 
 	    setContentPane(contentPane);
 	    
-	    galdu.setVisible(true);
-	    garezurra.setVisible(false);
+	    koroia.setVisible(true);
+	    irabazi.setVisible(false);
 	    
 	    
 	    Timer timer = new Timer(750, new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	galdu.setVisible(!galdu.isVisible());
-	        	garezurra.setVisible(!garezurra.isVisible());
+	        	koroia.setVisible(!koroia.isVisible());
+	        	irabazi.setVisible(!irabazi.isVisible());
 	        }
 	    });
 	    
