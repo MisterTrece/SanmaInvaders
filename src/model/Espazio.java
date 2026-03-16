@@ -197,7 +197,7 @@ public class Espazio{
 		while(!aurkituta && itr.hasNext()) {
 			OntziTxarra etsai = itr.next();
 			if (etsai.x==x && etsai.y==y) {
-				etsaiak.remove(etsai);
+				itr.remove();
 				aurkituta=true;
 				etsaiKop--;
 			}
@@ -239,7 +239,6 @@ public class Espazio{
 		int berriaY = pEtsai.y + yMug;
 		
 		int maxX = matrizea[0].length - 1;
-		//int maxY = matrizea.length - 1;
 		
 		boolean kanpo = false;
 		
@@ -253,6 +252,7 @@ public class Espazio{
 				if(matrizea[berriaY][berriaX].getMota()==3) {
 					etsaiaHil(berriaX,berriaY);
 					matrizea[berriaY][berriaX].aldatuMota(4);
+					return false;
 				}
 				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {	//jokalariarekin topa
 					hilGurea();
