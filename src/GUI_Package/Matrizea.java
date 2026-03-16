@@ -5,13 +5,17 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import model.GameController;
+import model.Espazio;
+import model.GoiMailakoKontrola;
 
-public class Matrizea extends JFrame{
+public class Matrizea extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
 
@@ -44,15 +48,17 @@ public class Matrizea extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT -> GameController.getGC().gCOntziaMugitu(-1, 0);
-                    case KeyEvent.VK_RIGHT -> GameController.getGC().gCOntziaMugitu(1, 0);
-                    case KeyEvent.VK_UP -> GameController.getGC().gCOntziaMugitu(0, -1);
-                    case KeyEvent.VK_DOWN -> GameController.getGC().gCOntziaMugitu(0, 1);
-                    case KeyEvent.VK_SPACE -> GameController.getGC().tiro();
+                    case KeyEvent.VK_LEFT -> Espazio.getEspazioEMA().mugituOntzia(-1, 0);
+                    case KeyEvent.VK_RIGHT -> Espazio.getEspazioEMA().mugituOntzia(1, 0);
+                    case KeyEvent.VK_UP -> Espazio.getEspazioEMA().mugituOntzia(0, -1);
+                    case KeyEvent.VK_DOWN -> Espazio.getEspazioEMA().mugituOntzia(0, 1);
+                    case KeyEvent.VK_SPACE -> Espazio.getEspazioEMA().tiro();
                 }
             }
         });
         setFocusable(true);
+        
+        GoiMailakoKontrola.getKontrola().addObserver(this);
     }
     
     public static Matrizea getMatrizea() {
@@ -61,7 +67,16 @@ public class Matrizea extends JFrame{
     	}
     	return nMatrizea;
     }
-
+    
+    public void lotu() {
+    	for (int i = 0; i < gelaxkak.length; i++) {
+            for (int j = 0; j < gelaxkak[i].length; j++) {
+            	Espazio.getEspazioEMA().getGelaxka(j, i).addObserver(gelaxkak[i][j]);
+            	Espazio.getEspazioEMA().getGelaxka(j, i).aldatuMota(Espazio.getEspazioEMA().getGelaxka(j, i).getMota());
+            }
+    	}
+    }
+    
     public GelaxkaV[][] getGelaxkakV() {
         return gelaxkak;
     }
@@ -69,19 +84,20 @@ public class Matrizea extends JFrame{
     public void errefreskatu() {
     	contentPane.revalidate();
         contentPane.repaint();
-    }
-    
-    public void irabazi() {
-    	setEnabled(false);
-		IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
-		//IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
-		IrabaziPantaila.getIrabaziPantaila().setVisible(true);
-    }
-    
-    public void galdu() {
-    	setEnabled(false);
-    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
-    	//GalduPantaila.getGalduPantaila().setUndecorated(true);
-    	GalduPantaila.getGalduPantaila().setVisible(true);
-    }
+    }  
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg.equals("LOSE")) {
+			setEnabled(false);
+	    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
+	    	GalduPantaila.getGalduPantaila().setVisible(true);
+		}
+		
+		if(arg.equals("WIN")) {
+			setEnabled(false);
+	    	IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
+	    	IrabaziPantaila.getIrabaziPantaila().setVisible(true);
+		}
+	}
 }

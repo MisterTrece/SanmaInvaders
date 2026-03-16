@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import model.GameController;
+import model.GoiMailakoKontrola;
 
-public class HasieraPantaila extends JFrame{
+public class HasieraPantaila extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +57,7 @@ public class HasieraPantaila extends JFrame{
                 String tipo = "Green";
             	int code = e.getKeyCode();
                 if (code == KeyEvent.VK_P) { 
-                	GameController.getGC().partidaHasi(tipo);
+                	GoiMailakoKontrola.getKontrola().partidaHasi();
                 }
             }
         });
@@ -70,6 +72,8 @@ public class HasieraPantaila extends JFrame{
         setLocationRelativeTo(null);
         setUndecorated(true);
         setVisible(true);
+        
+        GoiMailakoKontrola.getKontrola().addObserver(this);
     }
     
     public static HasieraPantaila getHasieraPantaila() {
@@ -79,12 +83,15 @@ public class HasieraPantaila extends JFrame{
     	return nHasieraPantaila;
     }
     
-	public void itxi() {
-		Matrizea.getMatrizea().setLocationRelativeTo(null);
-		Matrizea.getMatrizea().setUndecorated(true);
-		Matrizea.getMatrizea().setVisible(true);
-		this.dispose();
-		
-		
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg.equals("INIT")){
+			Matrizea.getMatrizea().lotu();
+			Matrizea.getMatrizea().setLocationRelativeTo(null);
+			Matrizea.getMatrizea().setUndecorated(true);
+			Matrizea.getMatrizea().setVisible(true);
+			this.dispose();
+		}
 	}
 }

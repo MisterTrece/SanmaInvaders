@@ -5,8 +5,5 @@ public class main {
 
 	public static void main(String[] args) {
 		HasieraPantaila.getHasieraPantaila();
-		GameController.getGC();
-		
-	
 	}
 }
