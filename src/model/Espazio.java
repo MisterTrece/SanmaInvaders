@@ -14,8 +14,8 @@ public class Espazio{
 	private int EspaziontziaX;
 	private int EspaziontziaY;
 	private ArrayList<int[]> tiroak;
-	private Timer tiroTimer;
-	private Timer etsaiTimer;
+	private Timer jokoTimer;
+	private int gameTick = 0;
 	
 	private long azkenTiroa = 0;
 	
@@ -66,15 +66,17 @@ public class Espazio{
 
 	public void hasi() {
 		Timer timerEND = new Timer(500, e -> {
-			if (tiroTimer == null) {
-	            tiroTimer = new Timer(50, ev -> Espazio.getEspazioEMA().mugituTiroak());
+	        if (jokoTimer == null) {
+	        	jokoTimer = new Timer(50, ev -> {
+	        		Espazio.getEspazioEMA().mugituTiroak();
+	        		gameTick++;
+	        		if(gameTick==4) {
+	        			gameTick=0;
+	        			Espazio.getEspazioEMA().mugituEtsaiak();
+	        		}
+	        	});
 	        }
-	        tiroTimer.start();
-	        
-	        if (etsaiTimer == null) {
-	        	etsaiTimer = new Timer(200, ev -> Espazio.getEspazioEMA().mugituEtsaiak());
-	        }
-	        etsaiTimer.start();
+	        jokoTimer.start();
 	    });
 	 timerEND.setRepeats(false);
 	 timerEND.start();
@@ -82,18 +84,13 @@ public class Espazio{
 	}
 	
 	public void bukatu() {
-		tiroTimer.stop();
-		etsaiTimer.stop();
+		jokoTimer.stop();
 		nEspazio = null;
 	}
 	
 	public void sartu(int x,int y,int mota) {
 		GelaxkaM g = new GelaxkaM(mota);
 		matrizea[y][x]=g;
-	}
-	
-	public GelaxkaM[][] getGelaxkakM(){
-		return this.matrizea;
 	}
 	
 	public GelaxkaM getGelaxka(int x, int y) {
@@ -253,6 +250,10 @@ public class Espazio{
 			
 			
 			if(berriaY!=matrizea.length) { 								//matrizean dago
+				if(matrizea[berriaY][berriaX].getMota()==3) {
+					etsaiaHil(berriaX,berriaY);
+					matrizea[berriaY][berriaX].aldatuMota(4);
+				}
 				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {	//jokalariarekin topa
 					hilGurea();
 					GoiMailakoKontrola.getKontrola().partidaGaldu();

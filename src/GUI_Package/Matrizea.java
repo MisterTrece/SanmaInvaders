@@ -76,11 +76,7 @@ public class Matrizea extends JFrame implements Observer{
             }
     	}
     }
-    
-    public GelaxkaV[][] getGelaxkakV() {
-        return gelaxkak;
-    }
-    
+
     public void errefreskatu() {
     	contentPane.revalidate();
         contentPane.repaint();
