@@ -11,9 +11,7 @@ public class Espazio{
 	private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
-	private int EspaziontziaX;
-	private int EspaziontziaY;
-	private ArrayList<int[]> tiroak;
+	private ArrayList<Tiro> tiroak;
 	private Timer jokoTimer;
 	private int gameTick = 0;
 	
@@ -22,16 +20,16 @@ public class Espazio{
 	private Espazio() {
 		for(int i=0;i<matrizea.length;i++) {
 			for(int j=0;j<matrizea[i].length;j++) {
-				matrizea[i][j]= new GelaxkaM(0);
+				matrizea[i][j]= new GelaxkaM(new Hutsik());
 			}
 		}
 		gurea= new OntziOna();
-		GelaxkaM gureG = new GelaxkaM(1);
+		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
-		EspaziontziaX = 50;
-		EspaziontziaY = 55;
+		gurea.x = 50;
+		gurea.y = 55;
 	
-		tiroak = new ArrayList<int[]>();
+		tiroak = new ArrayList<Tiro>();
 		etsaiak= new ArrayList<OntziTxarra>();
 		etsaiKop = (int)(Math.random()*5)+4;
 		for (int i=0;i<etsaiKop;i++) {
@@ -45,7 +43,7 @@ public class Espazio{
 			boolean jarrita = false;
 			while(!jarrita) {
 				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1]) {
-					sartu(o.getX(), o.getY(), 2);
+					sartu(o.getX(), o.getY(), new Etsaia());
 					etsaiBool[o.getX()]=true;
 					etsaiBool[o.getX()+1]=true;
 					etsaiBool[o.getX()-1]=true;
@@ -88,7 +86,7 @@ public class Espazio{
 		nEspazio = null;
 	}
 	
-	public void sartu(int x,int y,int mota) {
+	public void sartu(int x,int y,Egoera mota) {
 		GelaxkaM g = new GelaxkaM(mota);
 		matrizea[y][x]=g;
 	}
@@ -99,8 +97,8 @@ public class Espazio{
 	
 
 	public void mugituOntzia(int dx, int dy) {
-		int berriaX = EspaziontziaX + dx;
-		int berriaY = EspaziontziaY + dy;
+		int berriaX = gurea.x + dx;
+		int berriaY = gurea.y + dy;
 
 		int maxY = matrizea.length - 1;
 		int maxX = matrizea[0].length - 1;
@@ -111,16 +109,15 @@ public class Espazio{
 		}
 
 		// espaziontzia kendu bere posizio zaharretik
-		matrizea[EspaziontziaY][EspaziontziaX].aldatuMota(0);
+		matrizea[gurea.y][gurea.x].aldatuMota(new Hutsik());
 
 		// posizio berria
 		if(matrizea[berriaY][berriaX].getMota()!=2) {
-			matrizea[berriaY][berriaX].aldatuMota(1);
+			matrizea[berriaY][berriaX].aldatuMota(new Gurea());
 
-			EspaziontziaX = berriaX;
-			EspaziontziaY = berriaY;
+			gurea.x = berriaX;
+			gurea.y = berriaY;
 		}else {
-			hilGurea();
 			GoiMailakoKontrola.getKontrola().partidaGaldu();
 		}
 		
@@ -136,8 +133,8 @@ public class Espazio{
 
 		azkenTiroa = orain;
 		
-		int tiroX = EspaziontziaX;
-		int tiroY = EspaziontziaY - 2;
+		int tiroX = gurea.x;
+		int tiroY = gurea.y - 2;
 
 		if (tiroY < 0 || tiroY >= matrizea.length) {
 			return;
@@ -148,12 +145,12 @@ public class Espazio{
 		}
 		if(matrizea[tiroY][tiroX].getMota()==2) {
 			etsaiaHil(tiroX,tiroY);
-			matrizea[tiroY][tiroX].aldatuMota(4);
+			matrizea[tiroY][tiroX].aldatuMota(new Eztanda());
 			return;
 		}
 
-		matrizea[tiroY][tiroX].aldatuMota(3);
-		tiroak.add(new int[] { tiroX, tiroY });
+		matrizea[tiroY][tiroX].aldatuMota(new TiroMota());
+		tiroak.add(new Tiro(tiroX,tiroY));
 	}
 
 	public void mugituTiroak() {
@@ -162,36 +159,37 @@ public class Espazio{
 		}
 
 		int maxY = matrizea.length - 1;
-
-		for (int i = tiroak.size() - 1; i >= 0; i--) {
-			int[] pos = tiroak.get(i);
-			int x = pos[0];
-			int y = pos[1];
-
+		
+		Iterator<Tiro> itr = tiroak.iterator();
+		while (itr.hasNext()) {
+			Tiro tiro = itr.next();
+			int x = tiro.x;
+			int y = tiro.y;
 			if (y >= 0 && y <= maxY) {
-				matrizea[y][x].aldatuMota(0);
+				matrizea[y][x].aldatuMota(new Hutsik());
 			}
 
 			int berriaY = y - 1;
 
 			if (berriaY < 0) {
-				tiroak.remove(i);
+				itr.remove();
 				continue;
 			}
 
 			if(matrizea[berriaY][x].getMota()==2) {
 				etsaiaHil(x,berriaY);
-				matrizea[berriaY][x].aldatuMota(4);
-				tiroak.remove(i);
+				matrizea[berriaY][x].aldatuMota(new Eztanda());
+				itr.remove();
 				continue;
 			}
-			matrizea[berriaY][x].aldatuMota(3);
-			pos[1] = berriaY;
+			matrizea[berriaY][x].aldatuMota(new TiroMota());
+			tiro.y=berriaY;
 		}
+		
 	}
 	
 	private void etsaiaHil(int x, int y) {
-		matrizea[y][x].aldatuMota(0);
+		matrizea[y][x].aldatuMota(new Hutsik());
 		Iterator<OntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
@@ -237,6 +235,8 @@ public class Espazio{
 	private boolean mugituOntziEtsai(OntziTxarra pEtsai,int xMug,int yMug) {
 		int berriaX = pEtsai.x + xMug;
 		int berriaY = pEtsai.y + yMug;
+		int gureX = gurea.x;
+		int gureY = gurea.y;
 		
 		int maxX = matrizea[0].length - 1;
 		
@@ -251,23 +251,22 @@ public class Espazio{
 			if(berriaY!=matrizea.length) { 								//matrizean dago
 				if(matrizea[berriaY][berriaX].getMota()==3) {
 					etsaiaHil(berriaX,berriaY);
-					matrizea[berriaY][berriaX].aldatuMota(4);
+					matrizea[berriaY][berriaX].aldatuMota(new Eztanda());
 					return false;
 				}
-				if(berriaX==EspaziontziaX && berriaY==EspaziontziaY) {	//jokalariarekin topa
-					hilGurea();
+				if(berriaX==gurea.x && berriaY==gurea.y) {				//jokalariarekin topa
 					GoiMailakoKontrola.getKontrola().partidaGaldu();
 				}
 				if(matrizea[berriaY][berriaX].getMota()==2) {			//beste etsaiarekin topa - ez gainjarri
 					return false;
 				}
-				matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
-				matrizea[berriaY][berriaX].aldatuMota(2);			
+				matrizea[pEtsai.y][pEtsai.x].aldatuMota(new Hutsik());
+				matrizea[berriaY][berriaX].aldatuMota(new Etsaia());			
 				pEtsai.x=berriaX;
 				pEtsai.y=berriaY;
 				
 			}else { 													//matrizetik kanpo
-				matrizea[pEtsai.y][pEtsai.x].aldatuMota(0);
+				matrizea[pEtsai.y][pEtsai.x].aldatuMota(new Hutsik());
 				kanpo = true;
 				Timer timerEND = new Timer(1000, e -> {
 					GoiMailakoKontrola.getKontrola().partidaGaldu();
@@ -277,9 +276,5 @@ public class Espazio{
 			}
 		}
 		return kanpo;
-	}
-	
-	private void hilGurea() {
-		gurea = null;
 	}
 }

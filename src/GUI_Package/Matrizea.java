@@ -72,7 +72,7 @@ public class Matrizea extends JFrame implements Observer{
     	for (int i = 0; i < gelaxkak.length; i++) {
             for (int j = 0; j < gelaxkak[i].length; j++) {
             	Espazio.getEspazioEMA().getGelaxka(j, i).addObserver(gelaxkak[i][j]);
-            	Espazio.getEspazioEMA().getGelaxka(j, i).aldatuMota(Espazio.getEspazioEMA().getGelaxka(j, i).getMota());
+            	Espazio.getEspazioEMA().getGelaxka(j, i).aldatuMota(Espazio.getEspazioEMA().getGelaxka(j, i).getEgoera());
             }
     	}
     }

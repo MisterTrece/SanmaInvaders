@@ -1,6 +1,6 @@
 package model;
 
-public class OntziOna extends Ontzi {
+public class OntziOna extends Pixel {
 
 	public OntziOna() {
 		this.x=13;
