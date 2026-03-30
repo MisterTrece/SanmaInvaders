@@ -23,7 +23,7 @@ public class Espazio{
 				matrizea[i][j]= new GelaxkaM(new Hutsik());
 			}
 		}
-		gurea= new OntziOna();
+		gurea= Fabrika.getFabrika().createOntziOna(1);
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
 		gurea.x = 50;
