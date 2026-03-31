@@ -1,14 +1,14 @@
 package model;
 
-public class Fabrika {
-	private static Fabrika sortzailea;
+public class JokalariFabrika {
+	private static JokalariFabrika sortzailea;
 	
-	private Fabrika() {
+	private JokalariFabrika() {
 		
 	}
-	public static Fabrika getFabrika() {
+	public static JokalariFabrika getJokalariFabrika() {
 		if (sortzailea==null) {
-			sortzailea = new Fabrika();
+			sortzailea = new JokalariFabrika();
 		}
 		return sortzailea;
 	}
