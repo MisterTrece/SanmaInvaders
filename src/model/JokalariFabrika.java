@@ -1,29 +1,29 @@
 package model;
 
 public class JokalariFabrika {
-	private static JokalariFabrika sortzailea;
+	private static JokalariFabrika nJokalariFabrika = null;
 	
 	private JokalariFabrika() {
 		
 	}
 	public static JokalariFabrika getJokalariFabrika() {
-		if (sortzailea==null) {
-			sortzailea = new JokalariFabrika();
+		if (nJokalariFabrika==null) {
+			nJokalariFabrika = new JokalariFabrika();
 		}
-		return sortzailea;
+		return nJokalariFabrika;
 	}
 	
-	public OntziOna createOntziOna(int pMota) {
+	public OntziOna createOntziOna(int pMota, int pX, int pY) {
 		OntziOna nireOntzia;
 		switch (pMota) {
 			case 1:
-				nireOntzia = new OntziOnTxikia();
+				nireOntzia = new OntziOnBlue(pX,pY);
 			case 2:
-				nireOntzia = new OntziOnErtaina();
+				nireOntzia = new OntziOnGreen(pX,pY);
 			case 3:
-				nireOntzia = new OntziOnHandia();
+				nireOntzia = new OntziOnRed(pX,pY);
 			default:
-				nireOntzia = new OntziOnTxikia();
+				nireOntzia = new OntziOnBlue(pX,pY);
 		}
 		return nireOntzia;
 	}
