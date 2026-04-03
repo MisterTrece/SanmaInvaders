@@ -42,7 +42,7 @@ public class Espazio{
 		
 		//gurea= JokalariFabrika.getJokalariFabrika().createOntziOna(1,55,50);
 		
-		gurea=new NodoOntziOn();
+		gurea=new NodoOntziOn(1);
 		
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
