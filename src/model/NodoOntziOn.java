@@ -78,6 +78,11 @@ public class NodoOntziOn implements ElementuPixel{
 		this.y=py;
 	}
 	
+	@Override
+	public int getId() {
+		return -1;
+	}
+	
 	/*
 	public void addElementu(ElementuPixel pEl) {
 		pixelak.add(pEl);

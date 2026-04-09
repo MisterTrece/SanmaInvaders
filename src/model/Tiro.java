@@ -11,4 +11,10 @@ public class Tiro extends Pixel{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return -1;
+	}
 }

@@ -83,7 +83,7 @@ public class Espazio{
 			}
 		}
 		
-		Timer timerEND = new Timer(500, e -> {
+		Timer timerHasi = new Timer(500, e -> {
 	        if (jokoTimer == null) {
 	        	jokoTimer = new Timer(50, ev -> {
 	        		Espazio.getEspazioEMA().mugituTiroak();
@@ -96,8 +96,8 @@ public class Espazio{
 	        }
 	        jokoTimer.start();
 	    });
-	 timerEND.setRepeats(false);
-	 timerEND.start();
+	 timerHasi.setRepeats(false);
+	 timerHasi.start();
 		
 	}
 	
@@ -237,6 +237,24 @@ public class Espazio{
 		return false;
 	}
 	
+	public boolean etsaiKolisioa(int pId, int pX, int pY) {
+		boolean kolisioa = false;	
+		boolean aurkituta = false;
+		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
+		while(!aurkituta && itr.hasNext()) {
+			NodoOntziTxarra etsai = itr.next();
+			ArrayList<ElementuPixel> pixelak = etsai.getPixelak();
+			for(int i=0; i<pixelak.size();i++) {
+				if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){
+					if(pixelak.get(i).getId()!=pId) {
+						kolisioa = true;
+					}
+					aurkituta = true;
+				}
+			}
+		}
+		return kolisioa;
+	}
 	
 	public NodoOntziOn getGurea() {
 		return gurea;

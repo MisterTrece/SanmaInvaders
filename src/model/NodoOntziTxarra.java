@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.Timer;
+
 public class NodoOntziTxarra implements ElementuPixel{
 
 	private ArrayList<ElementuPixel> pixelak;
@@ -50,6 +52,15 @@ public class NodoOntziTxarra implements ElementuPixel{
 		this.y=py;
 	}
 	
+	@Override
+	public int getId() {
+		return this.id;
+	}
+	
+	public ArrayList<ElementuPixel> getPixelak(){
+		return this.pixelak;
+	}
+	
 	/*
 	public void addElementu(ElementuPixel pEl) {
 		pixelak.add(pEl);
@@ -63,6 +74,13 @@ public class NodoOntziTxarra implements ElementuPixel{
 			ElementuPixel pixel = itr.next();
 			if(pixel.getX()+pX>=100 || pixel.getX()+pX<0 || pixel.getY()+pY<0) {
 				return;
+			}
+			if(pixel.getY()+pY<60) {
+				if(Espazio.getEspazioEMA().getGelaxka(pixel.getX()+pX, pixel.getY()+pY).getMota()==2) {
+					if(Espazio.getEspazioEMA().etsaiKolisioa(id,pixel.getX()+pX,pixel.getY()+pY)) {
+						return;
+					}
+				}
 			}
 		}
 		
@@ -84,6 +102,15 @@ public class NodoOntziTxarra implements ElementuPixel{
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			pixel.mugituPixel(pX, pY);
+			if (pixel.getY()+pY==60) {
+				if(pixel.getX()==x && pixel.getY()==y) {
+					Timer timerEND = new Timer(190, e -> {
+						GoiMailakoKontrola.getKontrola().partidaGaldu();
+				    });
+					timerEND.setRepeats(false);
+					timerEND.start();
+				}
+			}
 		}
 		
 		this.x = x + pX;

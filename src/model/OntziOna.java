@@ -8,6 +8,11 @@ public abstract class OntziOna extends Pixel {
 	}
 	
 	@Override
+	public int getId() {
+		return -1;
+	}
+	
+	@Override
 	public void mugituPixel(int pX, int pY) {
 		int berriaX = this.x + pX;
 		int berriaY = this.y + pY;

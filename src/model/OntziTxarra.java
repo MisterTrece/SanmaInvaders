@@ -13,6 +13,11 @@ public class OntziTxarra extends Pixel{
 		}
 		this.mota=2;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
 	public void birkalkulatuX() {
 		this.x= (int)(Math.random() * 96) + 2;
 	}
@@ -49,19 +54,14 @@ public class OntziTxarra extends Pixel{
 				this.x=berriaX;
 				this.y=berriaY;
 				
-			}else { 													//matrizetik kanpo
-				Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
-				/////
-				GoiMailakoKontrola.getKontrola().partidaGaldu();
-				/////
-				/*Timer timerEND = new Timer(1000, e -> {
+			}/*else { 													//matrizetik kanpo
+				//Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
+				Timer timerEND = new Timer(500, e -> {
 					GoiMailakoKontrola.getKontrola().partidaGaldu();
 			    });
-			    
-			timerEND.setRepeats(false);
-			timerEND.start();	
-			*/
-			}
+				timerEND.setRepeats(false);
+				timerEND.start();
+			}*/
 		}
 	}	
 }
