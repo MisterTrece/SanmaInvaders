@@ -8,8 +8,9 @@ import javax.swing.Timer;
 public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
+	private ArrayList<NodoOntziTxarra> etsaiak;
 	//private OntziOna gurea;
-	private ArrayList<OntziTxarra> etsaiak;
+	//private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
 	private ArrayList<Tiro> tiroak;
@@ -26,7 +27,7 @@ public class Espazio{
 		}
 
 		tiroak = new ArrayList<Tiro>();
-		etsaiak= new ArrayList<OntziTxarra>();
+		etsaiak= new ArrayList<NodoOntziTxarra>();
 		
 		
 	}
@@ -50,24 +51,26 @@ public class Espazio{
 		matrizea[55][51]=new GelaxkaM(new Gurea());
 		matrizea[55][49]=new GelaxkaM(new Gurea());
 		
-		
-		gurea.x = 50;
-		gurea.y = 55;
+		gurea.aldatuKords(50, 55);
 		
 		etsaiKop = (int)(Math.random()*5)+4;
 		for (int i=0;i<etsaiKop;i++) {
-			OntziTxarra e = new OntziTxarra(-1,-1);
+			NodoOntziTxarra e = new NodoOntziTxarra(i);
 			etsaiak.add(e);
 		}
 		
-		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean[] etsaiBool = new boolean[100];
 		while(itr.hasNext()) {
-			OntziTxarra o = itr.next();
+			NodoOntziTxarra o = itr.next();
 			boolean jarrita = false;
+			
 			while(!jarrita) {
-				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1]) {
-					sartu(o.getX(), o.getY(), new Etsaia());
+				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1] && !etsaiBool[o.getX()+2] && !etsaiBool[o.getX()-2]) {
+					matrizea[o.getY()][o.getX()]=new GelaxkaM(new Etsaia());
+					matrizea[o.getY()][o.getX()+1]=new GelaxkaM(new Etsaia());
+					matrizea[o.getY()][o.getX()-1]=new GelaxkaM(new Etsaia());
+					matrizea[o.getY()+1][o.getX()]=new GelaxkaM(new Etsaia());
 					etsaiBool[o.getX()]=true;
 					etsaiBool[o.getX()+1]=true;
 					etsaiBool[o.getX()+2]=true;
@@ -128,8 +131,8 @@ public class Espazio{
 
 		azkenTiroa = orain;
 		
-		int tiroX = gurea.x;
-		int tiroY = gurea.y - 3;
+		int tiroX = gurea.getX();
+		int tiroY = gurea.getY() - 3;
 
 		if (tiroY < 0 || tiroY >= matrizea.length) {
 			return;
@@ -185,11 +188,11 @@ public class Espazio{
 	
 	private void etsaiaHil(int x, int y) {
 		matrizea[y][x].aldatuMota(new Hutsik());
-		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
-			OntziTxarra etsai = itr.next();
-			if (etsai.x==x && etsai.y==y) {
+			NodoOntziTxarra etsai = itr.next();
+			if (etsai.getX()==x && etsai.getY()==y) {
 				itr.remove();
 				aurkituta=true;
 				etsaiKop--;
@@ -206,9 +209,9 @@ public class Espazio{
 	
 	public void mugituEtsaiak() {
 		boolean kanpo=false;
-		Iterator<OntziTxarra> itr = etsaiak.iterator();
+		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		while(itr.hasNext()) {
-			OntziTxarra etsaia = itr.next();
+			NodoOntziTxarra etsaia = itr.next();
 			int etsaiMug = (int)(Math.random()*3);
 			switch(etsaiMug) {
 				case 0:
@@ -226,7 +229,7 @@ public class Espazio{
 			}
 		}
 	}
-	private boolean mugituOntziEtsai(OntziTxarra pEtsai,int pX,int pY) {
+	private boolean mugituOntziEtsai(NodoOntziTxarra pEtsai,int pX,int pY) {
 		pEtsai.mugituPixel(pX, pY);
 		/*if(pEtsai.y>=59 && pY==1) {
 			return true;

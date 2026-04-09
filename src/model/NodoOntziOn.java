@@ -12,8 +12,8 @@ public class NodoOntziOn implements ElementuPixel{
     protected ArrayList<TiroEstrategia> motaGuztiak;
     protected int armaIndizea = 0;
 
-	protected int x;
-	protected int y;
+	private int x;
+	private int y;
 	
 	public NodoOntziOn(int pMota) {
 		this.x=55;

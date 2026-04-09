@@ -7,25 +7,36 @@ public class NodoOntziTxarra implements ElementuPixel{
 
 	private ArrayList<ElementuPixel> pixelak;
 	
-	protected int x;
-	protected int y;
+	private int x;
+	private int y;
+	private int id;
 	
-	public NodoOntziTxarra(int pMota) {
-		this.x=55;
-		this.y=50;
+	public NodoOntziTxarra(int pId) {
 		
-        // Espaziontziaren pixel blokeak (Composite patroia) 
+		this.id = pId;
+		// Espaziontziaren pixel blokeak (Composite patroia) 
 		pixelak = new ArrayList<ElementuPixel>();
-		pixelak.add(new OntziTxarra(-1,-1));
-		int Px = pixelak.get(1).getX();
-		pixelak.add(new OntziTxarra(Px+1,5));
-		pixelak.add(new OntziTxarra(Px-1,5));
-		pixelak.add(new OntziTxarra(Px,6));
+		pixelak.add(new OntziTxarra(-1,-1, pId));
+		int pX = pixelak.get(0).getX();
+		pixelak.add(new OntziTxarra(pX+1,5, pId));
+		pixelak.add(new OntziTxarra(pX-1,5,pId));
+		pixelak.add(new OntziTxarra(pX,6,pId));
 		
+		this.x = pX;
+		this.y = 5;
 	}
-
-        
-
+	
+	public void birkalkulatuX() {
+		pixelak.removeAll(pixelak);
+		pixelak.add(new OntziTxarra(-1,-1,id));
+		int pX = pixelak.get(0).getX();
+		pixelak.add(new OntziTxarra(pX+1,5,id));
+		pixelak.add(new OntziTxarra(pX-1,5,id));
+		pixelak.add(new OntziTxarra(pX,6,id));
+		
+		this.x = pX;
+	}
+	
 	public int getX() {
 		return this.x;
 	}
@@ -50,7 +61,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 		Iterator<ElementuPixel> itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
-			if(pixel.getX()+pX>=100 || pixel.getX()+pX<0 || pixel.getY()+pY>=60 || pixel.getY()+pY<0) {
+			if(pixel.getX()+pX>=100 || pixel.getX()+pX<0 || pixel.getY()+pY<0) {
 				return;
 			}
 		}

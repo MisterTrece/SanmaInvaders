@@ -3,8 +3,10 @@ package model;
 import javax.swing.Timer;
 
 public class OntziTxarra extends Pixel{
-	public OntziTxarra(int pX, int pY) {
-		super(((int)(Math.random()*97)+2),5);
+	private int id;
+	public OntziTxarra(int pX, int pY, int pId) {
+		super(((int)(Math.random() * 96) + 2),5);
+		this.id = pId;
 		if(pX>=0 && pY>=0) {
 			this.x=pX;
 			this.y=pY;
@@ -12,14 +14,14 @@ public class OntziTxarra extends Pixel{
 		this.mota=2;
 	}
 	public void birkalkulatuX() {
-		this.x= (int)(Math.random()*98)+1;
+		this.x= (int)(Math.random() * 96) + 2;
 	}
 	@Override
 	public void mugituPixel(int pX, int pY) {
 		int berriaX = this.x + pX;
 		int berriaY = this.y + pY;
-		int gureX = Espazio.getEspazioEMA().getGurea().x;
-		int gureY = Espazio.getEspazioEMA().getGurea().y;
+		int gureX = Espazio.getEspazioEMA().getGurea().getX();
+		int gureY = Espazio.getEspazioEMA().getGurea().getY();
 		
 		int maxX = 100 - 1;
 		
@@ -42,7 +44,7 @@ public class OntziTxarra extends Pixel{
 				if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==2) {			//beste etsaiarekin topa - ez gainjarri
 					return;
 				}
-				Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
+				//Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
 				Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Etsaia());			
 				this.x=berriaX;
 				this.y=berriaY;
