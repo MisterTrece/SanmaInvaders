@@ -14,10 +14,6 @@ public abstract class Pixel implements ElementuPixel{
 	public int getY() {
 		return this.y;
 	}
-	@Override
-	public void mugituPixel(int pX, int pY) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

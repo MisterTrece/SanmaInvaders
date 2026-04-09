@@ -57,6 +57,7 @@ public class HasieraPantaila extends JFrame implements Observer{
                 String tipo = "Green";
             	int code = e.getKeyCode();
                 if (code == KeyEvent.VK_P) { 
+                	GoiMailakoKontrola.getKontrola().addObserver(nHasieraPantaila);
                 	GoiMailakoKontrola.getKontrola().partidaHasi();
                 }
             }
@@ -73,7 +74,7 @@ public class HasieraPantaila extends JFrame implements Observer{
         setUndecorated(true);
         setVisible(true);
         
-        GoiMailakoKontrola.getKontrola().addObserver(this);
+        
     }
     
     public static HasieraPantaila getHasieraPantaila() {

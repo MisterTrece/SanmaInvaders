@@ -56,7 +56,7 @@ public class Espazio{
 		
 		etsaiKop = (int)(Math.random()*5)+4;
 		for (int i=0;i<etsaiKop;i++) {
-			OntziTxarra e = new OntziTxarra();
+			OntziTxarra e = new OntziTxarra(-1,-1);
 			etsaiak.add(e);
 		}
 		
@@ -70,7 +70,9 @@ public class Espazio{
 					sartu(o.getX(), o.getY(), new Etsaia());
 					etsaiBool[o.getX()]=true;
 					etsaiBool[o.getX()+1]=true;
+					etsaiBool[o.getX()+2]=true;
 					etsaiBool[o.getX()-1]=true;
+					etsaiBool[o.getX()-2]=true;
 					jarrita = true;
 				}else {
 					o.birkalkulatuX();
@@ -98,7 +100,7 @@ public class Espazio{
 	
 	public void bukatu() {
 		jokoTimer.stop();
-		nEspazio = null;
+		//nEspazio = null;
 	}
 	
 	public void sartu(int x,int y,Egoera mota) {
@@ -224,50 +226,16 @@ public class Espazio{
 			}
 		}
 	}
+	private boolean mugituOntziEtsai(OntziTxarra pEtsai,int pX,int pY) {
+		pEtsai.mugituPixel(pX, pY);
+		/*if(pEtsai.y>=59 && pY==1) {
+			return true;
+		}*/
+		return false;
+	}
 	
-	private boolean mugituOntziEtsai(OntziTxarra pEtsai,int xMug,int yMug) {
-		int berriaX = pEtsai.x + xMug;
-		int berriaY = pEtsai.y + yMug;
-		int gureX = gurea.x;
-		int gureY = gurea.y;
-		
-		int maxX = matrizea[0].length - 1;
-		
-		boolean kanpo = false;
-		
-		if (berriaX < 0 || berriaX > maxX) {
-			
-		}else if(berriaY<=matrizea.length) {
-		
-			
-			
-			if(berriaY!=matrizea.length) { 								//matrizean dago
-				if(matrizea[berriaY][berriaX].getMota()==3) {
-					etsaiaHil(berriaX,berriaY);
-					matrizea[berriaY][berriaX].aldatuMota(new Eztanda());
-					return false;
-				}
-				if(berriaX==gurea.x && berriaY==gurea.y || matrizea[berriaY][berriaX].getMota()==1) {				//jokalariarekin topa
-					GoiMailakoKontrola.getKontrola().partidaGaldu();
-				}
-				if(matrizea[berriaY][berriaX].getMota()==2) {			//beste etsaiarekin topa - ez gainjarri
-					return false;
-				}
-				matrizea[pEtsai.y][pEtsai.x].aldatuMota(new Hutsik());
-				matrizea[berriaY][berriaX].aldatuMota(new Etsaia());			
-				pEtsai.x=berriaX;
-				pEtsai.y=berriaY;
-				
-			}else { 													//matrizetik kanpo
-				matrizea[pEtsai.y][pEtsai.x].aldatuMota(new Hutsik());
-				kanpo = true;
-				Timer timerEND = new Timer(1000, e -> {
-					GoiMailakoKontrola.getKontrola().partidaGaldu();
-			    });
-			timerEND.setRepeats(false);
-			timerEND.start();	
-			}
-		}
-		return kanpo;
+	
+	public NodoOntziOn getGurea() {
+		return gurea;
 	}
 }
