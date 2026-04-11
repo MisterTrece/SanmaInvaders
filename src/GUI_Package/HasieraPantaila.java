@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import model.Espazio;
 import model.GoiMailakoKontrola;
 
 public class HasieraPantaila extends JFrame implements Observer{
@@ -54,12 +55,23 @@ public class HasieraPantaila extends JFrame implements Observer{
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                String tipo = "Green";
-            	int code = e.getKeyCode();
-                if (code == KeyEvent.VK_P) { 
+            	switch (e.getKeyCode()) {
+                case KeyEvent.VK_P:
                 	GoiMailakoKontrola.getKontrola().addObserver(nHasieraPantaila);
                 	GoiMailakoKontrola.getKontrola().partidaHasi();
-                }
+                	break;
+                case KeyEvent.VK_B:
+                	Espazio.getEspazioEMA().setOntziMota(1);
+                	break;
+                case KeyEvent.VK_G:
+                	Espazio.getEspazioEMA().setOntziMota(2);
+                	break;
+                case KeyEvent.VK_R:
+                	Espazio.getEspazioEMA().setOntziMota(3);
+                	break;
+            	}
+            	
+            	
             }
         });
         setFocusable(true);

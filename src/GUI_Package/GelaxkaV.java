@@ -6,6 +6,8 @@ import java.util.Observer;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import model.Espazio;
+
 public class GelaxkaV extends JLabel implements Observer{
     
     private int x;
@@ -38,13 +40,24 @@ public class GelaxkaV extends JLabel implements Observer{
                     this.setOpaque(false);
                 	this.setBackground(Color.BLACK); // Hutsik (Vacío)
                     break;
-                case 1:
+                case 1:								// Gurea (Nave aliada)
                 	this.setOpaque(true);
-                    this.setBackground(Color.GREEN); // Gurea (Nave aliada)
+                	switch(Espazio.getEspazioEMA().getGurea().getMotaOntzi()) {
+                		case 1:
+                			this.setBackground(Color.BLUE);
+                			break;
+                		case 2:
+                			this.setBackground(Color.GREEN);
+                			break;
+                		case 3:
+                			this.setBackground(Color.RED);
+                			break;
+                	}
+                	
                     break;
                 case 2:
                 	this.setOpaque(true);
-                    this.setBackground(Color.RED);   // Etsaia (Enemigo)
+                    this.setBackground(Color.MAGENTA);   // Etsaia (Enemigo)
                     break;
                 case 3:
                 	this.setOpaque(true);

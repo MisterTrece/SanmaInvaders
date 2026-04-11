@@ -8,9 +8,8 @@ import javax.swing.Timer;
 public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
+	private int ontziMota = 1;
 	private ArrayList<NodoOntziTxarra> etsaiak;
-	//private OntziOna gurea;
-	//private ArrayList<OntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
 	private ArrayList<Tiro> tiroak;
@@ -41,9 +40,7 @@ public class Espazio{
 
 	public void hasi() {
 		
-		//gurea= JokalariFabrika.getJokalariFabrika().createOntziOna(1,55,50);
-		
-		gurea=new NodoOntziOn(1);
+		gurea=new NodoOntziOn(this.ontziMota);
 		
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
@@ -103,6 +100,10 @@ public class Espazio{
 	
 	public void bukatu() {
 		jokoTimer.stop();
+	}
+	
+	public void setOntziMota(int pMota) {
+		this.ontziMota = pMota;
 	}
 	
 	public void sartu(int x,int y,Egoera mota) {
@@ -187,28 +188,6 @@ public class Espazio{
 		matrizea[nY][nX+1].aldatuMota(new Eztanda());
 		matrizea[nY+1][nX].aldatuMota(new Eztanda());
 		
-		if(etsaiKop==0) {
-			Timer timerEND = new Timer(1500, e -> {
-				GoiMailakoKontrola.getKontrola().partidaIrabazi();
-		    });
-			timerEND.setRepeats(false);
-			timerEND.start();
-		}
-	}
-	
-	public void etsaiaHil2(int x, int y) {
-		matrizea[y][x].aldatuMota(new Eztanda());
-		
-		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
-		boolean aurkituta = false;
-		while(!aurkituta && itr.hasNext()) {
-			NodoOntziTxarra etsai = itr.next();
-			if (etsai.getX()==x && etsai.getY()==y) {
-				itr.remove();
-				aurkituta=true;
-				etsaiKop--;
-			}
-		}
 		if(etsaiKop==0) {
 			Timer timerEND = new Timer(1500, e -> {
 				GoiMailakoKontrola.getKontrola().partidaIrabazi();

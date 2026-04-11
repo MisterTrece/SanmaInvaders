@@ -15,7 +15,10 @@ public class NodoOntziOn implements ElementuPixel{
 	private int x;
 	private int y;
 	
+	private int mota;
+	
 	public NodoOntziOn(int pMota) {
+		this.mota = pMota;
 		this.x=55;
 		this.y=50;
 		
@@ -47,6 +50,9 @@ public class NodoOntziOn implements ElementuPixel{
         unekoa = motaGuztiak.get(0);
 	}
 	
+	public int getMotaOntzi() {
+		return this.mota;
+	}
     // Teklatuarekin uneko arma aldatzeko 
     public void aldatuTiroMota() {
         armaIndizea++;
