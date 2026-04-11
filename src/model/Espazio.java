@@ -103,7 +103,6 @@ public class Espazio{
 	
 	public void bukatu() {
 		jokoTimer.stop();
-		//nEspazio = null;
 	}
 	
 	public void sartu(int x,int y,Egoera mota) {
@@ -159,46 +158,47 @@ public class Espazio{
 		while (itr.hasNext()) {
 			Tiro tiro = itr.next();
 			tiro.mugituPixel(0,-1);
+			if(tiro.desagertu()) {
+				itr.remove();
+			}
 		}
 	}
 	
-	public void mugituTiroak2() {
-		if (tiroak.isEmpty()) {
-			return;
+	public void etsaiaHil(int pX, int pY) {
+		int nX = 0;
+		int nY = 0;
+		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
+		boolean aurkituta = false;
+		while(!aurkituta && itr.hasNext()) {
+			NodoOntziTxarra etsai = itr.next();
+			ArrayList<ElementuPixel> pixelak = etsai.getPixelak();
+			for(int i=0; i<pixelak.size();i++) {
+				if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){	
+					nX = etsai.getX();
+					nY = etsai.getY();
+					itr.remove();
+					aurkituta = true;
+					etsaiKop--;
+				}
+			}
 		}
-
-		int maxY = matrizea.length - 1;
+		matrizea[nY][nX].aldatuMota(new Eztanda());
+		matrizea[nY][nX-1].aldatuMota(new Eztanda());
+		matrizea[nY][nX+1].aldatuMota(new Eztanda());
+		matrizea[nY+1][nX].aldatuMota(new Eztanda());
 		
-		Iterator<Tiro> itr = tiroak.iterator();
-		while (itr.hasNext()) {
-			Tiro tiro = itr.next();
-			int x = tiro.x;
-			int y = tiro.y;
-			if (y >= 0 && y <= maxY) {
-				matrizea[y][x].aldatuMota(new Hutsik());
-			}
-
-			int berriaY = y - 1;
-
-			if (berriaY < 0) {
-				itr.remove();
-				continue;
-			}
-
-			if(matrizea[berriaY][x].getMota()==2) {
-				etsaiaHil(x,berriaY);
-				matrizea[berriaY][x].aldatuMota(new Eztanda());
-				itr.remove();
-				continue;
-			}
-			matrizea[berriaY][x].aldatuMota(new TiroMota());
-			tiro.y=berriaY;
+		if(etsaiKop==0) {
+			Timer timerEND = new Timer(1500, e -> {
+				GoiMailakoKontrola.getKontrola().partidaIrabazi();
+		    });
+			timerEND.setRepeats(false);
+			timerEND.start();
 		}
-		
 	}
 	
-	private void etsaiaHil(int x, int y) {
-		matrizea[y][x].aldatuMota(new Hutsik());
+	public void etsaiaHil2(int x, int y) {
+		matrizea[y][x].aldatuMota(new Eztanda());
+		
 		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
@@ -242,9 +242,6 @@ public class Espazio{
 	}
 	private boolean mugituOntziEtsai(NodoOntziTxarra pEtsai,int pX,int pY) {
 		pEtsai.mugituPixel(pX, pY);
-		/*if(pEtsai.y>=59 && pY==1) {
-			return true;
-		}*/
 		return false;
 	}
 	
