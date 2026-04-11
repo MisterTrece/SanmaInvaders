@@ -155,6 +155,17 @@ public class Espazio{
 		if (tiroak.isEmpty()) {
 			return;
 		}
+		Iterator<Tiro> itr = tiroak.iterator();
+		while (itr.hasNext()) {
+			Tiro tiro = itr.next();
+			tiro.mugituPixel(0,-1);
+		}
+	}
+	
+	public void mugituTiroak2() {
+		if (tiroak.isEmpty()) {
+			return;
+		}
 
 		int maxY = matrizea.length - 1;
 		
