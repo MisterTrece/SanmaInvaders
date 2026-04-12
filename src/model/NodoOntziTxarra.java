@@ -120,8 +120,11 @@ public class NodoOntziTxarra implements ElementuPixel{
 		}
 		
 		if(hilda) {
-			Espazio.getEspazioEMA().etsaiaHil(this.x, this.y);
-			return;
+		    for (ElementuPixel p : pixelak) {
+		        Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik());
+		    }
+		    Espazio.getEspazioEMA().etsaiaHil(x, y);
+		    return;
 		}
 		
 		this.x = x + pX;
@@ -140,6 +143,13 @@ public class NodoOntziTxarra implements ElementuPixel{
 	}
 	
 	public boolean borratuKonprobatu() {
+		if (borratu) {
+			for (ElementuPixel p : pixelak) {
+				if(Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).getMota()==2) {
+					Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Eztanda());
+				}
+			}
+		}
 		return this.borratu;
 	}
 }

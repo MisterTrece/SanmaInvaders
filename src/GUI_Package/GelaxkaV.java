@@ -57,7 +57,7 @@ public class GelaxkaV extends JLabel implements Observer{
                     break;
                 case 2:
                 	this.setOpaque(true);
-                    this.setBackground(Color.RED);   // Etsaia (Enemigo)
+                    this.setBackground(Color.MAGENTA);   // Etsaia (Enemigo)
                     break;
                 case 3:
                 	this.setOpaque(true);
@@ -66,7 +66,7 @@ public class GelaxkaV extends JLabel implements Observer{
                 case 4:
                 	this.setOpaque(true);
                 	this.setBackground(Color.ORANGE);// Eztanda (Explosión)
-                	 Timer timer = new Timer(250, e -> {
+                	 Timer timer = new Timer(150, e -> {
                 		 	this.setOpaque(false);
                 		 	this.setBackground(Color.BLACK);
                 	    });

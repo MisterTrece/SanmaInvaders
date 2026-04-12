@@ -5,6 +5,7 @@ public class Tiro extends Pixel{
 	
 	public Tiro(int x, int y) {
 		super(x,y);
+		this.mota=3;
 		}
 	public boolean desagertu() {
 		return this.desagertu;
@@ -42,7 +43,6 @@ public class Tiro extends Pixel{
 
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
 		return -1;
 	}
 }

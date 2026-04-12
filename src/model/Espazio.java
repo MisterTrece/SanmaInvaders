@@ -171,20 +171,23 @@ public class Espazio{
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
 			NodoOntziTxarra etsai = itr.next();
-			ArrayList<ElementuPixel> pixelak = etsai.getPixelak();
-			for(int i=0; i<pixelak.size();i++) {
-				if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){	
-					nX = etsai.getX();
-					nY = etsai.getY();
-					aurkituta = true;
-					etsaiKop--;
-					break;
+			if(!etsai.borratuKonprobatu()) {
+				ArrayList<ElementuPixel> pixelak = etsai.getPixelak();
+				for(int i=0; i<pixelak.size();i++) {
+					if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){	
+						nX = etsai.getX();
+						nY = etsai.getY();
+						aurkituta = true;
+						etsaiKop--;
+						break;
+					}
+				}
+				if (aurkituta) {
+					etsai.eztanda();
+					etsai.borratuBehar();
 				}
 			}
-			if (aurkituta) {
-				etsai.eztanda();
-				etsai.borratuBehar();
-			}
+			
 		}
 		
 		if(etsaiKop==0) {
@@ -203,23 +206,23 @@ public class Espazio{
 			NodoOntziTxarra etsaia = itr.next();
 			if(etsaia.borratuKonprobatu()) {
 				itr.remove();
-				continue;
-			}
-			int etsaiMug = (int)(Math.random()*3);
-			switch(etsaiMug) {
-				case 0:
-					kanpo=mugituOntziEtsai(etsaia,0,1);		//beherantz
-					break;
-				case 1:
-					kanpo=mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
-					break;
-				case 2:
-					kanpo=mugituOntziEtsai(etsaia,1,0);		//eskuinerantz
-					break;
-			}
-			if(kanpo) {
-				itr.remove();
-				continue;
+			} else {
+				int etsaiMug = (int)(Math.random()*3);
+				switch(etsaiMug) {
+					case 0:
+						kanpo=mugituOntziEtsai(etsaia,0,1);		//beherantz
+						break;
+					case 1:
+						kanpo=mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
+						break;
+					case 2:
+						kanpo=mugituOntziEtsai(etsaia,1,0);		//eskuinerantz
+						break;
+				}
+				if(kanpo) {
+					itr.remove();
+					continue;
+				}
 			}
 		}
 	}
