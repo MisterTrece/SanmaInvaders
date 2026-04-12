@@ -3,73 +3,42 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class NodoOntziOn implements ElementuPixel{
+public abstract class NodoOntziOn implements ElementuPixel{
 
 	private ArrayList<ElementuPixel> pixelak;
 	
-    // Strategy patroiaren atributuak: uneko arma eta eskuragarri dauden armen zerrenda
-    protected TiroEstrategia unekoa;
-    protected ArrayList<TiroEstrategia> motaGuztiak;
-    protected int armaIndizea = 0;
+    private TiroPortaera tiroMota;
+    private ArrayList<TiroPortaera> tiroMotaGuztiak;
 
 	private int x;
 	private int y;
 	
 	private int mota;
 	
-	public NodoOntziOn(int pMota) {
+	public NodoOntziOn(int pMota, TiroPortaera pTiro) {
 		this.mota = pMota;
 		this.x=55;
 		this.y=50;
-		
-        // Espaziontziaren pixel blokeak (Composite patroia) JokalariFabrika erabiliz sortu
+		tiroMotaGuztiak = new ArrayList<>();
+		tiroMotaGuztiak.add(new TiroPixel());
+		tiroMotaGuztiak.add(pTiro);
+        
 		pixelak = new ArrayList<ElementuPixel>();
-		pixelak.add(JokalariFabrika.getJokalariFabrika().createOntziOna(pMota, 50, 55));
-		pixelak.add(JokalariFabrika.getJokalariFabrika().createOntziOna(pMota, 50, 54));
-		pixelak.add(JokalariFabrika.getJokalariFabrika().createOntziOna(pMota, 49, 55));
-		pixelak.add(JokalariFabrika.getJokalariFabrika().createOntziOna(pMota, 51, 55));
-
-        // Ontzi motaren arabera (pMota), bat edo beste tiro motak edukiko ditu (Strategy esleipena)
-        motaGuztiak = new ArrayList<>();
-        motaGuztiak.add(new TiroPixelEstrategia()); // Ontzi guztiek daukate Pixel tiroa
+		pixelak.add(new OntziOna(50, 55));
+		pixelak.add(new OntziOna(50, 54));
+		pixelak.add(new OntziOna(49, 55));
+		pixelak.add(new OntziOna(51, 55));
         
-        switch(pMota) {
-            case 1: // Blue motako espaziontzia (Pixel + Erronbo)
-                motaGuztiak.add(new TiroErronboEstrategia());
-                break;
-            case 2: // Green motako espaziontzia (Pixel + Gezia)
-                motaGuztiak.add(new TiroGeziEstrategia());
-                break;
-            case 3: // Red motako espaziontzia (Pixel + Gezia + Erronbo)
-                motaGuztiak.add(new TiroGeziEstrategia());
-                motaGuztiak.add(new TiroErronboEstrategia());
-                break;
-        }
-        
-        // Hasierako arma lehenetsia beti pixela izango da
-        unekoa = motaGuztiak.get(0);
+        tiroMota = tiroMotaGuztiak.get(0);
 	}
 	
 	public int getMotaOntzi() {
 		return this.mota;
 	}
-    // Teklatuarekin uneko arma aldatzeko 
-    public void aldatuTiroMota() {
-        armaIndizea++;
-        if (armaIndizea >= motaGuztiak.size()) {
-            armaIndizea = 0;
-        }
-        unekoa = motaGuztiak.get(armaIndizea);
-    }
-
-    // Uneko armarekin tiro egiteko metodoa
-    public ArrayList<Tiro> disparatu() {
-        if (unekoa.baduMuniziorik()) {
-            unekoa.munizioaGastatu();
-            return unekoa.tiroEgin(this.x, this.y); 
-        }
-        return new ArrayList<>(); 
-    }
+	
+	public void setMotaOntzi(int pMota) {
+		this.mota = pMota;
+	}
 
 	public int getX() {
 		return this.x;
@@ -89,11 +58,6 @@ public class NodoOntziOn implements ElementuPixel{
 		return -1;
 	}
 	
-	/*
-	public void addElementu(ElementuPixel pEl) {
-		pixelak.add(pEl);
-	}
-	*/
 	@Override
 	public void mugituPixel(int pX, int pY) {
 		
@@ -127,5 +91,21 @@ public class NodoOntziOn implements ElementuPixel{
 		
 		this.x = x + pX;
 		this.y = y + pY;
+	}
+	
+	public void tiroEgin() {
+		this.tiroMota.tiroEgin(this.x, this.y);
+	}
+	
+	public void aldatuTiroMota() {
+		if(tiroMotaGuztiak.indexOf(tiroMota)+1>=tiroMotaGuztiak.size()) {
+			tiroMota = tiroMotaGuztiak.get(0);
+		}else {
+			tiroMota = tiroMotaGuztiak.get(tiroMotaGuztiak.indexOf(tiroMota)+1);
+		}
+	}
+	
+	protected void tiroGehitu(TiroPortaera pTiro) {
+		tiroMotaGuztiak.add(pTiro);
 	}
 }

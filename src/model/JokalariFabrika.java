@@ -13,17 +13,24 @@ public class JokalariFabrika {
 		return nJokalariFabrika;
 	}
 	
-	public OntziOna createOntziOna(int pMota, int pX, int pY) {
-		OntziOna nireOntzia;
+	public NodoOntziOn createOntziOna(int pMota) {
+		NodoOntziOn nireOntzia;
 		switch (pMota) {
 			case 1:
-				nireOntzia = new OntziOnBlue(pX,pY);
+				nireOntzia = new OntziOnBlue();
+				System.out.println("Hasi:Blue");
+				break;
 			case 2:
-				nireOntzia = new OntziOnGreen(pX,pY);
+				nireOntzia = new OntziOnGreen();
+				System.out.println("Hasi:Green");
+				break;
 			case 3:
-				nireOntzia = new OntziOnRed(pX,pY);
+				nireOntzia = new OntziOnRed();
+				System.out.println("Hasi:Red");
+				break;
 			default:
-				nireOntzia = new OntziOnBlue(pX,pY);
+				nireOntzia = new OntziOnRed();
+				break;
 		}
 		return nireOntzia;
 	}

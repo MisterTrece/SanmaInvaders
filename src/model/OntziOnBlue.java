@@ -1,13 +1,8 @@
 package model;
 
-public class OntziOnBlue extends OntziOna{
+public class OntziOnBlue extends NodoOntziOn{
 
-	
-
-	public OntziOnBlue(int pX, int pY) {
-		super(pX, pY);
-	
+	public OntziOnBlue() {
+		super(1,new TiroErronbo());
 	}
-
-	
 }

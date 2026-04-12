@@ -8,7 +8,7 @@ import javax.swing.Timer;
 public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
-	private int ontziMota = 1;
+	private int ontziMota;
 	private ArrayList<NodoOntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
@@ -39,8 +39,7 @@ public class Espazio{
 	}
 
 	public void hasi() {
-		
-		gurea=new NodoOntziOn(this.ontziMota);
+		gurea =JokalariFabrika.getJokalariFabrika().createOntziOna(ontziMota);
 		
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
@@ -104,6 +103,7 @@ public class Espazio{
 	
 	public void setOntziMota(int pMota) {
 		this.ontziMota = pMota;
+		System.out.println(ontziMota);
 	}
 	
 	public void sartu(int x,int y,Egoera mota) {
@@ -120,8 +120,15 @@ public class Espazio{
 		
 	}
 	
-
+	public void aldatuTiroMota() {
+		gurea.aldatuTiroMota();
+	}
+	
 	public void tiro() {
+		gurea.tiroEgin();
+	}
+	
+	public void tiroSortu(int pX, int pY) {
 
 		long orain = System.currentTimeMillis();
 
@@ -131,8 +138,8 @@ public class Espazio{
 
 		azkenTiroa = orain;
 		
-		int tiroX = gurea.getX();
-		int tiroY = gurea.getY() - 3;
+		int tiroX = pX;
+		int tiroY = pY - 3;
 
 		if (tiroY < 0 || tiroY >= matrizea.length) {
 			return;

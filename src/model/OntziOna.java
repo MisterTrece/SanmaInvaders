@@ -1,6 +1,6 @@
 package model;
 
-public abstract class OntziOna extends Pixel {
+public class OntziOna extends Pixel {
 
 	public OntziOna(int pX, int pY) {
 		super(pX,pY);
