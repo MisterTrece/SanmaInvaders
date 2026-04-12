@@ -69,6 +69,9 @@ public class HasieraPantaila extends JFrame implements Observer{
                 case KeyEvent.VK_R:
                 	Espazio.getEspazioEMA().setOntziMota(3);
                 	break;
+                case KeyEvent.VK_ESCAPE:
+                	System.exit(0);
+                	break;
             	}
             	
             	

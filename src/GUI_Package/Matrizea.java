@@ -54,6 +54,8 @@ public class Matrizea extends JFrame implements Observer{
                     case KeyEvent.VK_DOWN -> Espazio.getEspazioEMA().mugituOntzia(0, 1);
                     case KeyEvent.VK_SPACE -> Espazio.getEspazioEMA().tiro();
                     case KeyEvent.VK_T -> Espazio.getEspazioEMA().aldatuTiroMota();
+                    case KeyEvent.VK_ESCAPE -> System.exit(0);
+                    							
                 }
             }
         });

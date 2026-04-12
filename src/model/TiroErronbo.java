@@ -11,6 +11,10 @@ public class TiroErronbo implements TiroPortaera {
 		}
 		Espazio.getEspazioEMA().setAzkenTiro(orain);
 		
+		if(pX-2<0 || pX+2>99) {
+			return;
+		}
+		
 		if(tiroKop>0) {
 			Espazio.getEspazioEMA().tiroSortu(pX,pY-4);
 			

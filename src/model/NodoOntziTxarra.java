@@ -16,8 +16,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	
 	public NodoOntziTxarra(int pId) {
 		
-		this.id = pId;
-		// Espaziontziaren pixel blokeak (Composite patroia) 
+		this.id = pId; 
 		pixelak = new ArrayList<ElementuPixel>();
 		pixelak.add(new OntziTxarra(-1,-1, pId));
 		int pX = pixelak.get(0).getX();
