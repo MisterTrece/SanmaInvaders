@@ -1,6 +1,6 @@
 package model;
 
-public class TiroMota implements Egoera{
+public class TiroEgoera implements Egoera{
 
 	@Override
 	public int getId() {

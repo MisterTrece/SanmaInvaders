@@ -15,7 +15,6 @@ public class Espazio{
 	private ArrayList<Tiro> tiroak;
 	private Timer jokoTimer;
 	private int gameTick = 0;
-	
 	private long azkenTiroa = 0;
 	
 	private Espazio() {
@@ -128,15 +127,15 @@ public class Espazio{
 		gurea.tiroEgin();
 	}
 	
+	public long getAzkenTiro() {
+		return this.azkenTiroa;
+	}
+	
+	public void setAzkenTiro(long pTime) {
+		this.azkenTiroa=pTime;
+	}
+	
 	public void tiroSortu(int pX, int pY) {
-
-		long orain = System.currentTimeMillis();
-
-		if(orain - azkenTiroa < 100) {
-		    return;
-		}
-
-		azkenTiroa = orain;
 		
 		int tiroX = pX;
 		int tiroY = pY - 3;
@@ -153,7 +152,7 @@ public class Espazio{
 			return;
 		}
 
-		matrizea[tiroY][tiroX].aldatuMota(new TiroMota());
+		matrizea[tiroY][tiroX].aldatuMota(new TiroEgoera());
 		tiroak.add(new Tiro(tiroX,tiroY));
 	}
 
@@ -164,6 +163,10 @@ public class Espazio{
 		Iterator<Tiro> itr = tiroak.iterator();
 		while (itr.hasNext()) {
 			Tiro tiro = itr.next();
+			if(tiro.desagertu()) {
+				itr.remove();
+				return;
+			}
 			tiro.mugituPixel(0,-1);
 			if(tiro.desagertu()) {
 				itr.remove();
@@ -172,8 +175,6 @@ public class Espazio{
 	}
 	
 	public void etsaiaHil(int pX, int pY) {
-		int nX = 0;
-		int nY = 0;
 		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
@@ -181,9 +182,7 @@ public class Espazio{
 			if(!etsai.borratuKonprobatu()) {
 				ArrayList<ElementuPixel> pixelak = etsai.getPixelak();
 				for(int i=0; i<pixelak.size();i++) {
-					if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){	
-						nX = etsai.getX();
-						nY = etsai.getY();
+					if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){
 						aurkituta = true;
 						etsaiKop--;
 						break;

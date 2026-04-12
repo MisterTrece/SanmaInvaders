@@ -10,6 +10,9 @@ public class Tiro extends Pixel{
 	public boolean desagertu() {
 		return this.desagertu;
 	}
+	public void desagertarazi() {
+		this.desagertu=true;
+	}
 	
 	@Override
 	public void mugituPixel(int pX, int pY) {
@@ -26,8 +29,8 @@ public class Tiro extends Pixel{
 
 			if(Espazio.getEspazioEMA().getGelaxka(x, berriaY).getMota()==2) {
 				Espazio.getEspazioEMA().etsaiaHil(x,berriaY);
-				//Espazio.getEspazioEMA().getGelaxka(x, berriaY).aldatuMota(new Eztanda());
 				desagertu = true;
+				
 				return;
 			}
 			
@@ -37,7 +40,7 @@ public class Tiro extends Pixel{
 				return;
 			}
 			
-			Espazio.getEspazioEMA().getGelaxka(x, berriaY).aldatuMota(new TiroMota());
+			Espazio.getEspazioEMA().getGelaxka(x, berriaY).aldatuMota(new TiroEgoera());
 			this.y=berriaY;
 		}
 
