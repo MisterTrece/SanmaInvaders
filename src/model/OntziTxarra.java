@@ -4,6 +4,8 @@ import javax.swing.Timer;
 
 public class OntziTxarra extends Pixel{
 	private int id;
+	private boolean hilda = false;
+	
 	public OntziTxarra(int pX, int pY, int pId) {
 		super(((int)(Math.random() * 96) + 2),5);
 		this.id = pId;
@@ -12,6 +14,10 @@ public class OntziTxarra extends Pixel{
 			this.y=pY;
 		}
 		this.mota=2;
+	}
+	
+	public boolean getHilda() {
+		return this.hilda;
 	}
 	
 	public int getId() {
@@ -39,8 +45,8 @@ public class OntziTxarra extends Pixel{
 			
 			if(berriaY!=60) { 								//matrizean dago
 				if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==3) {
-					//etsaiaHil(berriaX,berriaY);
-					Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Eztanda());
+					Espazio.getEspazioEMA().etsaiaHil(this.x, this.y);
+					//Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Eztanda());
 					return;
 				}
 				if(berriaX==gureX && berriaY==gureY || Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==1) {				//jokalariarekin topa

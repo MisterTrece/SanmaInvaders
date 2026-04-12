@@ -57,7 +57,7 @@ public class GelaxkaV extends JLabel implements Observer{
                     break;
                 case 2:
                 	this.setOpaque(true);
-                    this.setBackground(Color.MAGENTA);   // Etsaia (Enemigo)
+                    this.setBackground(Color.RED);   // Etsaia (Enemigo)
                     break;
                 case 3:
                 	this.setOpaque(true);

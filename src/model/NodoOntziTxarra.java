@@ -12,6 +12,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	private int x;
 	private int y;
 	private int id;
+	private boolean borratu = false;
 	
 	public NodoOntziTxarra(int pId) {
 		
@@ -99,6 +100,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	    }
 		
 		itr = pixelak.iterator();
+		boolean hilda = false;
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			pixel.mugituPixel(pX, pY);
@@ -111,9 +113,33 @@ public class NodoOntziTxarra implements ElementuPixel{
 					timerEND.start();
 				}
 			}
+			OntziTxarra a = (OntziTxarra) pixel;
+			if(a.getHilda()) {
+				hilda = true;
+			}
+		}
+		
+		if(hilda) {
+			Espazio.getEspazioEMA().etsaiaHil(this.x, this.y);
+			return;
 		}
 		
 		this.x = x + pX;
 		this.y = y + pY;
+	}
+	
+	public void eztanda() {
+		for (int i=0; i<pixelak.size();i++) {
+			ElementuPixel pixel = pixelak.get(i);
+			Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Eztanda());
+		}
+	}
+	
+	public void borratuBehar() {
+		this.borratu = true;
+	}
+	
+	public boolean borratuKonprobatu() {
+		return this.borratu;
 	}
 }

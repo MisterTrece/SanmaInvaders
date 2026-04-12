@@ -17,7 +17,7 @@ public abstract class OntziOna extends Pixel {
 		int berriaX = this.x + pX;
 		int berriaY = this.y + pY;
 
-		if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()!=2) {
+		if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()!=2 && Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()!=3) {
 			Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Gurea());
 
 			this.x = berriaX;

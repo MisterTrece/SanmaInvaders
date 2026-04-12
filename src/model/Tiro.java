@@ -29,6 +29,13 @@ public class Tiro extends Pixel{
 				desagertu = true;
 				return;
 			}
+			
+			if(Espazio.getEspazioEMA().getGelaxka(x, berriaY).getMota()==1) {
+				desagertu = true;
+				GoiMailakoKontrola.getKontrola().partidaGaldu();
+				return;
+			}
+			
 			Espazio.getEspazioEMA().getGelaxka(x, berriaY).aldatuMota(new TiroMota());
 			this.y=berriaY;
 		}

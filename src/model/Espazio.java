@@ -143,7 +143,6 @@ public class Espazio{
 		}
 		if(matrizea[tiroY][tiroX].getMota()==2) {
 			etsaiaHil(tiroX,tiroY);
-			matrizea[tiroY][tiroX].aldatuMota(new Eztanda());
 			return;
 		}
 
@@ -177,16 +176,16 @@ public class Espazio{
 				if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){	
 					nX = etsai.getX();
 					nY = etsai.getY();
-					itr.remove();
 					aurkituta = true;
 					etsaiKop--;
+					break;
 				}
 			}
+			if (aurkituta) {
+				etsai.eztanda();
+				etsai.borratuBehar();
+			}
 		}
-		matrizea[nY][nX].aldatuMota(new Eztanda());
-		matrizea[nY][nX-1].aldatuMota(new Eztanda());
-		matrizea[nY][nX+1].aldatuMota(new Eztanda());
-		matrizea[nY+1][nX].aldatuMota(new Eztanda());
 		
 		if(etsaiKop==0) {
 			Timer timerEND = new Timer(1500, e -> {
@@ -202,6 +201,10 @@ public class Espazio{
 		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		while(itr.hasNext()) {
 			NodoOntziTxarra etsaia = itr.next();
+			if(etsaia.borratuKonprobatu()) {
+				itr.remove();
+				continue;
+			}
 			int etsaiMug = (int)(Math.random()*3);
 			switch(etsaiMug) {
 				case 0:
@@ -216,6 +219,7 @@ public class Espazio{
 			}
 			if(kanpo) {
 				itr.remove();
+				continue;
 			}
 		}
 	}
