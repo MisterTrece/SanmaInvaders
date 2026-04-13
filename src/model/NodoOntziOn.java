@@ -15,7 +15,7 @@ public abstract class NodoOntziOn implements ElementuPixel{
 	
 	private int mota;
 	
-	public NodoOntziOn(int pMota, TiroPortaera pTiro) {
+	protected NodoOntziOn(int pMota, TiroPortaera pTiro) {
 		this.mota = pMota;
 		this.x=55;
 		this.y=50;
