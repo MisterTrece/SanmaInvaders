@@ -38,7 +38,7 @@ public class Espazio{
 	}
 
 	public void hasi() {
-		gurea =JokalariFabrika.getJokalariFabrika().createOntziOna(ontziMota);
+		gurea = sortuJokalari(ontziMota);
 		
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
 		matrizea[55][50]= gureG;
@@ -103,6 +103,10 @@ public class Espazio{
 	public void setOntziMota(int pMota) {
 		this.ontziMota = pMota;
 		System.out.println(ontziMota);
+	}
+	
+	public NodoOntziOn sortuJokalari(int pOntziMota) {
+		return JokalariFabrika.getJokalariFabrika().createOntziOna(ontziMota);
 	}
 	
 	public void sartu(int x,int y,Egoera mota) {
