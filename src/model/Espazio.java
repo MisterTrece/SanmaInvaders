@@ -105,7 +105,7 @@ public class Espazio{
 		System.out.println(ontziMota);
 	}
 	
-	public NodoOntziOn sortuJokalari(int pOntziMota) {
+	private NodoOntziOn sortuJokalari(int pOntziMota) {
 		return JokalariFabrika.getJokalariFabrika().createOntziOna(ontziMota);
 	}
 	
@@ -210,7 +210,6 @@ public class Espazio{
 	}
 	
 	public void mugituEtsaiak() {
-		boolean kanpo=false;
 		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		while(itr.hasNext()) {
 			NodoOntziTxarra etsaia = itr.next();
@@ -220,25 +219,20 @@ public class Espazio{
 				int etsaiMug = (int)(Math.random()*3);
 				switch(etsaiMug) {
 					case 0:
-						kanpo=mugituOntziEtsai(etsaia,0,1);		//beherantz
+						mugituOntziEtsai(etsaia,0,1);		//beherantz
 						break;
 					case 1:
-						kanpo=mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
+						mugituOntziEtsai(etsaia,-1,0);	//ezkerrerantz
 						break;
 					case 2:
-						kanpo=mugituOntziEtsai(etsaia,1,0);		//eskuinerantz
+						mugituOntziEtsai(etsaia,1,0);		//eskuinerantz
 						break;
-				}
-				if(kanpo) {
-					itr.remove();
-					continue;
 				}
 			}
 		}
 	}
-	private boolean mugituOntziEtsai(NodoOntziTxarra pEtsai,int pX,int pY) {
+	private void mugituOntziEtsai(NodoOntziTxarra pEtsai,int pX,int pY) {
 		pEtsai.mugituPixel(pX, pY);
-		return false;
 	}
 	
 	public boolean etsaiKolisioa(int pId, int pX, int pY) {
