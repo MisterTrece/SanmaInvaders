@@ -102,7 +102,6 @@ public class Espazio{
 	
 	public void setOntziMota(int pMota) {
 		this.ontziMota = pMota;
-		System.out.println(ontziMota);
 	}
 	
 	private NodoOntziOn sortuJokalari(int pOntziMota) {

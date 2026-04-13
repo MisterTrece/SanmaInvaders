@@ -18,15 +18,12 @@ public class JokalariFabrika {
 		switch (pMota) {
 			case 1:
 				nireOntzia = new OntziOnBlue();
-				System.out.println("Hasi:Blue");
 				break;
 			case 2:
 				nireOntzia = new OntziOnGreen();
-				System.out.println("Hasi:Green");
 				break;
 			case 3:
 				nireOntzia = new OntziOnRed();
-				System.out.println("Hasi:Red");
 				break;
 			default:
 				nireOntzia = new OntziOnRed();
