@@ -24,6 +24,7 @@ public class HasieraPantaila extends JFrame implements Observer{
 
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko");
+    private final JLabel lblTiroAldatu = new JLabel("Sakatu <T> tiro mota aldatzeko");
     
     private static HasieraPantaila nHasieraPantaila = null;
     
@@ -47,9 +48,14 @@ public class HasieraPantaila extends JFrame implements Observer{
         lblStart.setFont(new Font("Consolas", Font.BOLD, 20));
         lblStart.setForeground(Color.WHITE);
         lblStart.setBounds(235, 650, 800, 30);
+        
+        lblTiroAldatu.setFont(new Font("Consolas", Font.BOLD, 20));
+        lblTiroAldatu.setForeground(Color.WHITE);
+        lblTiroAldatu.setBounds(460, 700, 800, 30);
 
         contentPane.add(lblSakatu);
         contentPane.add(lblStart);
+        contentPane.add(lblTiroAldatu);
         contentPane.add(background);
 
         addKeyListener(new KeyAdapter() {
@@ -82,6 +88,7 @@ public class HasieraPantaila extends JFrame implements Observer{
         Timer blinkTimer = new Timer(750, e -> {
             lblStart.setVisible(!lblStart.isVisible());
             lblSakatu.setVisible(!lblSakatu.isVisible());
+            lblTiroAldatu.setVisible(!lblTiroAldatu.isVisible());
         });
         blinkTimer.start();
         
