@@ -6,7 +6,15 @@ public class Tiro extends Pixel{
 	public Tiro(int x, int y) {
 		super(x,y);
 		this.mota=3;
+		
+		if(Espazio.getEspazioEMA().getGelaxka(x, y).getMota()==2) {
+			desagertu=true;
 		}
+		Espazio.getEspazioEMA().getGelaxka(x, y).aldatuMota(new TiroEgoera());
+		if(desagertu) {
+			Espazio.getEspazioEMA().etsaiaHil(x, y);
+		}
+	}
 	
 	public boolean desagertu() {
 		return this.desagertu;
@@ -28,7 +36,7 @@ public class Tiro extends Pixel{
 				atera  = true;
 				return;
 			}
-
+			
 			if(Espazio.getEspazioEMA().getGelaxka(x, berriaY).getMota()==2) {
 				Espazio.getEspazioEMA().etsaiaHil(x,berriaY);
 				desagertu = true;

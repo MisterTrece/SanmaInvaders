@@ -19,7 +19,10 @@ public class TiroErronbo implements TiroPortaera {
 			
 			NodoTiro tiro = new NodoTiro("Erronbo");
 			Espazio.getEspazioEMA().tiroSortu(tiro);
-			tiroKop--;
 		}
+	}
+	@Override
+	public void tiroKopMur() {
+		tiroKop--;
 	}
 }

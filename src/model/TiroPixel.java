@@ -15,4 +15,7 @@ public class TiroPixel implements TiroPortaera {
 		Espazio.getEspazioEMA().tiroSortu(tiro);
 	}
 
+	@Override
+	public void tiroKopMur() {}
+
 }

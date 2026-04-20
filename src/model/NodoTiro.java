@@ -7,46 +7,67 @@ public class NodoTiro implements ElementuPixel{
 	
 	private ArrayList<ElementuPixel> pixelak;
 	
-	private int x;			//beheko pixela
-	private int y;			//beheko pixela 
+	private int x;			
+	private int botY;		//beheko pixela 
+	private int topY;		//goiko pixela
+	
 	private boolean desagertu = false;
 	private boolean atera = false;
 	
 	public NodoTiro(String pMota) {
 		
 		x = Espazio.getEspazioEMA().getGurea().getX();
-		y = Espazio.getEspazioEMA().getGurea().getY()-2;
+		botY = Espazio.getEspazioEMA().getGurea().getY()-3;
 		pixelak = new ArrayList<ElementuPixel>();
 		if(pMota.equals("Pixel")) {
-			pixelak.add(new Tiro(x,y));
+			topY = botY;
+			
+			pixelak.add(new Tiro(x,botY));
 		}else if (pMota.equals("Gezi")) {
-			pixelak.add(new Tiro(x,y-1));
+			topY = botY - 1;
 			
-			pixelak.add(new Tiro(x+1,y));
-			pixelak.add(new Tiro(x-1,y));
+			pixelak.add(new Tiro(x,botY-1));
+			
+			pixelak.add(new Tiro(x+1,botY));
+			pixelak.add(new Tiro(x-1,botY));
 		}else if (pMota.equals("Erronbo")) {
-			pixelak.add(new Tiro(x,y-4));
+			topY = botY - 4;
+					
+			pixelak.add(new Tiro(x,botY-4));
 			
-			pixelak.add(new Tiro(x-1,y-3));
-			pixelak.add(new Tiro(x,y-3));
-			pixelak.add(new Tiro(x+1,y-3));
+			pixelak.add(new Tiro(x-1,botY-3));
+			pixelak.add(new Tiro(x,botY-3));
+			pixelak.add(new Tiro(x+1,botY-3));
 			
-			pixelak.add(new Tiro(x-2,y-2));
-			pixelak.add(new Tiro(x-1,y-2));
-			pixelak.add(new Tiro(x,y-2));
-			pixelak.add(new Tiro(x+1,y-2));
-			pixelak.add(new Tiro(x+2,y-2));
+			pixelak.add(new Tiro(x-2,botY-2));
+			pixelak.add(new Tiro(x-1,botY-2));
+			pixelak.add(new Tiro(x,botY-2));
+			pixelak.add(new Tiro(x+1,botY-2));
+			pixelak.add(new Tiro(x+2,botY-2));
 			
-			pixelak.add(new Tiro(x-1,y-1));
-			pixelak.add(new Tiro(x,y-1));
-			pixelak.add(new Tiro(x+1,y-1));
+			pixelak.add(new Tiro(x-1,botY-1));
+			pixelak.add(new Tiro(x,botY-1));
+			pixelak.add(new Tiro(x+1,botY-1));
 			
-			pixelak.add(new Tiro(x,y));
+			pixelak.add(new Tiro(x,botY));
 		}
+		/*
+		for(ElementuPixel p: pixelak) {
+			if(Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).getMota()==2) {
+				Espazio.getEspazioEMA().etsaiaHil(p.getX(), p.getY());
+				Espazio.getEspazioEMA().getGurea().tiroKopMur();
+				garbitu();
+			}
+		}*/
 	}
 	
 	public boolean desagertu() {
 		return this.desagertu;
+	}
+	
+	public void desagertarazi() {
+		this.desagertu=true;
+		garbitu();
 	}
 	
 	public boolean atera() {
@@ -56,6 +77,23 @@ public class NodoTiro implements ElementuPixel{
 	private void garbitu() {
 		for (ElementuPixel p: pixelak) {
 			Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik());
+		}
+	}
+	
+	public boolean baduPixela(int pX, int pY) {
+		boolean badu = false;
+		for(ElementuPixel p: pixelak) {
+			if(p.getX()==pX && p.getY()==pY) {
+				badu=true;
+				break;
+			}
+		}
+		return badu;
+	}
+	
+	public void erakutsi() {
+		for(ElementuPixel p: pixelak) {
+			Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new TiroEgoera());
 		}
 	}
 	
@@ -93,12 +131,12 @@ public class NodoTiro implements ElementuPixel{
 				garbitu();
 				return;
 			}
-			if(tiro.atera() && tiro.getX()==x && tiro.getY()==y) {
+			if(tiro.atera() && tiro.getX()==x && tiro.getY()==botY) {
 				atera=true;
 			}
 			
 		}
-		this.y = y + pY;
+		this.botY = botY + pY;
 	}
 
 	@Override
@@ -108,7 +146,11 @@ public class NodoTiro implements ElementuPixel{
 
 	@Override
 	public int getY() {
-		return this.y;
+		return this.botY;
+	}
+	
+	public int getTopY() {
+		return this.topY;
 	}
 
 	@Override

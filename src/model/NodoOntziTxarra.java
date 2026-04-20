@@ -61,11 +61,6 @@ public class NodoOntziTxarra implements ElementuPixel{
 		return this.pixelak;
 	}
 	
-	/*
-	public void addElementu(ElementuPixel pEl) {
-		pixelak.add(pEl);
-	}
-	*/
 	@Override
 	public void mugituPixel(int pX, int pY) {
 		

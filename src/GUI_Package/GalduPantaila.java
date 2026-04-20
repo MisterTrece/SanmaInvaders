@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -52,6 +54,14 @@ public class GalduPantaila extends JFrame {
 	    galdu.setVisible(true);
 	    garezurra.setVisible(false);
 	    
+	    addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+            	if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            		System.exit(0);
+            	}
+            }
+        });
 	    
 	    Timer timer = new Timer(750, new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {

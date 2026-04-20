@@ -12,7 +12,6 @@ public class Espazio{
 	private ArrayList<NodoOntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
-	//private ArrayList<Tiro> tiroak;
 	private ArrayList<NodoTiro> tiroak;
 	private long azkenTiroa = 0;
 	private Timer jokoTimer;
@@ -26,7 +25,6 @@ public class Espazio{
 			}
 		}
 
-		//tiroak = new ArrayList<Tiro>();
 		tiroak = new ArrayList<NodoTiro>();
 		etsaiak= new ArrayList<NodoOntziTxarra>();
 		
@@ -142,29 +140,16 @@ public class Espazio{
 	}
 	
 	public void tiroSortu(NodoTiro pTiro) {
+		int tiroX = pTiro.getX();
+		int tiroBotY = pTiro.getY();
+		int tiroTopY = pTiro.getTopY();
+		if (tiroBotY <= 0 || tiroTopY<=0) {
+			return;
+		}
+		gurea.tiroKopMur();
+		pTiro.erakutsi();
 		tiroak.add(pTiro);
 	}
-	
-	/*public void tiroSortu2(int pX, int pY) {
-		
-		int tiroX = pX;
-		int tiroY = pY - 3;
-
-		if (tiroY < 0 || tiroY >= matrizea.length) {
-			return;
-		}
-
-		if (matrizea[tiroY][tiroX].getMota()==3) {
-			return;
-		}
-		if(matrizea[tiroY][tiroX].getMota()==2) {
-			etsaiaHil(tiroX,tiroY);
-			return;
-		}
-
-		matrizea[tiroY][tiroX].aldatuMota(new TiroEgoera());
-		tiroak.add(new Tiro(tiroX,tiroY));
-	}*/
 
 	public void mugituTiroak() {
 		if (tiroak.isEmpty()) {
@@ -182,6 +167,19 @@ public class Espazio{
 				itr.remove();
 			}
 		}
+	}
+	
+	public NodoTiro getTiro(int pX, int pY) {
+		NodoTiro tiroa = null;
+		boolean aurkituta = false;
+		Iterator<NodoTiro> itr = tiroak.iterator();
+		while(itr.hasNext() && !aurkituta) {
+			NodoTiro tiro = itr.next();
+			if(tiro.baduPixela(pX, pY)) {
+				tiroa = tiro;
+			}
+		}
+		return tiroa;
 	}
 	
 	public void etsaiaHil(int pX, int pY) {

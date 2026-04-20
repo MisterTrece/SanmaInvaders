@@ -43,31 +43,24 @@ public class OntziTxarra extends Pixel{
 	
 			
 			
-			if(berriaY!=60) { 								//matrizean dago
+			if(berriaY!=60) { 																									//matrizean dago
 				if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==3) {
-					Espazio.getEspazioEMA().etsaiaHil(this.x, this.y);
-					//Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Eztanda());
-					return;
+					hilda = true;
 				}
-				if(berriaX==gureX && berriaY==gureY || Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==1) {				//jokalariarekin topa
+				if(berriaX==gureX && berriaY==gureY || Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==1) {		//jokalariarekin topa
 					GoiMailakoKontrola.getKontrola().partidaGaldu();
 				}
-				if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==2) {			//beste etsaiarekin topa - ez gainjarri
+				if(Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).getMota()==2) {											//beste etsaiarekin topa - ez gainjarri
 					return;
 				}
-				//Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
 				Espazio.getEspazioEMA().getGelaxka(berriaX,berriaY).aldatuMota(new Etsaia());			
 				this.x=berriaX;
-				this.y=berriaY;
-				
-			}/*else { 													//matrizetik kanpo
-				//Espazio.getEspazioEMA().getGelaxka(this.x,this.y).aldatuMota(new Hutsik());
-				Timer timerEND = new Timer(500, e -> {
-					GoiMailakoKontrola.getKontrola().partidaGaldu();
-			    });
-				timerEND.setRepeats(false);
-				timerEND.start();
-			}*/
+				this.y=berriaY;	
+				if(hilda) {
+					Espazio.getEspazioEMA().etsaiaHil(this.x, this.y);
+					Espazio.getEspazioEMA().getTiro(berriaX, berriaY).desagertarazi();
+				}
+			}
 		}
 	}	
 }

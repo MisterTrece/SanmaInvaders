@@ -15,7 +15,10 @@ public class TiroGezi implements TiroPortaera {
 			
 			NodoTiro tiro = new NodoTiro("Gezi");
 			Espazio.getEspazioEMA().tiroSortu(tiro);
-			tiroKop--;
 		}
+	}
+	@Override
+	public void tiroKopMur() {
+		tiroKop--;
 	}
 }

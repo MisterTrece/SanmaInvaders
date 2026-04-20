@@ -53,6 +53,10 @@ public abstract class NodoOntziOn implements ElementuPixel{
 		this.y=py;
 	}
 	
+	public void tiroKopMur() {
+		tiroMota.tiroKopMur();
+	}
+	
 	@Override
 	public int getId() {
 		return -1;
