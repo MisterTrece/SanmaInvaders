@@ -10,6 +10,7 @@ public class NodoTiro implements ElementuPixel{
 	private int x;			//beheko pixela
 	private int y;			//beheko pixela 
 	private boolean desagertu = false;
+	private boolean atera = false;
 	
 	public NodoTiro(String pMota) {
 		
@@ -48,6 +49,15 @@ public class NodoTiro implements ElementuPixel{
 		return this.desagertu;
 	}
 	
+	public boolean atera() {
+		return this.atera;
+	}
+	
+	private void garbitu() {
+		for (ElementuPixel p: pixelak) {
+			Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik());
+		}
+	}
 	
 	@Override
 	public void mugituPixel(int pX, int pY) {
@@ -77,6 +87,16 @@ public class NodoTiro implements ElementuPixel{
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			pixel.mugituPixel(pX, pY);
+			Tiro tiro = (Tiro) pixel;
+			if(tiro.desagertu()) {
+				desagertu=true;
+				garbitu();
+				return;
+			}
+			if(tiro.atera() && tiro.getX()==x && tiro.getY()==y) {
+				atera=true;
+			}
+			
 		}
 		this.y = y + pY;
 	}

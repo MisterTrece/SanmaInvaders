@@ -173,7 +173,7 @@ public class Espazio{
 		Iterator<NodoTiro> itr = tiroak.iterator();
 		while (itr.hasNext()) {
 			NodoTiro tiro = itr.next();
-			if(tiro.desagertu()) {
+			if(tiro.desagertu() || (tiro.atera())) {
 				itr.remove();
 				return;
 			}

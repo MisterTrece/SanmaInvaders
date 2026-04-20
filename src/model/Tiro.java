@@ -2,28 +2,30 @@ package model;
 
 public class Tiro extends Pixel{
 	private boolean desagertu = false;
-	
+	private boolean atera = false;
 	public Tiro(int x, int y) {
 		super(x,y);
 		this.mota=3;
 		}
+	
 	public boolean desagertu() {
 		return this.desagertu;
 	}
+	
 	public void desagertarazi() {
 		this.desagertu=true;
 	}
 	
+	public boolean atera() {
+		return this.atera;
+	}
+	
 	@Override
 	public void mugituPixel(int pX, int pY) {
-		int maxY = 60 - 1;
 		int berriaY = y - 1;
-			/*if (this.y >= 0 && this.y <= maxY) {
-				Espazio.getEspazioEMA().getGelaxka(x, y).aldatuMota(new Hutsik());
-			}*/
 			
 			if (berriaY < 0) {
-				desagertu = true;
+				atera  = true;
 				return;
 			}
 
