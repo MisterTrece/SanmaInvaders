@@ -12,10 +12,12 @@ public class Espazio{
 	private ArrayList<NodoOntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
-	private ArrayList<Tiro> tiroak;
+	//private ArrayList<Tiro> tiroak;
+	private ArrayList<NodoTiro> tiroak;
+	private long azkenTiroa = 0;
 	private Timer jokoTimer;
 	private int gameTick = 0;
-	private long azkenTiroa = 0;
+	
 	
 	private Espazio() {
 		for(int i=0;i<matrizea.length;i++) {
@@ -24,7 +26,8 @@ public class Espazio{
 			}
 		}
 
-		tiroak = new ArrayList<Tiro>();
+		//tiroak = new ArrayList<Tiro>();
+		tiroak = new ArrayList<NodoTiro>();
 		etsaiak= new ArrayList<NodoOntziTxarra>();
 		
 		
@@ -138,7 +141,11 @@ public class Espazio{
 		this.azkenTiroa=pTime;
 	}
 	
-	public void tiroSortu(int pX, int pY) {
+	public void tiroSortu(NodoTiro pTiro) {
+		tiroak.add(pTiro);
+	}
+	
+	/*public void tiroSortu2(int pX, int pY) {
 		
 		int tiroX = pX;
 		int tiroY = pY - 3;
@@ -157,15 +164,15 @@ public class Espazio{
 
 		matrizea[tiroY][tiroX].aldatuMota(new TiroEgoera());
 		tiroak.add(new Tiro(tiroX,tiroY));
-	}
+	}*/
 
 	public void mugituTiroak() {
 		if (tiroak.isEmpty()) {
 			return;
 		}
-		Iterator<Tiro> itr = tiroak.iterator();
+		Iterator<NodoTiro> itr = tiroak.iterator();
 		while (itr.hasNext()) {
-			Tiro tiro = itr.next();
+			NodoTiro tiro = itr.next();
 			if(tiro.desagertu()) {
 				itr.remove();
 				return;

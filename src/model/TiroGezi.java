@@ -12,11 +12,9 @@ public class TiroGezi implements TiroPortaera {
 		Espazio.getEspazioEMA().setAzkenTiro(orain);
 		
 		if(tiroKop>0) {
-			Espazio.getEspazioEMA().tiroSortu(pX,pY-1);
 			
-			Espazio.getEspazioEMA().tiroSortu(pX+1,pY);
-			Espazio.getEspazioEMA().tiroSortu(pX-1,pY);
-			
+			NodoTiro tiro = new NodoTiro("Gezi");
+			Espazio.getEspazioEMA().tiroSortu(tiro);
 			tiroKop--;
 		}
 	}

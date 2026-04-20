@@ -16,24 +16,9 @@ public class TiroErronbo implements TiroPortaera {
 		}
 		
 		if(tiroKop>0) {
-			Espazio.getEspazioEMA().tiroSortu(pX,pY-4);
 			
-			Espazio.getEspazioEMA().tiroSortu(pX,pY-3);
-			Espazio.getEspazioEMA().tiroSortu(pX+1,pY-3);
-			Espazio.getEspazioEMA().tiroSortu(pX-1,pY-3);
-			
-			Espazio.getEspazioEMA().tiroSortu(pX,pY-2);
-			Espazio.getEspazioEMA().tiroSortu(pX+1,pY-2);
-			Espazio.getEspazioEMA().tiroSortu(pX-1,pY-2);
-			Espazio.getEspazioEMA().tiroSortu(pX+2,pY-2);
-			Espazio.getEspazioEMA().tiroSortu(pX-2,pY-2);
-			
-			Espazio.getEspazioEMA().tiroSortu(pX,pY-1);
-			Espazio.getEspazioEMA().tiroSortu(pX+1,pY-1);
-			Espazio.getEspazioEMA().tiroSortu(pX-1,pY-1);
-			
-			Espazio.getEspazioEMA().tiroSortu(pX,pY);
-			
+			NodoTiro tiro = new NodoTiro("Erronbo");
+			Espazio.getEspazioEMA().tiroSortu(tiro);
 			tiroKop--;
 		}
 	}
