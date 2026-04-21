@@ -20,9 +20,19 @@ public class NodoOntziTxarra implements ElementuPixel{
 		pixelak = new ArrayList<ElementuPixel>();
 		pixelak.add(new OntziTxarra(-1,-1, pId));
 		int pX = pixelak.get(0).getX();
-		pixelak.add(new OntziTxarra(pX+1,5, pId));
+		//pixelak.add(new OntziTxarra(pX+1,5, pId));
+		//pixelak.add(new OntziTxarra(pX-1,5,pId));
+		//pixelak.add(new OntziTxarra(pX,6,pId));
+		
+		pixelak.add(new OntziTxarra(pX,4,pId));
+		pixelak.add(new OntziTxarra(pX+1,4,pId));
+		pixelak.add(new OntziTxarra(pX-1,4,pId));
+		
+		pixelak.add(new OntziTxarra(pX+1,5,pId));
 		pixelak.add(new OntziTxarra(pX-1,5,pId));
-		pixelak.add(new OntziTxarra(pX,6,pId));
+		
+		pixelak.add(new OntziTxarra(pX+1,6,pId));
+		pixelak.add(new OntziTxarra(pX-1,6,pId));
 		
 		this.x = pX;
 		this.y = 5;
@@ -32,9 +42,19 @@ public class NodoOntziTxarra implements ElementuPixel{
 		pixelak.removeAll(pixelak);
 		pixelak.add(new OntziTxarra(-1,-1,id));
 		int pX = pixelak.get(0).getX();
+		//pixelak.add(new OntziTxarra(pX+1,5,id));
+		//pixelak.add(new OntziTxarra(pX-1,5,id));
+		//pixelak.add(new OntziTxarra(pX,6,id));
+		
+		pixelak.add(new OntziTxarra(pX,4,id));
+		pixelak.add(new OntziTxarra(pX+1,4,id));
+		pixelak.add(new OntziTxarra(pX-1,4,id));
+		
 		pixelak.add(new OntziTxarra(pX+1,5,id));
 		pixelak.add(new OntziTxarra(pX-1,5,id));
-		pixelak.add(new OntziTxarra(pX,6,id));
+		
+		pixelak.add(new OntziTxarra(pX+1,6,id));
+		pixelak.add(new OntziTxarra(pX-1,6,id));
 		
 		this.x = pX;
 	}
@@ -100,11 +120,16 @@ public class NodoOntziTxarra implements ElementuPixel{
 			pixel.mugituPixel(pX, pY);
 			if (pixel.getY()+pY==60) {
 				if(pixel.getX()==x && pixel.getY()==y) {
+					itr.remove();
+					Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Hutsik());
 					Timer timerEND = new Timer(190, e -> {
 						GoiMailakoKontrola.getKontrola().partidaGaldu();
 				    });
 					timerEND.setRepeats(false);
 					timerEND.start();
+				}else {
+					itr.remove();
+					Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Hutsik());
 				}
 			}
 			OntziTxarra a = (OntziTxarra) pixel;

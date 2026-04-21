@@ -63,10 +63,23 @@ public class Espazio{
 			
 			while(!jarrita) {
 				if(!etsaiBool[o.getX()] && !etsaiBool[o.getX()+1] && !etsaiBool[o.getX()-1] && !etsaiBool[o.getX()+2] && !etsaiBool[o.getX()-2]) {
-					matrizea[o.getY()][o.getX()]=new GelaxkaM(new Etsaia());
-					matrizea[o.getY()][o.getX()+1]=new GelaxkaM(new Etsaia());
-					matrizea[o.getY()][o.getX()-1]=new GelaxkaM(new Etsaia());
-					matrizea[o.getY()+1][o.getX()]=new GelaxkaM(new Etsaia());
+					//matrizea[o.getY()][o.getX()]=new GelaxkaM(new Etsaia());
+					//matrizea[o.getY()][o.getX()+1]=new GelaxkaM(new Etsaia());
+					//matrizea[o.getY()][o.getX()-1]=new GelaxkaM(new Etsaia());
+					//matrizea[o.getY()+1][o.getX()]=new GelaxkaM(new Etsaia());
+					
+					matrizea[o.getY()][o.getX()] = new GelaxkaM(new Etsaia());
+					
+					matrizea[o.getY()-1][o.getX()] = new GelaxkaM(new Etsaia());
+					matrizea[o.getY()-1][o.getX()+1] = new GelaxkaM(new Etsaia());
+					matrizea[o.getY()-1][o.getX()-1] = new GelaxkaM(new Etsaia());
+					
+					matrizea[o.getY()][o.getX()+1] = new GelaxkaM(new Etsaia());
+					matrizea[o.getY()][o.getX()-1] = new GelaxkaM(new Etsaia());
+					
+					matrizea[o.getY()+1][o.getX()+1] = new GelaxkaM(new Etsaia());
+					matrizea[o.getY()+1][o.getX()-1] = new GelaxkaM(new Etsaia());
+					
 					etsaiBool[o.getX()]=true;
 					etsaiBool[o.getX()+1]=true;
 					etsaiBool[o.getX()+2]=true;
