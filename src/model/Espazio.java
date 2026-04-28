@@ -183,6 +183,12 @@ public class Espazio{
 	}
 	
 	public NodoTiro getTiro(int pX, int pY) {
+		return tiroak.stream()
+				.filter(n -> n.baduPixela(pX, pY))
+				.findFirst()
+				.orElse(null);
+		
+		/*
 		NodoTiro tiroa = null;
 		boolean aurkituta = false;
 		Iterator<NodoTiro> itr = tiroak.iterator();
@@ -193,6 +199,7 @@ public class Espazio{
 			}
 		}
 		return tiroa;
+		*/
 	}
 	
 	public void etsaiaHil(int pX, int pY) {
