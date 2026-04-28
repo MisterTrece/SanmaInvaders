@@ -90,12 +90,14 @@ public class Matrizea extends JFrame implements Observer{
 		if(arg.equals("LOSE")) {
 			setEnabled(false);
 	    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
+	    	GalduPantaila.getGalduPantaila().setUndecorated(true);
 	    	GalduPantaila.getGalduPantaila().setVisible(true);
 		}
 		
 		if(arg.equals("WIN")) {
 			setEnabled(false);
 	    	IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
+	    	IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
 	    	IrabaziPantaila.getIrabaziPantaila().setVisible(true);
 		}
 	}
