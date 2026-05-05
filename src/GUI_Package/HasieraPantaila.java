@@ -60,7 +60,9 @@ public class HasieraPantaila extends JFrame implements Observer{
         btnZailtasuna.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		;
+        		ZailtasunPantaila.getZailtasunPantaila().setLocationRelativeTo(null);
+        		ZailtasunPantaila.getZailtasunPantaila().setUndecorated(true);
+        		ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
         	}
         });
         btnZailtasuna.setBackground(Color.WHITE);

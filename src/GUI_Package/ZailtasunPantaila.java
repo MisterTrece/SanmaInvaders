@@ -13,56 +13,49 @@ import javax.swing.border.EmptyBorder;
 
 public class ZailtasunPantaila extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private static ZailtasunPantaila nZailtasunPantaila;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ZailtasunPantaila frame = new ZailtasunPantaila();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private ZailtasunPantaila() {
 
-	/**
-	 * Create the frame.
-	 */
-	public ZailtasunPantaila() {
-		setForeground(new Color(0, 0, 0));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setBounds(0, 0, 450, 300);
-	    
-		contentPane = new JPanel();
-		setContentPane(contentPane);
-		
-	    contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	    contentPane.setBackground(Color.BLACK);
-	    contentPane.setLayout(null);
-		
-		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
+        setTitle("Zailtasuna");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 740, 423);
+        setLocationRelativeTo(null);
+
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBackground(Color.BLACK);
+        contentPane.setLayout(null);
+        setContentPane(contentPane);
+
+        JLabel background = new JLabel();
+        background.setIcon(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
         background.setBounds(0, 0, 740, 423);
-		
-		addKeyListener(new KeyAdapter() {
+
+        contentPane.add(background);
+
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_ESCAPE -> System.exit(0);
-                    							
+
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    System.exit(0);
                 }
+
             }
         });
-		
-		contentPane.add(background);
-		background.setVisible(true);
 
-	}
-
+        setFocusable(true);
+        requestFocusInWindow();
+    }
+    
+    public static ZailtasunPantaila getZailtasunPantaila() {
+    	if(nZailtasunPantaila == null) {
+    		nZailtasunPantaila = new ZailtasunPantaila();
+    	}
+    	
+    	return nZailtasunPantaila;
+    }
 }
