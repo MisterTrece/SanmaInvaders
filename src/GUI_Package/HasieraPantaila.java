@@ -15,6 +15,9 @@ import javax.swing.Timer;
 
 import model.Espazio;
 import model.GoiMailakoKontrola;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HasieraPantaila extends JFrame implements Observer{
 
@@ -23,7 +26,7 @@ public class HasieraPantaila extends JFrame implements Observer{
     private JPanel contentPane;
 
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
-    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio-ontziaren kolorea aldatzeko");
+    private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio ontziaren kolorea aldatzeko");
     private final JLabel lblTiroAldatu = new JLabel("Sakatu <T> tiro mota aldatzeko");
     
     private static HasieraPantaila nHasieraPantaila = null;
@@ -53,10 +56,24 @@ public class HasieraPantaila extends JFrame implements Observer{
         lblTiroAldatu.setForeground(Color.WHITE);
         lblTiroAldatu.setBounds(460, 700, 800, 30);
 
+        JButton btnZailtasuna = new JButton("Zailtasuna aukeratu");
+        btnZailtasuna.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		;
+        	}
+        });
+        btnZailtasuna.setBackground(Color.WHITE);
+        btnZailtasuna.setForeground(Color.BLACK);
+        btnZailtasuna.setFont(new Font("Consolas", Font.BOLD, 20));
+        btnZailtasuna.setBounds(497, 552, 274, 30);
+        
         contentPane.add(lblSakatu);
         contentPane.add(lblStart);
         contentPane.add(lblTiroAldatu);
+        contentPane.add(btnZailtasuna);
         contentPane.add(background);
+        
 
         addKeyListener(new KeyAdapter() {
             @Override
