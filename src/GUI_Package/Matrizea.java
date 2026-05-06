@@ -100,5 +100,6 @@ public class Matrizea extends JFrame implements Observer{
 	    	IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
 	    	IrabaziPantaila.getIrabaziPantaila().setVisible(true);
 		}
+
 	}
 }

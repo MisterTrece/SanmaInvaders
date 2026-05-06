@@ -9,6 +9,7 @@ public class Espazio{
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
 	private int ontziMota;
+	private ZailtasunMaila zailtasunMaila = ZailtasunMaila.NORMALA;
 	private ArrayList<NodoOntziTxarra> etsaiak;
 	private int etsaiKop;
 	private static Espazio nEspazio = null;
@@ -49,7 +50,8 @@ public class Espazio{
 		
 		gurea.aldatuKords(50, 55);
 		
-		etsaiKop = (int)(Math.random()*5)+4;
+		etsaiKop = zailtasunMaila.getEtsaiMin()
+				+ (int) (Math.random() * (zailtasunMaila.getEtsaiMax() - zailtasunMaila.getEtsaiMin() + 1));
 		for (int i=0;i<etsaiKop;i++) {
 			NodoOntziTxarra e = new NodoOntziTxarra(i);
 			etsaiak.add(e);
@@ -97,8 +99,8 @@ public class Espazio{
 	        	jokoTimer = new Timer(50, ev -> {
 	        		Espazio.getEspazioEMA().mugituTiroak();
 	        		gameTick++;
-	        		if(gameTick==4) {
-	        			gameTick=0;
+	        		if (gameTick >= zailtasunMaila.getEtsaiMugimenduTick()) {
+	        			gameTick = 0;
 	        			Espazio.getEspazioEMA().mugituEtsaiak();
 	        		}
 	        	});
@@ -116,6 +118,14 @@ public class Espazio{
 	
 	public void setOntziMota(int pMota) {
 		this.ontziMota = pMota;
+	}
+
+	public void setZailtasunMaila(ZailtasunMaila pMaila) {
+		this.zailtasunMaila = pMaila;
+	}
+
+	public ZailtasunMaila getZailtasunMaila() {
+		return this.zailtasunMaila;
 	}
 	
 	private NodoOntziOn sortuJokalari(int pOntziMota) {

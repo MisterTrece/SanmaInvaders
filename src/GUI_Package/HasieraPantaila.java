@@ -15,9 +15,7 @@ import javax.swing.Timer;
 
 import model.Espazio;
 import model.GoiMailakoKontrola;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import model.ZailtasunMaila;
 
 public class HasieraPantaila extends JFrame implements Observer{
 
@@ -28,6 +26,8 @@ public class HasieraPantaila extends JFrame implements Observer{
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio ontziaren kolorea aldatzeko");
     private final JLabel lblTiroAldatu = new JLabel("Sakatu <T> tiro mota aldatzeko");
+    private final JLabel lblZailtasunAldatu = new JLabel("Sakatu <Z> zailtasuna aldatzeko");
+    private final JLabel lblZailtasuna = new JLabel("Zailtasuna: Normala");
     
     private static HasieraPantaila nHasieraPantaila = null;
     
@@ -56,24 +56,19 @@ public class HasieraPantaila extends JFrame implements Observer{
         lblTiroAldatu.setForeground(Color.WHITE);
         lblTiroAldatu.setBounds(460, 700, 800, 30);
 
-        JButton btnZailtasuna = new JButton("Zailtasuna aukeratu");
-        btnZailtasuna.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		ZailtasunPantaila.getZailtasunPantaila().setLocationRelativeTo(null);
-        		ZailtasunPantaila.getZailtasunPantaila().setUndecorated(true);
-        		ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
-        	}
-        });
-        btnZailtasuna.setBackground(Color.WHITE);
-        btnZailtasuna.setForeground(Color.BLACK);
-        btnZailtasuna.setFont(new Font("Consolas", Font.BOLD, 20));
-        btnZailtasuna.setBounds(497, 552, 274, 30);
-        
+        lblZailtasunAldatu.setFont(new Font("Consolas", Font.BOLD, 20));
+        lblZailtasunAldatu.setForeground(Color.WHITE);
+        lblZailtasunAldatu.setBounds(459, 600, 900, 30);
+
+        lblZailtasuna.setFont(new Font("Consolas", Font.BOLD, 20));
+        lblZailtasuna.setForeground(Color.WHITE);
+        lblZailtasuna.setBounds(520, 515, 400, 30);
+
         contentPane.add(lblSakatu);
         contentPane.add(lblStart);
         contentPane.add(lblTiroAldatu);
-        contentPane.add(btnZailtasuna);
+        contentPane.add(lblZailtasunAldatu);
+        contentPane.add(lblZailtasuna);
         contentPane.add(background);
         
 
@@ -97,6 +92,9 @@ public class HasieraPantaila extends JFrame implements Observer{
                 case KeyEvent.VK_ESCAPE:
                 	System.exit(0);
                 	break;
+                case KeyEvent.VK_Z:
+                	aldatuZailtasuna();
+                	break;
             	}
             	
             	
@@ -108,6 +106,7 @@ public class HasieraPantaila extends JFrame implements Observer{
             lblStart.setVisible(!lblStart.isVisible());
             lblSakatu.setVisible(!lblSakatu.isVisible());
             lblTiroAldatu.setVisible(!lblTiroAldatu.isVisible());
+            lblZailtasunAldatu.setVisible(!lblZailtasunAldatu.isVisible());
         });
         blinkTimer.start();
         
@@ -123,6 +122,26 @@ public class HasieraPantaila extends JFrame implements Observer{
     		nHasieraPantaila=new HasieraPantaila();
     	}
     	return nHasieraPantaila;
+    }
+
+    public void eguneratuZailtasuna(ZailtasunMaila pMaila) {
+        lblZailtasuna.setText("Zailtasuna: " + pMaila.getIzena());
+    }
+
+    private void aldatuZailtasuna() {
+        ZailtasunMaila unekoa = Espazio.getEspazioEMA().getZailtasunMaila();
+        ZailtasunMaila hurrengoa;
+
+        if (unekoa == ZailtasunMaila.ERRAZA) {
+            hurrengoa = ZailtasunMaila.NORMALA;
+        } else if (unekoa == ZailtasunMaila.NORMALA) {
+            hurrengoa = ZailtasunMaila.ZAILA;
+        } else {
+            hurrengoa = ZailtasunMaila.ERRAZA;
+        }
+
+        Espazio.getEspazioEMA().setZailtasunMaila(hurrengoa);
+        eguneratuZailtasuna(hurrengoa);
     }
     
 
