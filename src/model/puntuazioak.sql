@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2026 a las 17:57:29
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 08-05-2026 a las 14:09:17
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `jokalaria` (
-  `IZENA` varchar(20) NOT NULL,
-  `ONTZIMOTA` varchar(20) NOT NULL DEFAULT 'RED',
+  `IZENA` varchar(3) NOT NULL,
+  `ONTZIMOTA` enum('RED','BLUE','GREEN') NOT NULL DEFAULT 'RED',
   `PUNTUAZIOA` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;
 
 --
 -- Índices para tablas volcadas

@@ -1,32 +1,39 @@
 package GUI_Package;
 
-import java.awt.EventQueue;
-
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.KonexioDB;
+
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Calendar;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 
 public class PuntuazioTabla extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private BufferedReader br;
-	private Connection konexioa;
+	private KonexioDB c = new KonexioDB();
+	private JLabel lblNewLabel_1;
+	private JTextArea textArea;
 
+	
+	String punt ="IZENA      ONTZIMOTA     PUNTUAZIOA\n";
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,32 +55,46 @@ public class PuntuazioTabla extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("PUNTUAZIOAK");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(174, 11, 96, 14);
+		contentPane.add(lblNewLabel);
+		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/def/Izarrak.png")));
+		c.konektatu();
+		contentPane.add(getTextArea());
+		lblNewLabel_1 = background;
+		lblNewLabel_1.setBounds(0, 0, 436, 275);
+		contentPane.add(lblNewLabel_1);
+		
+		
+		punt += "------------------------------------\n";
+		punt += c.puntuazioakErakutsi();
+		textArea.setText(punt);
+		
+		
+		
+		System.out.println(punt);
+		
 	}
-	
-	private void konektatu(){
-		try {
-		//Class.forName("com.mysql.jdbc.Driver"); //deprecated
-		Class.forName("com.mysql.cj.jdbc.Driver");
-
-		String zerbitzaria = "jdbc:mysql://localhost:3306/jokoa";
-		String erabiltzailea = "root";
-		String pasahitza = "";
-		konexioa = DriverManager.getConnection(zerbitzaria, erabiltzailea, pasahitza);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	private JTextArea getTextArea() {
+		if (textArea == null) {
+			textArea = new JTextArea();
+			textArea.setBounds(38, 37, 361, 204);
+	        textArea.setOpaque(false);
+	        textArea.setForeground(Color.WHITE);
+		    textArea.setEditable(false);
+		    textArea.setText(punt);
+		    textArea.setFont(new Font("Consolas", Font.BOLD, 16));
+		    textArea.setForeground(new Color(255, 255, 255));
+		    textArea.setOpaque(false);
+		    textArea.setCaretColor(Color.WHITE);
+		    textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+		    textArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		}
+		return textArea;
 	}
-	
-	public void puntuazioakErakutsi() throws SQLException {
-		String query = "PUNTUAZIO TABLA:";
-		PreparedStatement st = konexioa.prepareStatement(query);
-		st.setString(1, "");
-		ResultSet rs=st.executeQuery();
-		while(rs.next()){
-			System.out.println(rs.getString("izena")+" "+rs.getString("abizena"));
-		}				
-	}
-	}
+}
 
 
