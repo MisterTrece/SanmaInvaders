@@ -28,6 +28,7 @@ public class PuntuazioTabla extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JTextArea textArea;
 	private JLabel lblAtzera;
+	private static PuntuazioTabla nPuntuazioTabla;
 
 	
 	String punt = String.format("%-20s %-20s %6s\n", "IZENA", "ONTZIMOTA", "PUNTUAZIOA");
@@ -51,9 +52,9 @@ public class PuntuazioTabla extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PuntuazioTabla() {
+	private PuntuazioTabla() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 720);
+		setBounds(0, 0, 740, 423);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,7 +106,7 @@ public class PuntuazioTabla extends JFrame {
 	private JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea();
-			textArea.setBounds(106, 83, 960, 495);
+			textArea.setBounds(10, 28, 685, 246);
 	        textArea.setOpaque(false);
 	        textArea.setForeground(Color.WHITE);
 		    textArea.setEditable(false);
@@ -118,6 +119,15 @@ public class PuntuazioTabla extends JFrame {
 		}
 		return textArea;
 	}
+	
+	public static PuntuazioTabla getPuntuazioTabla(){
+		if(nPuntuazioTabla == null) {
+			nPuntuazioTabla = new PuntuazioTabla();
+    	}
+    	
+    	return nPuntuazioTabla;
+	}
+	
 }
 
 

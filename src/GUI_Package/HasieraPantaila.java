@@ -105,12 +105,12 @@ public class HasieraPantaila extends JFrame implements Observer{
                     ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
                 	break;
                 case KeyEvent.VK_S:
-                    PuntuazioTabla puntuazioTabla = new PuntuazioTabla();
+                    PuntuazioTabla puntuazioTabla = PuntuazioTabla.getPuntuazioTabla();
                     puntuazioTabla.setUndecorated(true);
                     puntuazioTabla.setVisible(true);
                     break;
             	}
-            	
+            	            	
             	
             }
         });
