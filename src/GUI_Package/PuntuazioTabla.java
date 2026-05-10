@@ -17,6 +17,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 
 public class PuntuazioTabla extends JFrame {
 
@@ -26,8 +27,10 @@ public class PuntuazioTabla extends JFrame {
 	private KonexioDB c = new KonexioDB();
 	private JLabel lblNewLabel_1;
 	private JTextArea textArea;
-	private static PuntuazioTabla nPuntuazioTabla;
-	private String punt ="IZENA                   ONTZIMOTA                   PUNTUAZIOA\n";
+	private JLabel lblAtzera;
+
+	
+	String punt = String.format("%-20s %-20s %6s\n", "IZENA", "ONTZIMOTA", "PUNTUAZIOA");
 	
 	/**
 	 * Launch the application.
@@ -62,12 +65,32 @@ public class PuntuazioTabla extends JFrame {
 		lblNewLabel.setBounds(520, 11, 196, 34);
 		lblNewLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
 		contentPane.add(lblNewLabel);
-		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
+		lblAtzera = new JLabel("Sakatu <B> atzera joateko");
+		lblAtzera.setForeground(new Color(255, 255, 255));
+		lblAtzera.setBounds(300, 600, 600, 30);
+		lblAtzera.setFont(new Font("Consolas", Font.BOLD, 20));
+		lblAtzera.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblAtzera);
+		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/FondoSanmaInvaders.png")));
 		c.konektatu();
 		contentPane.add(getTextArea());
 		lblNewLabel_1 = background;
-		lblNewLabel_1.setBounds(-226, -140, 1186, 703);
+		lblNewLabel_1.setBounds(0, 0, 1200, 720);
 		contentPane.add(lblNewLabel_1);
+		contentPane.setComponentZOrder(lblNewLabel_1, contentPane.getComponentCount() - 1);
+		addKeyListener(new java.awt.event.KeyAdapter() {
+			@Override
+			public void keyPressed(java.awt.event.KeyEvent e) {
+				if (e.getKeyCode() == java.awt.event.KeyEvent.VK_B) {
+					dispose();
+				}
+			}
+		});
+		setFocusable(true);
+		Timer blinkTimer = new Timer(750, e -> {
+			lblAtzera.setVisible(!lblAtzera.isVisible());
+		});
+		blinkTimer.start();
 		
 		
 		punt += "--------------------------------------------------------------\n";

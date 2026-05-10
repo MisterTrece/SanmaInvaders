@@ -85,7 +85,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	public void mugituPixel(int pX, int pY) {
 		
 		Iterator<ElementuPixel> itr = pixelak.iterator();
-		/*
+		
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			if(pixel.getX()+pX>=100 || pixel.getX()+pX<0 || pixel.getY()+pY<0) {
@@ -98,20 +98,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 					}
 				}
 			}
-		}
-		*/
-		
-		boolean pixelKanpo = pixelak.stream()
-				.anyMatch(p -> 
-		        	p.getX() + pX >= 100 || 
-		        	p.getX() + pX < 0 ||
-		        	p.getY() + pY < 0
-		    );
-		if(pixelKanpo) {
-			return;
-		}
-		
-		boolean pixelBehera = pixelak.stream().anyMatch(p -> p.getY() + pY < 60);					
+		}				
 		
 		ArrayList<int[]> posizioak = new ArrayList<int[]>();
 	    itr = pixelak.iterator();

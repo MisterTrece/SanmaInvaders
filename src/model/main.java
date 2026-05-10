@@ -4,6 +4,7 @@ import GUI_Package.HasieraPantaila;
 public class main {
 
 	public static void main(String[] args) {
+		KonexioDB.initDb();
 		HasieraPantaila.getHasieraPantaila();
 	}
 }
