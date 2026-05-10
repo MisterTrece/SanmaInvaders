@@ -26,9 +26,8 @@ public class PuntuazioTabla extends JFrame {
 	private KonexioDB c = new KonexioDB();
 	private JLabel lblNewLabel_1;
 	private JTextArea textArea;
-
-	
-	String punt ="IZENA                   ONTZIMOTA                   PUNTUAZIOA\n";
+	private static PuntuazioTabla nPuntuazioTabla;
+	private String punt ="IZENA                   ONTZIMOTA                   PUNTUAZIOA\n";
 	
 	/**
 	 * Launch the application.
@@ -49,9 +48,9 @@ public class PuntuazioTabla extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PuntuazioTabla() {
+	private PuntuazioTabla() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 720);
+		setBounds(0, 0, 740, 423);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,11 +62,11 @@ public class PuntuazioTabla extends JFrame {
 		lblNewLabel.setBounds(520, 11, 196, 34);
 		lblNewLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
 		contentPane.add(lblNewLabel);
-		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/def/Estrellas.png")));
+		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
 		c.konektatu();
 		contentPane.add(getTextArea());
 		lblNewLabel_1 = background;
-		lblNewLabel_1.setBounds(0, 0, 1186, 703);
+		lblNewLabel_1.setBounds(-226, -140, 1186, 703);
 		contentPane.add(lblNewLabel_1);
 		
 		
@@ -83,7 +82,7 @@ public class PuntuazioTabla extends JFrame {
 	private JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea();
-			textArea.setBounds(106, 83, 960, 495);
+			textArea.setBounds(10, 28, 685, 246);
 	        textArea.setOpaque(false);
 	        textArea.setForeground(Color.WHITE);
 		    textArea.setEditable(false);
@@ -96,6 +95,15 @@ public class PuntuazioTabla extends JFrame {
 		}
 		return textArea;
 	}
+	
+	public static PuntuazioTabla getPuntuazioTabla(){
+		if(nPuntuazioTabla == null) {
+			nPuntuazioTabla = new PuntuazioTabla();
+    	}
+    	
+    	return nPuntuazioTabla;
+	}
+	
 }
 
 

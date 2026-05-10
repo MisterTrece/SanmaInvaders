@@ -21,11 +21,12 @@ public class KonexioDB {
 		String erabiltzailea = "root";
 		String pasahitza = "";
 		konexioa = DriverManager.getConnection(zerbitzaria, erabiltzailea, pasahitza);
+		return konexioa;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return konexioa;
 	}
 	
 	public String puntuazioakErakutsi() {
