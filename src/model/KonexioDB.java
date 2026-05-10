@@ -17,6 +17,7 @@ public class KonexioDB {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			konexioa = DriverManager.getConnection(DB_URL);
+			return konexioa;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

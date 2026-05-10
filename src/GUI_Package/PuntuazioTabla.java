@@ -28,6 +28,7 @@ public class PuntuazioTabla extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JTextArea textArea;
 	private JLabel lblAtzera;
+	private static PuntuazioTabla nPuntuazioTabla;
 
 	
 	String punt = String.format("%-20s %-20s %6s\n", "IZENA", "ONTZIMOTA", "PUNTUAZIOA");
