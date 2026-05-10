@@ -52,8 +52,19 @@ public class ZailtasunPantaila extends JFrame {
 
         btnErraza.setFont(new Font("Consolas", Font.BOLD, 20));
         btnNormala.setFont(new Font("Consolas", Font.BOLD, 20));
-        btnNormala.setForeground(Color.GREEN);
         btnZaila.setFont(new Font("Consolas", Font.BOLD, 20));
+        
+        ZailtasunMaila maila = Espazio.getEspazioEMA().getZailtasunMaila();
+
+        if (maila == ZailtasunMaila.ERRAZA) {
+            btnErraza.setForeground(Color.GREEN);
+        } 
+        else if (maila == ZailtasunMaila.NORMALA) {
+            btnNormala.setForeground(Color.GREEN);
+        } 
+        else if (maila == ZailtasunMaila.ZAILA) {
+            btnZaila.setForeground(Color.GREEN);
+        }
 
         btnErraza.setBounds(100, 150, 160, 40);
         btnNormala.setBounds(290, 150, 160, 40);
@@ -92,12 +103,20 @@ public class ZailtasunPantaila extends JFrame {
             }
         });
 
-        contentPane.add(background);
+        /*contentPane.add(background);
         contentPane.add(titulua);
         contentPane.add(btnErraza);
         contentPane.add(btnNormala);
         contentPane.add(btnZaila);
-        contentPane.setComponentZOrder(background, contentPane.getComponentCount() - 1);
+        contentPane.setComponentZOrder(background, contentPane.getComponentCount() - 1);*/
+        
+        contentPane.add(background);
+        background.setLayout(null);
+
+        background.add(titulua);
+        background.add(btnErraza);
+        background.add(btnNormala);
+        background.add(btnZaila);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -115,11 +134,11 @@ public class ZailtasunPantaila extends JFrame {
         contentPane.revalidate();
         contentPane.repaint();
     }
-
+    
     private void aukeratu(ZailtasunMaila pMaila) {
         Espazio.getEspazioEMA().setZailtasunMaila(pMaila);
         HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(pMaila);
-        setVisible(false);
+        dispose();
     }
     
     public static ZailtasunPantaila getZailtasunPantaila() {

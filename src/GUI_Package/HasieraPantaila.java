@@ -26,7 +26,7 @@ public class HasieraPantaila extends JFrame implements Observer{
     private final JLabel lblSakatu = new JLabel("Sakatu <Up-Down-Left-Right> mugitzeko eta <Space> tiro egiteko");
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio ontziaren kolorea aldatzeko");
     private final JLabel lblTiroAldatu = new JLabel("Sakatu <T> tiro mota aldatzeko");
-    private final JLabel lblZailtasunAldatu = new JLabel("Sakatu <Z> zailtasuna aldatzeko");
+    private final JLabel lblZailtasunAldatu = new JLabel("Sakatu <Z> zailtasuna aukeratzeko");
     private final JLabel lblZailtasuna = new JLabel("Zailtasuna: Normala");
     
     private static HasieraPantaila nHasieraPantaila = null;
@@ -70,6 +70,7 @@ public class HasieraPantaila extends JFrame implements Observer{
         contentPane.add(lblZailtasunAldatu);
         contentPane.add(lblZailtasuna);
         contentPane.add(background);
+
         
 
         addKeyListener(new KeyAdapter() {
@@ -93,7 +94,9 @@ public class HasieraPantaila extends JFrame implements Observer{
                 	System.exit(0);
                 	break;
                 case KeyEvent.VK_Z:
-                	aldatuZailtasuna();
+                	ZailtasunPantaila.getZailtasunPantaila().setLocationRelativeTo(null);
+                	ZailtasunPantaila.getZailtasunPantaila().setUndecorated(true);
+                	ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
                 	break;
             	}
             	
@@ -127,23 +130,7 @@ public class HasieraPantaila extends JFrame implements Observer{
     public void eguneratuZailtasuna(ZailtasunMaila pMaila) {
         lblZailtasuna.setText("Zailtasuna: " + pMaila.getIzena());
     }
-
-    private void aldatuZailtasuna() {
-        ZailtasunMaila unekoa = Espazio.getEspazioEMA().getZailtasunMaila();
-        ZailtasunMaila hurrengoa;
-
-        if (unekoa == ZailtasunMaila.ERRAZA) {
-            hurrengoa = ZailtasunMaila.NORMALA;
-        } else if (unekoa == ZailtasunMaila.NORMALA) {
-            hurrengoa = ZailtasunMaila.ZAILA;
-        } else {
-            hurrengoa = ZailtasunMaila.ERRAZA;
-        }
-
-        Espazio.getEspazioEMA().setZailtasunMaila(hurrengoa);
-        eguneratuZailtasuna(hurrengoa);
-    }
-    
+  
 
 	@Override
 	public void update(Observable o, Object arg) {
