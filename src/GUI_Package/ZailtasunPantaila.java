@@ -103,13 +103,7 @@ public class ZailtasunPantaila extends JFrame {
             }
         });
 
-        /*contentPane.add(background);
-        contentPane.add(titulua);
-        contentPane.add(btnErraza);
-        contentPane.add(btnNormala);
-        contentPane.add(btnZaila);
-        contentPane.setComponentZOrder(background, contentPane.getComponentCount() - 1);*/
-        
+               
         contentPane.add(background);
         background.setLayout(null);
 

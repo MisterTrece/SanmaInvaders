@@ -50,7 +50,7 @@ public class KonexioDB {
 					String ontzia = rs.getString("ONTZIMOTA");
 					int punt = rs.getInt("PUNTUAZIOA");
 					
-					puntuazioak = puntuazioak.concat(String.format("%-20s %-20s %6d\n", izen, ontzia, punt));		
+					puntuazioak = puntuazioak.concat(String.format("%-20s %-20s %12d\n", izen, ontzia, punt));		
     			}
     		} catch (SQLException e) {
     		    e.printStackTrace();

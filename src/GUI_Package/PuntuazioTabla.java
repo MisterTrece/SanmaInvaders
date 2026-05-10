@@ -18,116 +18,86 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
+import javax.swing.JLabel;
 
 public class PuntuazioTabla extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private BufferedReader br;
-	private KonexioDB c = new KonexioDB();
-	private JLabel lblNewLabel_1;
-	private JTextArea textArea;
-	private JLabel lblAtzera;
-	private static PuntuazioTabla nPuntuazioTabla;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private KonexioDB c = new KonexioDB();
+    private JTextArea textArea;
+    private JLabel lblAtzera;
+    private static PuntuazioTabla nPuntuazioTabla;
 
-	
-	String punt = String.format("%-20s %-20s %6s\n", "IZENA", "ONTZIMOTA", "PUNTUAZIOA");
-	
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PuntuazioTabla frame = new PuntuazioTabla();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    String punt = String.format("%-20s %-20s %12s\n",
+            "IZENA", "ONTZIMOTA", "PUNTUAK");
 
-	/**
-	 * Create the frame.
-	 */
-	private PuntuazioTabla() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 740, 423);
-		setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("PUNTUAZIOAK");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(520, 11, 196, 34);
-		lblNewLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
-		contentPane.add(lblNewLabel);
-		lblAtzera = new JLabel("Sakatu <B> atzera joateko");
-		lblAtzera.setForeground(new Color(255, 255, 255));
-		lblAtzera.setBounds(300, 600, 600, 30);
-		lblAtzera.setFont(new Font("Consolas", Font.BOLD, 20));
-		lblAtzera.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblAtzera);
-		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/FondoSanmaInvaders.png")));
-		c.konektatu();
-		contentPane.add(getTextArea());
-		lblNewLabel_1 = background;
-		lblNewLabel_1.setBounds(0, 0, 1200, 720);
-		contentPane.add(lblNewLabel_1);
-		contentPane.setComponentZOrder(lblNewLabel_1, contentPane.getComponentCount() - 1);
-		addKeyListener(new java.awt.event.KeyAdapter() {
-			@Override
-			public void keyPressed(java.awt.event.KeyEvent e) {
-				if (e.getKeyCode() == java.awt.event.KeyEvent.VK_B) {
-					dispose();
-				}
-			}
-		});
-		setFocusable(true);
-		Timer blinkTimer = new Timer(750, e -> {
-			lblAtzera.setVisible(!lblAtzera.isVisible());
-		});
-		blinkTimer.start();
-		
-		
-		punt += "--------------------------------------------------------------\n";
-		punt += c.puntuazioakErakutsi();
-		textArea.setText(punt);
-		
-		
-		
-		System.out.println(punt);
-		
-	}
-	private JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea();
-			textArea.setBounds(10, 28, 685, 246);
-	        textArea.setOpaque(false);
-	        textArea.setForeground(Color.WHITE);
-		    textArea.setEditable(false);
-		    textArea.setText(punt);
-		    textArea.setForeground(new Color(255, 255, 255));
-		    textArea.setOpaque(false);
-		    textArea.setCaretColor(Color.WHITE);
-		    textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-		    textArea.setFont(new Font("Monospaced", Font.PLAIN, 25));
-		}
-		return textArea;
-	}
-	
-	public static PuntuazioTabla getPuntuazioTabla(){
-		if(nPuntuazioTabla == null) {
-			nPuntuazioTabla = new PuntuazioTabla();
-    	}
-    	
-    	return nPuntuazioTabla;
-	}
-	
+    private PuntuazioTabla() {
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(0, 0, 740, 423);
+        setLocationRelativeTo(null);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(null);
+        setContentPane(contentPane);
+
+        JLabel background = new JLabel(new ImageIcon(getClass().getResource("/GUI_Package/Izarrak.png")));
+        background.setBounds(0, 0, 740, 423);
+        c.konektatu();
+
+        punt += "------------------------------------------------------\n";
+        punt += c.puntuazioakErakutsi();
+
+        textArea = new JTextArea();
+        textArea.setBounds(72, 51, 600, 260);
+        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textArea.setOpaque(false);
+        textArea.setForeground(Color.WHITE);
+        textArea.setEditable(false);
+        textArea.setCaretColor(Color.WHITE);
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
+        textArea.setText(punt);
+
+        contentPane.add(textArea);
+
+        JLabel tituloa = new JLabel("PUNTUAZIOAK");
+        tituloa.setForeground(Color.WHITE);
+        tituloa.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        tituloa.setBounds(0, 10, 740, 30);
+        tituloa.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(tituloa);
+        lblAtzera = new JLabel("Sakatu <B> atzera joateko");
+        lblAtzera.setForeground(Color.WHITE);
+        lblAtzera.setFont(new Font("Consolas", Font.BOLD, 18));
+        lblAtzera.setHorizontalAlignment(SwingConstants.CENTER);
+        lblAtzera.setBounds(0, 340, 740, 30);
+        contentPane.add(lblAtzera);
+        lblAtzera.setVisible(false);
+        contentPane.add(background);
+        contentPane.setComponentZOrder(background, contentPane.getComponentCount() - 1);
+
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_B) {
+                    dispose();
+                }
+            }
+        });
+
+        setFocusable(true);
+
+        Timer blinkTimer = new Timer(750, e -> {
+            lblAtzera.setVisible(!lblAtzera.isVisible());
+        });
+        blinkTimer.start();
+    }
+
+    public static PuntuazioTabla getPuntuazioTabla() {
+        if (nPuntuazioTabla == null) {
+            nPuntuazioTabla = new PuntuazioTabla();
+        }
+        return nPuntuazioTabla;
+    }
 }
-
-
