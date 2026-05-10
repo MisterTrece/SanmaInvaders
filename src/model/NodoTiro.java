@@ -75,53 +75,61 @@ public class NodoTiro implements ElementuPixel{
 	}
 	
 	private void garbitu() {
-		for (ElementuPixel p: pixelak) {
-			Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik());
-		}
+		pixelak.stream()
+			.forEach(p -> Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik()));
 	}
 	
 	public boolean baduPixela(int pX, int pY) {
 		boolean badu = false;
-		for(ElementuPixel p: pixelak) {
-			if(p.getX()==pX && p.getY()==pY) {
-				badu=true;
-				break;
-			}
-		}
+		badu = pixelak.stream()
+				.anyMatch(p -> p.getX()==pX && p.getY()==pY);
 		return badu;
 	}
 	
 	public void erakutsi() {
-		for(ElementuPixel p: pixelak) {
-			Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new TiroEgoera());
-		}
+		pixelak.stream()
+			.forEach(p -> Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new TiroEgoera()));
 	}
 	
 	@Override
 	public void mugituPixel(int pX, int pY) {
 		Iterator<ElementuPixel> itr = pixelak.iterator();
-		while(itr.hasNext()) {
+		/*while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			if(pixel.getY()+pY>=60) {
 				return;
 			}
-		}
+		}*/
+		
+		boolean pixelKanpo;
+		pixelKanpo = pixelak.stream().anyMatch(p -> p.getY()+pY>=60);
 		
 		ArrayList<int[]> posizioak = new ArrayList<int[]>();
-	    itr = pixelak.iterator();
+	    /*itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			int[] posi = new int[2];
 			posi[0]=pixel.getX();
 			posi[1]=pixel.getY();
 			posizioak.add(posi);
-		}
+		}*/
 		
+		pixelak.stream()
+			.forEach(p ->{
+				int[] posi = new int[2];
+				posi[0] = p.getX();
+				posi[1] = p.getY();
+				posizioak.add(posi);}
+					);
+		/*
 		for(int[] pos : posizioak) {
 	        Espazio.getEspazioEMA().getGelaxka(pos[0], pos[1]).aldatuMota(new Hutsik());
-	    }
+	    }*/
 		
-		itr = pixelak.iterator();
+		posizioak.stream()
+			.forEach(p -> Espazio.getEspazioEMA().getGelaxka(p[0], p[1]).aldatuMota(new Hutsik()));
+		
+		/*itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			pixel.mugituPixel(pX, pY);
@@ -135,7 +143,27 @@ public class NodoTiro implements ElementuPixel{
 				atera=true;
 			}
 			
+		}*/
+		
+		pixelak.forEach(p -> p.mugituPixel(pX, pY));
+
+		desagertu = pixelak.removeIf(pixel -> {
+		    Tiro tiro = (Tiro) pixel;
+		    if (tiro.desagertu()) {
+		        garbitu();
+		        return true;
+		    }
+		    return false;
+		});
+
+		if (desagertu) {
+		    return;
 		}
+
+		atera = pixelak.stream()
+		    .map(p -> (Tiro) p)
+		    .anyMatch(px -> px.atera() && px.getX() == x && px.getY() == botY);
+		
 		this.botY = botY + pY;
 	}
 
