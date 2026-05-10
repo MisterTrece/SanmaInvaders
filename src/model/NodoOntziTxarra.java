@@ -83,7 +83,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	
 	@Override
 	public void mugituPixel(int pX, int pY) {
-		
+		/*
 		Iterator<ElementuPixel> itr = pixelak.iterator();
 		
 		while(itr.hasNext()) {
@@ -98,9 +98,22 @@ public class NodoOntziTxarra implements ElementuPixel{
 					}
 				}
 			}
-		}				
+		}	*/
+		
+		if (pixelak.stream()
+				.anyMatch(p -> {
+				    if (p.getX() + pX >= 100 || p.getX() + pX < 0 || p.getY() + pY < 0) {
+				        return true;
+				    }
+				    if(p.getY() + pY < 60 && Espazio.getEspazioEMA().getGelaxka(p.getX() + pX, p.getY() + pY).getMota() == 2 && Espazio.getEspazioEMA().etsaiKolisioa(id, p.getX() + pX, p.getY() + pY)) {
+				    	return true;
+				    }
+				    return false;
+		})
+		) {return;}
 		
 		ArrayList<int[]> posizioak = new ArrayList<int[]>();
+		/*
 	    itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
@@ -108,12 +121,24 @@ public class NodoOntziTxarra implements ElementuPixel{
 			posi[0]=pixel.getX();
 			posi[1]=pixel.getY();
 			posizioak.add(posi);
-		}
+		}*/
 		
+		pixelak.stream()
+		.forEach(p ->{
+			int[] posi = new int[2];
+			posi[0] = p.getX();
+			posi[1] = p.getY();
+			posizioak.add(posi);}
+				);
+		
+		/*
 		for(int[] pos : posizioak) {
 	        Espazio.getEspazioEMA().getGelaxka(pos[0], pos[1]).aldatuMota(new Hutsik());
-	    }
+	    }*/
 		
+		posizioak.stream().forEach(p -> Espazio.getEspazioEMA().getGelaxka(p[0], p[1]).aldatuMota(new Hutsik()));
+		
+		/*
 		itr = pixelak.iterator();
 		boolean hilda = false;
 		while(itr.hasNext()) {
@@ -145,6 +170,37 @@ public class NodoOntziTxarra implements ElementuPixel{
 		    }
 		    Espazio.getEspazioEMA().etsaiaHil(x, y);
 		    return;
+		}*/
+		
+		pixelak.forEach(p -> p.mugituPixel(pX, pY));
+
+		pixelak.removeIf(pixel -> {
+		    if (pixel.getY() + pY == 60) {
+		        if (pixel.getX() == x && pixel.getY() == y) {
+		            Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Hutsik());
+		            Timer timerEND = new Timer(190, e -> {
+		                GoiMailakoKontrola.getKontrola().partidaGaldu();
+		            });
+		            timerEND.setRepeats(false);
+		            timerEND.start();
+		        } else {
+		            Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Hutsik());
+		        }
+		        return true;
+		    }
+		    return false;
+		});
+
+		boolean hilda = pixelak.stream()
+		    .filter(p -> p instanceof OntziTxarra)
+		    .anyMatch(p -> ((OntziTxarra) p).getHilda());
+
+		if (hilda) {
+		    pixelak.forEach(p -> 
+		        Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Hutsik())
+		    );
+		    Espazio.getEspazioEMA().etsaiaHil(x, y);
+		    return;
 		}
 		
 		this.x = x + pX;
@@ -152,10 +208,7 @@ public class NodoOntziTxarra implements ElementuPixel{
 	}
 	
 	public void eztanda() {
-		for (int i=0; i<pixelak.size();i++) {
-			ElementuPixel pixel = pixelak.get(i);
-			Espazio.getEspazioEMA().getGelaxka(pixel.getX(), pixel.getY()).aldatuMota(new Eztanda());
-		}
+		pixelak.stream().forEach(p -> Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Eztanda()));
 	}
 	
 	public void borratuBehar() {
@@ -164,11 +217,9 @@ public class NodoOntziTxarra implements ElementuPixel{
 	
 	public boolean borratuKonprobatu() {
 		if (borratu) {
-			for (ElementuPixel p : pixelak) {
-				if(Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).getMota()==2) {
-					Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).aldatuMota(new Eztanda());
-				}
-			}
+			pixelak.stream()
+				.filter(p -> Espazio.getEspazioEMA().getGelaxka(p.getX(), p.getY()).getMota()==2)
+				.forEach(px -> Espazio.getEspazioEMA().getGelaxka(px.getX(), px.getY()).aldatuMota(new Eztanda()));
 		}
 		return this.borratu;
 	}
