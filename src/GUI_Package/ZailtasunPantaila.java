@@ -52,6 +52,7 @@ public class ZailtasunPantaila extends JFrame {
 
         btnErraza.setFont(new Font("Consolas", Font.BOLD, 20));
         btnNormala.setFont(new Font("Consolas", Font.BOLD, 20));
+        btnNormala.setForeground(Color.GREEN);
         btnZaila.setFont(new Font("Consolas", Font.BOLD, 20));
 
         btnErraza.setBounds(100, 150, 160, 40);
@@ -61,21 +62,33 @@ public class ZailtasunPantaila extends JFrame {
         btnErraza.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                aukeratu(ZailtasunMaila.ERRAZA);
+            	btnErraza.setForeground(Color.GREEN);
+            	btnNormala.setForeground(Color.BLACK);
+            	btnZaila.setForeground(Color.BLACK);
+            	aukeratu(ZailtasunMaila.ERRAZA);
+            	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.ERRAZA);
             }
         });
 
         btnNormala.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                aukeratu(ZailtasunMaila.NORMALA);
+            	btnErraza.setForeground(Color.BLACK);
+            	btnNormala.setForeground(Color.GREEN);
+            	btnZaila.setForeground(Color.BLACK);
+            	aukeratu(ZailtasunMaila.NORMALA);
+            	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.NORMALA);
             }
         });
 
         btnZaila.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                aukeratu(ZailtasunMaila.ZAILA);
+            	btnErraza.setForeground(Color.BLACK);
+            	btnNormala.setForeground(Color.BLACK);
+            	btnZaila.setForeground(Color.GREEN);
+            	aukeratu(ZailtasunMaila.ZAILA);
+            	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.ZAILA);
             }
         });
 
