@@ -6,12 +6,15 @@ import java.util.Iterator;
 import javax.swing.Timer;
 
 public class Espazio{
+	private static final int PUNTUAZIOA_ETSIA = 100;
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
 	private int ontziMota;
 	private ZailtasunMaila zailtasunMaila = ZailtasunMaila.NORMALA;
 	private ArrayList<NodoOntziTxarra> etsaiak;
 	private int etsaiKop;
+	private int puntuazioa = 0;
+	private boolean puntuazioaGordeta = false;
 	private static Espazio nEspazio = null;
 	private ArrayList<NodoTiro> tiroak;
 	private long azkenTiroa = 0;
@@ -40,6 +43,8 @@ public class Espazio{
 	}
 
 	public void hasi() {
+		puntuazioa = 0;
+		puntuazioaGordeta = false;
 		gurea = sortuJokalari(ontziMota);
 		
 		GelaxkaM gureG = new GelaxkaM(new Gurea());
@@ -120,12 +125,54 @@ public class Espazio{
 		this.ontziMota = pMota;
 	}
 
+	public String getOntziMotaIzena() {
+		switch (ontziMota) {
+			case 1:
+				return "Blue";
+			case 2:
+				return "Green";
+			case 3:
+				return "Red";
+			default:
+				return "Ezezaguna";
+		}
+	}
+
 	public void setZailtasunMaila(ZailtasunMaila pMaila) {
 		this.zailtasunMaila = pMaila;
 	}
 
 	public ZailtasunMaila getZailtasunMaila() {
 		return this.zailtasunMaila;
+	}
+
+	private int getPuntuazioPerEtsai() {
+		switch (zailtasunMaila) {
+			case ERRAZA:
+				return PUNTUAZIOA_ETSIA;
+			case NORMALA:
+				return PUNTUAZIOA_ETSIA * 2;
+			case ZAILA:
+				return PUNTUAZIOA_ETSIA * 3;
+			default:
+				return PUNTUAZIOA_ETSIA;
+		}
+	}
+
+	public int getPuntuazioa() {
+		return puntuazioa;
+	}
+
+	public boolean isPuntuazioaGordeta() {
+		return puntuazioaGordeta;
+	}
+
+	public void gordePuntuazioa(String pIzena) {
+		if (puntuazioaGordeta) {
+			return;
+		}
+		new KonexioDB().puntuazioakInsertatu(pIzena, getOntziMotaIzena(), puntuazioa);
+		puntuazioaGordeta = true;
 	}
 	
 	private NodoOntziOn sortuJokalari(int pOntziMota) {
@@ -223,6 +270,7 @@ public class Espazio{
 					if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){
 						aurkituta = true;
 						etsaiKop--;
+						puntuazioa += getPuntuazioPerEtsai();
 						break;
 					}
 				}

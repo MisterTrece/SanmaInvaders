@@ -11,6 +11,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 
 import model.Espazio;
 import model.GoiMailakoKontrola;
@@ -88,6 +89,7 @@ public class Matrizea extends JFrame implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(arg.equals("LOSE")) {
+            eskatuEtaGordePuntuazioa();
 			setEnabled(false);
 	    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
 	    	GalduPantaila.getGalduPantaila().setUndecorated(true);
@@ -95,6 +97,7 @@ public class Matrizea extends JFrame implements Observer{
 		}
 		
 		if(arg.equals("WIN")) {
+            eskatuEtaGordePuntuazioa();
 			setEnabled(false);
 	    	IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
 	    	IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
@@ -102,4 +105,23 @@ public class Matrizea extends JFrame implements Observer{
 		}
 
 	}
+
+    private void eskatuEtaGordePuntuazioa() {
+        if (Espazio.getEspazioEMA().isPuntuazioaGordeta()) {
+            return;
+        }
+        String izena;
+        while (true) {
+            izena = JOptionPane.showInputDialog(this, "Sartu zure izena (3 karaktere):");
+            if (izena == null) {
+                return;
+            }
+            izena = izena.trim();
+            if (izena.length() == 3) {
+                break;
+            }
+            JOptionPane.showMessageDialog(this, "Izena 3 karaktere izan behar du.");
+        }
+        Espazio.getEspazioEMA().gordePuntuazioa(izena.toUpperCase());
+    }
 }

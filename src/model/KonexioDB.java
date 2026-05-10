@@ -5,31 +5,41 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Statement;
 
 public class KonexioDB {
 
 	
 	private static Connection konexioa;
+	private static final String DB_URL = "jdbc:sqlite:puntuazioak.db";
 	
 	public static Connection konektatu(){
 		try {
-		//Class.forName("com.mysql.jdbc.Driver"); //deprecated
-		Class.forName("com.mysql.cj.jdbc.Driver");
-
-		String zerbitzaria = "jdbc:mysql://localhost:3306/puntuazioak";
-		String erabiltzailea = "root";
-		String pasahitza = "";
-		konexioa = DriverManager.getConnection(zerbitzaria, erabiltzailea, pasahitza);
+			Class.forName("org.sqlite.JDBC");
+			konexioa = DriverManager.getConnection(DB_URL);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return konexioa;
 	}
+
+	public static void initDb() {
+		String sql = "CREATE TABLE IF NOT EXISTS JOKALARIA ("
+				+ "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "IZENA TEXT, "
+				+ "ONTZIMOTA TEXT, "
+				+ "PUNTUAZIOA INTEGER DEFAULT 0"
+				+ ")";
+		try (Connection con = konektatu();
+				Statement st = con.createStatement()) {
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public String puntuazioakErakutsi() {
-    	String sql = "SELECT * FROM JOKALARIA LIMIT 10";
+	    String sql = "SELECT IZENA, ONTZIMOTA, PUNTUAZIOA FROM JOKALARIA ORDER BY PUNTUAZIOA DESC LIMIT 5";
     	String puntuazioak = "";
     	try (Connection con = konektatu();
     		    PreparedStatement ps = con.prepareStatement(sql)) {
@@ -39,7 +49,7 @@ public class KonexioDB {
 					String ontzia = rs.getString("ONTZIMOTA");
 					int punt = rs.getInt("PUNTUAZIOA");
 					
-					puntuazioak = puntuazioak.concat(izen+"                     "+ontzia+"                         "+punt+"\n");		
+					puntuazioak = puntuazioak.concat(String.format("%-20s %-20s %6d\n", izen, ontzia, punt));		
     			}
     		} catch (SQLException e) {
     		    e.printStackTrace();
@@ -48,13 +58,16 @@ public class KonexioDB {
     }
 	
 	public void puntuazioakInsertatu(String pIz, String pOntz, int pPunt) {
-    	String sql = "INSERT INTO JOKALARIA(IZENA, ONTZIMOTA, PUNTUAZIOA) VALUES("+"'"+pIz+"'"+",'"+ pOntz+"','"+pPunt+"')";
-    	try (Connection con = konektatu();
-    		    PreparedStatement ps = con.prepareStatement(sql)) {
-    			ps.executeUpdate();
-    		} catch (SQLException e) {
-    		    e.printStackTrace();
-    		}
+	    String sql = "INSERT INTO JOKALARIA(IZENA, ONTZIMOTA, PUNTUAZIOA) VALUES(?, ?, ?)";
+	    try (Connection con = konektatu();
+	    		PreparedStatement ps = con.prepareStatement(sql)) {
+	    		ps.setString(1, pIz);
+	    		ps.setString(2, pOntz);
+	    		ps.setInt(3, pPunt);
+	    		ps.executeUpdate();
+	    	} catch (SQLException e) {
+	    	    e.printStackTrace();
+	    	}
     }
 	
 	

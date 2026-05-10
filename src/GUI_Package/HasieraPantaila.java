@@ -27,6 +27,7 @@ public class HasieraPantaila extends JFrame implements Observer{
     private final JLabel lblStart = new JLabel("Sakatu <P> hasteko eta <R><G><B> espazio ontziaren kolorea aldatzeko");
     private final JLabel lblTiroAldatu = new JLabel("Sakatu <T> tiro mota aldatzeko");
     private final JLabel lblZailtasunAldatu = new JLabel("Sakatu <Z> zailtasuna aukeratzeko");
+    private final JLabel lblPuntuazioak = new JLabel("Sakatu <S> puntuazioak ikusteko");
     private final JLabel lblZailtasuna = new JLabel("Zailtasuna: Normala");
     
     private static HasieraPantaila nHasieraPantaila = null;
@@ -60,6 +61,10 @@ public class HasieraPantaila extends JFrame implements Observer{
         lblZailtasunAldatu.setForeground(Color.WHITE);
         lblZailtasunAldatu.setBounds(459, 600, 900, 30);
 
+        lblPuntuazioak.setFont(new Font("Consolas", Font.BOLD, 20));
+        lblPuntuazioak.setForeground(Color.WHITE);
+        lblPuntuazioak.setBounds(454, 560, 900, 30);
+
         lblZailtasuna.setFont(new Font("Consolas", Font.BOLD, 20));
         lblZailtasuna.setForeground(Color.WHITE);
         lblZailtasuna.setBounds(520, 515, 400, 30);
@@ -67,6 +72,7 @@ public class HasieraPantaila extends JFrame implements Observer{
         contentPane.add(lblSakatu);
         contentPane.add(lblStart);
         contentPane.add(lblTiroAldatu);
+        contentPane.add(lblPuntuazioak);
         contentPane.add(lblZailtasunAldatu);
         contentPane.add(lblZailtasuna);
         contentPane.add(background);
@@ -94,10 +100,15 @@ public class HasieraPantaila extends JFrame implements Observer{
                 	System.exit(0);
                 	break;
                 case KeyEvent.VK_Z:
-                	ZailtasunPantaila.getZailtasunPantaila().setLocationRelativeTo(null);
-                	ZailtasunPantaila.getZailtasunPantaila().setUndecorated(true);
-                	ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
+                    ZailtasunPantaila.getZailtasunPantaila().setLocationRelativeTo(null);
+                    ZailtasunPantaila.getZailtasunPantaila().setUndecorated(true);
+                    ZailtasunPantaila.getZailtasunPantaila().setVisible(true);
                 	break;
+                case KeyEvent.VK_S:
+                    PuntuazioTabla puntuazioTabla = new PuntuazioTabla();
+                    puntuazioTabla.setUndecorated(true);
+                    puntuazioTabla.setVisible(true);
+                    break;
             	}
             	
             	
@@ -109,6 +120,7 @@ public class HasieraPantaila extends JFrame implements Observer{
             lblStart.setVisible(!lblStart.isVisible());
             lblSakatu.setVisible(!lblSakatu.isVisible());
             lblTiroAldatu.setVisible(!lblTiroAldatu.isVisible());
+            lblPuntuazioak.setVisible(!lblPuntuazioak.isVisible());
             lblZailtasunAldatu.setVisible(!lblZailtasunAldatu.isVisible());
         });
         blinkTimer.start();
@@ -130,7 +142,7 @@ public class HasieraPantaila extends JFrame implements Observer{
     public void eguneratuZailtasuna(ZailtasunMaila pMaila) {
         lblZailtasuna.setText("Zailtasuna: " + pMaila.getIzena());
     }
-  
+    
 
 	@Override
 	public void update(Observable o, Object arg) {
