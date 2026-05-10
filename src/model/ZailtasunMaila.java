@@ -32,4 +32,4 @@ public enum ZailtasunMaila {
     public int getEtsaiMugimenduTick() {
         return etsaiMugimenduTick;
     }
-}
+} 

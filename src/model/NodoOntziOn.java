@@ -65,6 +65,7 @@ public abstract class NodoOntziOn implements ElementuPixel{
 	@Override
 	public void mugituPixel(int pX, int pY) {
 		
+		/*
 		Iterator<ElementuPixel> itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
@@ -72,8 +73,22 @@ public abstract class NodoOntziOn implements ElementuPixel{
 				return;
 			}
 		}
+		*/
+		boolean pixelKanpo = pixelak.stream()
+				.anyMatch(p -> 
+			        p.getX() + pX >= 100 || 
+			        p.getX() + pX < 0 || 
+			        p.getY() + pY >= 60 || 
+			        p.getY() + pY < 0
+			    );
+
+		if (pixelKanpo) {
+			   return;
+		}
+		
 		
 		ArrayList<int[]> posizioak = new ArrayList<int[]>();
+		/*
 	    itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
@@ -82,16 +97,31 @@ public abstract class NodoOntziOn implements ElementuPixel{
 			posi[1]=pixel.getY();
 			posizioak.add(posi);
 		}
-		
+		*/
+		pixelak.stream()
+			.forEach(p ->{
+				int[] posi = new int[2];
+				posi[0] = p.getX();
+				posi[1] = p.getY();
+				posizioak.add(posi);}
+					);
+		/*
 		for(int[] pos : posizioak) {
 	        Espazio.getEspazioEMA().getGelaxka(pos[0], pos[1]).aldatuMota(new Hutsik());
 	    }
+		*/
 		
+		posizioak.stream().forEach(p -> Espazio.getEspazioEMA().getGelaxka(p[0], p[1]).aldatuMota(new Hutsik()));
+		
+		/*
 		itr = pixelak.iterator();
 		while(itr.hasNext()) {
 			ElementuPixel pixel = itr.next();
 			pixel.mugituPixel(pX, pY);
 		}
+		*/
+		
+		pixelak.stream().forEach(p -> p.mugituPixel(pX, pY));
 		
 		this.x = x + pX;
 		this.y = y + pY;
