@@ -39,7 +39,7 @@ public class KonexioDB {
 					String ontzia = rs.getString("ONTZIMOTA");
 					int punt = rs.getInt("PUNTUAZIOA");
 					
-					puntuazioak = puntuazioak.concat(izen+"        "+ontzia+"           "+punt+"\n");		
+					puntuazioak = puntuazioak.concat(izen+"                     "+ontzia+"                         "+punt+"\n");		
     			}
     		} catch (SQLException e) {
     		    e.printStackTrace();
@@ -48,7 +48,7 @@ public class KonexioDB {
     }
 	
 	public void puntuazioakInsertatu(String pIz, String pOntz, int pPunt) {
-    	String sql = "INSERT INTO JOKALARIA VALUES("+"'"+pIz+"'"+",'"+ pOntz+"','"+pPunt+"')";
+    	String sql = "INSERT INTO JOKALARIA(IZENA, ONTZIMOTA, PUNTUAZIOA) VALUES("+"'"+pIz+"'"+",'"+ pOntz+"','"+pPunt+"')";
     	try (Connection con = konektatu();
     		    PreparedStatement ps = con.prepareStatement(sql)) {
     			ps.executeUpdate();
@@ -59,5 +59,3 @@ public class KonexioDB {
 	
 	
 }
-
-

@@ -28,7 +28,7 @@ public class PuntuazioTabla extends JFrame {
 	private JTextArea textArea;
 
 	
-	String punt ="IZENA      ONTZIMOTA     PUNTUAZIOA\n";
+	String punt ="IZENA                   ONTZIMOTA                   PUNTUAZIOA\n";
 	
 	/**
 	 * Launch the application.
@@ -51,7 +51,8 @@ public class PuntuazioTabla extends JFrame {
 	 */
 	public PuntuazioTabla() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1200, 720);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,17 +60,18 @@ public class PuntuazioTabla extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("PUNTUAZIOAK");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(174, 11, 96, 14);
+		lblNewLabel.setBounds(520, 11, 196, 34);
+		lblNewLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
 		contentPane.add(lblNewLabel);
-		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/def/Izarrak.png")));
+		JLabel background = new JLabel(new ImageIcon(getClass().getResource("/def/Estrellas.png")));
 		c.konektatu();
 		contentPane.add(getTextArea());
 		lblNewLabel_1 = background;
-		lblNewLabel_1.setBounds(0, 0, 436, 275);
+		lblNewLabel_1.setBounds(0, 0, 1186, 703);
 		contentPane.add(lblNewLabel_1);
 		
 		
-		punt += "------------------------------------\n";
+		punt += "--------------------------------------------------------------\n";
 		punt += c.puntuazioakErakutsi();
 		textArea.setText(punt);
 		
@@ -81,17 +83,16 @@ public class PuntuazioTabla extends JFrame {
 	private JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea();
-			textArea.setBounds(38, 37, 361, 204);
+			textArea.setBounds(106, 83, 960, 495);
 	        textArea.setOpaque(false);
 	        textArea.setForeground(Color.WHITE);
 		    textArea.setEditable(false);
 		    textArea.setText(punt);
-		    textArea.setFont(new Font("Consolas", Font.BOLD, 16));
 		    textArea.setForeground(new Color(255, 255, 255));
 		    textArea.setOpaque(false);
 		    textArea.setCaretColor(Color.WHITE);
 		    textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-		    textArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		    textArea.setFont(new Font("Monospaced", Font.PLAIN, 25));
 		}
 		return textArea;
 	}
