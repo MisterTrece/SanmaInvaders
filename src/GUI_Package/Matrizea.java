@@ -51,14 +51,27 @@ public class Matrizea extends JFrame implements Observer{
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT -> Espazio.getEspazioEMA().mugituOntzia(-1, 0);
-                    case KeyEvent.VK_RIGHT -> Espazio.getEspazioEMA().mugituOntzia(1, 0);
-                    case KeyEvent.VK_UP -> Espazio.getEspazioEMA().mugituOntzia(0, -1);
-                    case KeyEvent.VK_DOWN -> Espazio.getEspazioEMA().mugituOntzia(0, 1);
-                    case KeyEvent.VK_SPACE -> Espazio.getEspazioEMA().tiro();
-                    case KeyEvent.VK_T -> Espazio.getEspazioEMA().aldatuTiroMota();
-                    case KeyEvent.VK_ESCAPE -> System.exit(0);
-                    							
+                    case KeyEvent.VK_LEFT:
+                    	Espazio.getEspazioEMA().mugituOntzia(-1, 0);
+                    	break;
+                    case KeyEvent.VK_RIGHT:
+                    	Espazio.getEspazioEMA().mugituOntzia(1, 0);
+                    	break;
+                    case KeyEvent.VK_UP:
+                    	Espazio.getEspazioEMA().mugituOntzia(0, -1);
+                    	break;
+                    case KeyEvent.VK_DOWN:
+                    	Espazio.getEspazioEMA().mugituOntzia(0, 1);
+                    	break;
+                    case KeyEvent.VK_SPACE:
+                    	Espazio.getEspazioEMA().tiro();
+                    	break;
+                    case KeyEvent.VK_T:
+                    	Espazio.getEspazioEMA().aldatuTiroMota();
+                    	break;
+                    case KeyEvent.VK_ESCAPE:
+                    	System.exit(0);
+                    	break;     							
                 }
             }
         });
