@@ -23,6 +23,8 @@ public class Matrizea extends JFrame implements Observer{
     private JPanel contentPane;
     private GelaxkaV[][] gelaxkak = new GelaxkaV[60][100];
     private static Matrizea nMatrizea = null;
+    
+    private boolean partidaBukatuta = false;
 
     private Matrizea() {
         
@@ -88,20 +90,26 @@ public class Matrizea extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if(partidaBukatuta) {
+			return;
+		}
+		
 		if(arg.equals("LOSE")) {
-            eskatuEtaGordePuntuazioa();
+			partidaBukatuta = true;
 			setEnabled(false);
-	    	GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
-	    	GalduPantaila.getGalduPantaila().setUndecorated(true);
+			GalduPantaila.getGalduPantaila().setUndecorated(true);
+			GalduPantaila.getGalduPantaila().setLocationRelativeTo(null);
 	    	GalduPantaila.getGalduPantaila().setVisible(true);
+	    	eskatuEtaGordePuntuazioa();
 		}
 		
 		if(arg.equals("WIN")) {
-            eskatuEtaGordePuntuazioa();
+			partidaBukatuta = true;
 			setEnabled(false);
 	    	IrabaziPantaila.getIrabaziPantaila().setLocationRelativeTo(null);
 	    	IrabaziPantaila.getIrabaziPantaila().setUndecorated(true);
 	    	IrabaziPantaila.getIrabaziPantaila().setVisible(true);
+	    	eskatuEtaGordePuntuazioa();
 		}
 
 	}
@@ -110,6 +118,7 @@ public class Matrizea extends JFrame implements Observer{
         if (Espazio.getEspazioEMA().isPuntuazioaGordeta()) {
             return;
         }
+        
         String izena;
         while (true) {
             izena = JOptionPane.showInputDialog(this, "Sartu zure izena (3 karaktere):");
