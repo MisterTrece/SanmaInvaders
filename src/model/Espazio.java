@@ -382,7 +382,17 @@ public class Espazio{
 				if(e.borratuKonprobatu()) {
 					etsaiak.remove(e);
 				} else {
-					int etsaiMug = (int)(Math.random()*3);
+					int etsaiMug = 0;
+					if(e.getY() >= gurea.getY()) {
+						etsaiMug = 0;
+					}else if(e.getX() > gurea.getX()) {
+						etsaiMug = (int)(Math.random()*2);
+					}else if(e.getX() < gurea.getX()) {
+						etsaiMug = (int)(Math.random()*3);
+						if (etsaiMug==1) {
+							etsaiMug = 2;
+						}
+					}
 					switch(etsaiMug) {
 						case 0:
 							mugituOntziEtsai(e,0,1);		//beherantz
