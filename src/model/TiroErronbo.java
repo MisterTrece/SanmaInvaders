@@ -16,9 +16,10 @@ public class TiroErronbo implements TiroPortaera {
 		}
 		
 		if(tiroKop>0) {
-			
-			NodoTiro tiro = new NodoTiro("Erronbo");
-			Espazio.getEspazioEMA().tiroSortu(tiro);
+			if(pY-4>=0) {
+				NodoTiro tiro = new NodoTiro("Erronbo");
+				Espazio.getEspazioEMA().tiroSortu(tiro);
+			}
 		}
 	}
 	@Override

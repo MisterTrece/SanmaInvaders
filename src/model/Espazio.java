@@ -213,7 +213,7 @@ public class Espazio{
 		int tiroX = pTiro.getX();
 		int tiroBotY = pTiro.getY();
 		int tiroTopY = pTiro.getTopY();
-		if (tiroBotY <= 0 || tiroTopY<=0) {
+		if (tiroBotY < 0) {
 			return;
 		}
 		gurea.tiroKopMur();

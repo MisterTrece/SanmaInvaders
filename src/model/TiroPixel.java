@@ -11,8 +11,10 @@ public class TiroPixel implements TiroPortaera {
 		}
 		Espazio.getEspazioEMA().setAzkenTiro(orain);
 		
-		NodoTiro tiro = new NodoTiro("Pixel");
-		Espazio.getEspazioEMA().tiroSortu(tiro);
+		if(pY>=0) {
+			NodoTiro tiro = new NodoTiro("Pixel");
+			Espazio.getEspazioEMA().tiroSortu(tiro);
+		}
 	}
 
 	@Override

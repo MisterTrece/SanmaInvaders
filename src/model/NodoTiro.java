@@ -103,6 +103,9 @@ public class NodoTiro implements ElementuPixel{
 		
 		boolean pixelKanpo;
 		pixelKanpo = pixelak.stream().anyMatch(p -> p.getY()+pY>=60);
+		if(pixelKanpo) {
+			return;
+		}
 		
 		ArrayList<int[]> posizioak = new ArrayList<int[]>();
 	    /*itr = pixelak.iterator();
@@ -162,7 +165,16 @@ public class NodoTiro implements ElementuPixel{
 
 		atera = pixelak.stream()
 		    .map(p -> (Tiro) p)
-		    .anyMatch(px -> px.atera() && px.getX() == x && px.getY() == botY);
+		    .allMatch(px -> px.atera());
+		
+		ArrayList<ElementuPixel> pixelKopia = new ArrayList<ElementuPixel>(pixelak);
+		pixelKopia.stream()
+			.map(p -> (Tiro) p)
+			.forEach(px ->{
+				if(px.atera()) {
+					pixelak.remove(px);
+				}
+			});
 		
 		this.botY = botY + pY;
 	}

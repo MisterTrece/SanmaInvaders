@@ -5,14 +5,22 @@ public class Tiro extends Pixel{
 	private boolean atera = false;
 	public Tiro(int x, int y) {
 		super(x,y);
-		this.mota=3;
-		
-		if(Espazio.getEspazioEMA().getGelaxka(x, y).getMota()==2) {
-			desagertu=true;
+		if(this.mota!=-1) {
+			this.mota=3;
 		}
-		Espazio.getEspazioEMA().getGelaxka(x, y).aldatuMota(new TiroEgoera());
-		if(desagertu) {
-			Espazio.getEspazioEMA().etsaiaHil(x, y);
+		if(y>=0) {
+			if(Espazio.getEspazioEMA().getGelaxka(x, y).getMota()==2) {
+				desagertu=true;
+			}
+			if(this.mota!=-1) {
+				Espazio.getEspazioEMA().getGelaxka(x, y).aldatuMota(new TiroEgoera());
+			}
+			if(desagertu) {
+				Espazio.getEspazioEMA().etsaiaHil(x, y);
+			}
+		}
+		else {
+			atera = true;
 		}
 	}
 	

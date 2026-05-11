@@ -128,7 +128,7 @@ public abstract class NodoOntziOn implements ElementuPixel{
 	}
 	
 	public void tiroEgin() {
-		this.tiroMota.tiroEgin(this.x, this.y);
+		this.tiroMota.tiroEgin(this.x, this.y-3);
 	}
 	
 	public void aldatuTiroMota() {
