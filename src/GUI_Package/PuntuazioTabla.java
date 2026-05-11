@@ -81,7 +81,8 @@ public class PuntuazioTabla extends JFrame {
             @Override
             public void keyPressed(java.awt.event.KeyEvent e) {
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_B) {
-                    dispose();
+                    HasieraPantaila.getHasieraPantaila().setEnabled(true);
+                	dispose();
                 }
             }
         });

@@ -77,6 +77,7 @@ public class ZailtasunPantaila extends JFrame {
             	btnNormala.setForeground(Color.BLACK);
             	btnZaila.setForeground(Color.BLACK);
             	aukeratu(ZailtasunMaila.ERRAZA);
+            	HasieraPantaila.getHasieraPantaila().setEnabled(true);
             	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.ERRAZA);
             }
         });
@@ -88,6 +89,7 @@ public class ZailtasunPantaila extends JFrame {
             	btnNormala.setForeground(Color.GREEN);
             	btnZaila.setForeground(Color.BLACK);
             	aukeratu(ZailtasunMaila.NORMALA);
+            	HasieraPantaila.getHasieraPantaila().setEnabled(true);
             	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.NORMALA);
             }
         });
@@ -99,6 +101,7 @@ public class ZailtasunPantaila extends JFrame {
             	btnNormala.setForeground(Color.BLACK);
             	btnZaila.setForeground(Color.GREEN);
             	aukeratu(ZailtasunMaila.ZAILA);
+            	HasieraPantaila.getHasieraPantaila().setEnabled(true);
             	HasieraPantaila.getHasieraPantaila().eguneratuZailtasuna(ZailtasunMaila.ZAILA);
             }
         });
