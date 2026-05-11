@@ -6,7 +6,7 @@ import java.util.Iterator;
 import javax.swing.Timer;
 
 public class Espazio{
-	private static final int PUNTUAZIOA_ETSIA = 100;
+	private static final int PUNTUAZIOA_ETSAIA = 100;
 	private GelaxkaM[][] matrizea = new GelaxkaM[60][100];
 	private NodoOntziOn gurea;
 	private int ontziMota;
@@ -62,7 +62,7 @@ public class Espazio{
 			etsaiak.add(e);
 		}
 		
-		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
+		/*Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean[] etsaiBool = new boolean[100];
 		while(itr.hasNext()) {
 			NodoOntziTxarra o = itr.next();
@@ -97,7 +97,39 @@ public class Espazio{
 					o.birkalkulatuX();
 				}
 			}
-		}
+		}*/
+		
+		boolean[] etsaiBool = new boolean[100];
+		etsaiak.stream()
+			.forEach(ets -> {
+				boolean jarrita = false;
+				
+				while(!jarrita) {
+					if(!etsaiBool[ets.getX()] && !etsaiBool[ets.getX()+1] && !etsaiBool[ets.getX()-1] && !etsaiBool[ets.getX()+2] && !etsaiBool[ets.getX()-2]) {
+						
+						matrizea[ets.getY()][ets.getX()] = new GelaxkaM(new Etsaia());
+						
+						matrizea[ets.getY()-1][ets.getX()] = new GelaxkaM(new Etsaia());
+						matrizea[ets.getY()-1][ets.getX()+1] = new GelaxkaM(new Etsaia());
+						matrizea[ets.getY()-1][ets.getX()-1] = new GelaxkaM(new Etsaia());
+						
+						matrizea[ets.getY()][ets.getX()+1] = new GelaxkaM(new Etsaia());
+						matrizea[ets.getY()][ets.getX()-1] = new GelaxkaM(new Etsaia());
+						
+						matrizea[ets.getY()+1][ets.getX()+1] = new GelaxkaM(new Etsaia());
+						matrizea[ets.getY()+1][ets.getX()-1] = new GelaxkaM(new Etsaia());
+						
+						etsaiBool[ets.getX()]=true;
+						etsaiBool[ets.getX()+1]=true;
+						etsaiBool[ets.getX()+2]=true;
+						etsaiBool[ets.getX()-1]=true;
+						etsaiBool[ets.getX()-2]=true;
+						jarrita = true;
+					}else {
+						ets.birkalkulatuX();
+					}
+				}
+			});
 		
 		Timer timerHasi = new Timer(500, e -> {
 	        if (jokoTimer == null) {
@@ -134,7 +166,7 @@ public class Espazio{
 			case 3:
 				return "Red";
 			default:
-				return "Ezezaguna";
+				return "Red";
 		}
 	}
 
@@ -149,13 +181,13 @@ public class Espazio{
 	private int getPuntuazioPerEtsai() {
 		switch (zailtasunMaila) {
 			case ERRAZA:
-				return PUNTUAZIOA_ETSIA;
+				return PUNTUAZIOA_ETSAIA;
 			case NORMALA:
-				return PUNTUAZIOA_ETSIA * 2;
+				return PUNTUAZIOA_ETSAIA * 2;
 			case ZAILA:
-				return PUNTUAZIOA_ETSIA * 3;
+				return PUNTUAZIOA_ETSAIA * 3;
 			default:
-				return PUNTUAZIOA_ETSIA;
+				return PUNTUAZIOA_ETSAIA;
 		}
 	}
 
@@ -225,7 +257,7 @@ public class Espazio{
 		if (tiroak.isEmpty()) {
 			return;
 		}
-		Iterator<NodoTiro> itr = tiroak.iterator();
+		/*Iterator<NodoTiro> itr = tiroak.iterator();
 		while (itr.hasNext()) {
 			NodoTiro tiro = itr.next();
 			if(tiro.desagertu() || (tiro.atera())) {
@@ -237,6 +269,19 @@ public class Espazio{
 				itr.remove();
 			}
 		}
+		*/
+		ArrayList<NodoTiro> tiroakKopia = new ArrayList<NodoTiro>(tiroak);
+		tiroakKopia.stream()
+		.forEach(t -> {
+			if(t.desagertu() || (t.atera())) {
+				tiroak.remove(t);
+				return;
+			}
+			t.mugituPixel(0,-1);
+			if(t.desagertu()) {
+				tiroak.remove(t);
+			}
+		});
 	}
 	
 	public NodoTiro getTiro(int pX, int pY) {
@@ -260,7 +305,7 @@ public class Espazio{
 	}
 	
 	public void etsaiaHil(int pX, int pY) {
-		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
+		/*Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		boolean aurkituta = false;
 		while(!aurkituta && itr.hasNext()) {
 			NodoOntziTxarra etsai = itr.next();
@@ -280,7 +325,26 @@ public class Espazio{
 				}
 			}
 			
-		}
+		}*/
+		
+		etsaiak.stream()
+			.filter(et -> !et.borratuKonprobatu())
+			.forEach(ets -> {
+				boolean aurkituta = false;
+				ArrayList<ElementuPixel> pixelak = ets.getPixelak();
+				for(int i=0; i<pixelak.size();i++) {
+					if(pixelak.get(i).getX()==pX && pixelak.get(i).getY()==pY){
+						aurkituta = true;
+						etsaiKop--;
+						puntuazioa += getPuntuazioPerEtsai();
+						break;
+					}
+				}
+				if (aurkituta) {
+					ets.eztanda();
+					ets.borratuBehar();
+				}
+			});
 		
 		if(etsaiKop==0) {
 			Timer timerEND = new Timer(1500, e -> {
@@ -292,7 +356,7 @@ public class Espazio{
 	}
 	
 	public void mugituEtsaiak() {
-		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
+		/*Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		while(itr.hasNext()) {
 			NodoOntziTxarra etsaia = itr.next();
 			if(etsaia.borratuKonprobatu()) {
@@ -311,14 +375,34 @@ public class Espazio{
 						break;
 				}
 			}
-		}
+		}*/
+		ArrayList<NodoOntziTxarra> etsaiakKopia = new ArrayList<NodoOntziTxarra>(etsaiak);
+		etsaiakKopia.stream()
+			.forEach(e -> {
+				if(e.borratuKonprobatu()) {
+					etsaiak.remove(e);
+				} else {
+					int etsaiMug = (int)(Math.random()*3);
+					switch(etsaiMug) {
+						case 0:
+							mugituOntziEtsai(e,0,1);		//beherantz
+							break;
+						case 1:
+							mugituOntziEtsai(e,-1,0);	//ezkerrerantz
+							break;
+						case 2:
+							mugituOntziEtsai(e,1,0);		//eskuinerantz
+							break;
+					}
+				}
+			});
 	}
 	private void mugituOntziEtsai(NodoOntziTxarra pEtsai,int pX,int pY) {
 		pEtsai.mugituPixel(pX, pY);
 	}
 	
 	public boolean etsaiKolisioa(int pId, int pX, int pY) {
-		boolean kolisioa = false;	
+		/*boolean kolisioa = false;	
 		boolean aurkituta = false;
 		Iterator<NodoOntziTxarra> itr = etsaiak.iterator();
 		while(!aurkituta && itr.hasNext()) {
@@ -332,7 +416,16 @@ public class Espazio{
 					aurkituta = true;
 				}
 			}
-		}
+		}*/
+		boolean kolisioa = etsaiak.stream()
+		        .anyMatch(et -> 
+	            et.getPixelak().stream()
+	                .anyMatch(p -> 
+	                    p.getX() == pX && 
+	                    p.getY() == pY && 
+	                    p.getId() != pId
+	                )
+	        );
 		return kolisioa;
 	}
 	
