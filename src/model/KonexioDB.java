@@ -40,7 +40,7 @@ public class KonexioDB {
 	}
 	
 	public String puntuazioakErakutsi() {
-	    String sql = "SELECT IZENA, ONTZIMOTA, PUNTUAZIOA FROM JOKALARIA ORDER BY PUNTUAZIOA DESC LIMIT 5";
+	    String sql = "SELECT IZENA, ONTZIMOTA, PUNTUAZIOA FROM JOKALARIA ORDER BY PUNTUAZIOA DESC LIMIT 8";
     	String puntuazioak = "";
     	try (Connection con = konektatu();
     		    PreparedStatement ps = con.prepareStatement(sql)) {
