@@ -67,7 +67,7 @@ public class PuntuazioTabla extends JFrame {
         tituloa.setBounds(0, 10, 740, 30);
         tituloa.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(tituloa);
-        lblAtzera = new JLabel("Sakatu <B> atzera joateko");
+        lblAtzera = new JLabel("Sakatu <S> atzera joateko");
         lblAtzera.setForeground(Color.WHITE);
         lblAtzera.setFont(new Font("Consolas", Font.BOLD, 18));
         lblAtzera.setHorizontalAlignment(SwingConstants.CENTER);
@@ -80,7 +80,7 @@ public class PuntuazioTabla extends JFrame {
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent e) {
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_B) {
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_S) {
                     HasieraPantaila.getHasieraPantaila().setEnabled(true);
                 	dispose();
                 }
